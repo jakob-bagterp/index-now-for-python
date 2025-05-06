@@ -1,5 +1,6 @@
 import lxml.etree
 import requests
+from colorist import Color
 
 from .authentication import IndexNowAuthentication
 from .submit import submit_urls_to_index_now
@@ -66,10 +67,10 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
     urls = get_urls_from_sitemap_xml(sitemap_url)
     if not urls:
         raise ValueError(f"No URLs found in sitemap. Please check the sitemap URL: {sitemap_url}")
-    print(f"Found {len(urls)} URL(s) in total from sitemap.")
+    print(f"Found {Color.GREEN}{len(urls)} URL(s){Color.OFF} in total from sitemap.")
 
     if any([contains, skip, take]):
         urls = filter_urls(urls, contains, skip, take)
-        print(f"{len(urls)} URL(s) left after filtering.")
+        print(f"{Color.YELLOW}{len(urls)} URL(s) left after filtering.{Color.OFF}")
 
     submit_urls_to_index_now(authentication, urls)

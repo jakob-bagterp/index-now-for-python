@@ -1,10 +1,11 @@
 import requests
+from colorist import Color
 
 from .authentication import IndexNowAuthentication
 
 
 def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[str]) -> None:
-    """Submits a list of URLs to the Bing's IndexNow API.
+    """Submits a list of URLs to Bing's IndexNow API.
 
     Args:
         authentication (IndexNowAuthentication): Authentication data for the IndexNow API.
@@ -24,6 +25,6 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
     )
 
     if response.status_code == 200:
-        print(f"Sitemap of {len(urls)} URL(s) submitted successfully.")
+        print(f"{Color.GREEN}Sitemap of {len(urls)} URL(s) submitted successfully to Bing's IndexNow API.{Color.OFF}")
     else:
-        print(f"Failed to submit sitemap. Status code: {response.status_code}, Response: {response.text}")
+        print(f"Failed to submit sitemap. Status code: {Color.RED}{response.status_code}{Color.OFF}, Response: {response.text}")

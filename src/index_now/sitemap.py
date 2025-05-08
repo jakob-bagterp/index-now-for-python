@@ -1,3 +1,5 @@
+import re
+
 import lxml.etree
 import requests
 from colorist import Color
@@ -27,7 +29,7 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
 
     Args:
         urls (list[str]): List of URLs to be filtered.
-        contains (str | None): Optional filter for URLs. If set, only URLs containing this string will be returned. Ignored by default and if set to `None`.
+        contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default and if set to `None`.
         skip (int | None): Optional number of URLs to be skipped. Ignored by default and if set to `None`.
         take (int | None): Optional limit of URLs to be taken. Ignored by default and if set to  `None`.
 
@@ -36,7 +38,8 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
     """
 
     if contains is not None:
-        urls = [url for url in urls if contains in url]
+        pattern = re.compile(contains)
+        urls = [url for url in urls if pattern.search(url)]
         if not urls:
             raise ValueError(f"No URLs left after filtering URLs containing \"{contains}\".")
 

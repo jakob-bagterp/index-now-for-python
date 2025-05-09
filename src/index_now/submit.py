@@ -19,7 +19,7 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
         "urlList": urls
     }
     response = requests.post(
-        url="api.indexnow.org",
+        url="https://api.indexnow.org",
         json=payload,
         headers={"Content-Type": "application/json; charset=utf-8"}
     )

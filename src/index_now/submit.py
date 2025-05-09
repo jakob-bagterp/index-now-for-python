@@ -25,6 +25,8 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
     )
 
     if response.status_code == 200:
-        print(f"{Color.GREEN}Sitemap of {len(urls)} URL(s) submitted successfully to Bing's IndexNow API.{Color.OFF}")
+        print(f"Sitemap of {len(urls)} URL(s) submitted successfully to Bing's IndexNow API.")
+        print(f"Status code: {Color.GREEN}{response.status_code}{Color.OFF}")
     else:
-        print(f"Failed to submit sitemap. Status code: {Color.RED}{response.status_code}{Color.OFF}, Response: {response.text}")
+        print("Failed to submit sitemap.")
+        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}. Response: {response.text}")

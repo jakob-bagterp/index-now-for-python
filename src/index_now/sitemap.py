@@ -5,6 +5,7 @@ import requests
 from colorist import Color
 
 from .authentication import IndexNowAuthentication
+from .endpoint import SearchEngineEndpoint
 from .submit import submit_urls_to_index_now
 
 
@@ -56,8 +57,8 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
     return urls
 
 
-def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_url: str, contains: str | None = None, skip: int | None = None, take: int | None = None) -> None:
-    """Submit a sitemap to Bing's IndexNow API.
+def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_url: str, contains: str | None = None, skip: int | None = None, take: int | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> None:
+    """Submit a sitemap to the IndexNow API of a search engine.
 
     Args:
         authentication (IndexNowAuthentication): Authentication data for the IndexNow API.
@@ -65,6 +66,7 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         contains (str | None): Optional filter for URLs in the sitemap. If set, only URLs containing this string will be submitted. Ignored by default and if set to `None`.
         skip (int | None): Optional number of URLs from the sitemap to be skipped. Ignored by default and if set to `None`.
         take (int | None): Optional limit of URLs from the sitemap to taken. Ignored by default and if set to  `None`.
+        endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
     """
 
     urls = get_urls_from_sitemap_xml(sitemap_url)
@@ -76,4 +78,4 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         urls = filter_urls(urls, contains, skip, take)
         print(f"{Color.YELLOW}{len(urls)} URL(s) left after filtering.{Color.OFF}")
 
-    submit_urls_to_index_now(authentication, urls)
+    submit_urls_to_index_now(authentication, urls, endpoint)

@@ -1,7 +1,8 @@
 import pytest
 from colorist import Color
 
-from index_now import IndexNowAuthentication, submit_sitemap_to_index_now
+from index_now import (IndexNowAuthentication, SearchEngineEndpoint,
+                       submit_sitemap_to_index_now)
 
 
 @pytest.mark.parametrize("sitemap_url, authentication", [
@@ -23,9 +24,10 @@ from index_now import IndexNowAuthentication, submit_sitemap_to_index_now
          api_key="a739958823fa49b1a36350a90c4ed9d9",
          api_key_location="https://jakob-bagterp.github.io/browserist/assets/index-now/api-key.txt/",
      )),
+    # TODO: Add itself to test cases.
 ])
 def test_submit_sitemap_to_index_now(sitemap_url: str, authentication: IndexNowAuthentication, capfd: object) -> None:
-    submit_sitemap_to_index_now(authentication, sitemap_url)
+    submit_sitemap_to_index_now(authentication, sitemap_url, endpoint=SearchEngineEndpoint.INDEXNOW)
     terminal_output, _ = capfd.readouterr()
-    assert "URL(s) submitted successfully to Bing's IndexNow API" in terminal_output
+    assert "URL(s) submitted successfully to the IndexNow API:" in terminal_output
     assert f"Status code: {Color.GREEN}200{Color.OFF}" in terminal_output

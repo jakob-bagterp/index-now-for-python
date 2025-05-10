@@ -24,7 +24,6 @@ from index_now import (IndexNowAuthentication, SearchEngineEndpoint,
          api_key="a739958823fa49b1a36350a90c4ed9d9",
          api_key_location="https://jakob-bagterp.github.io/browserist/assets/index-now/api-key.txt/",
      )),
-    # TODO: Add itself to test cases.
 ])
 def test_submit_sitemap_to_index_now(sitemap_url: str, authentication: IndexNowAuthentication, capfd: object) -> None:
     submit_sitemap_to_index_now(authentication, sitemap_url, endpoint=SearchEngineEndpoint.INDEXNOW)

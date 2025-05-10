@@ -7,7 +7,7 @@ class SearchEngineEndpoint(Enum):
 
     INDEXNOW = "https://api.indexnow.org/"
     MICROSOFT_BING = "https://www.bing.com/"
-    NAVER = "https://searchadvisor.naver.com/"
+    NAVER = "https://searchadvisor.naver.com/indexnow"
     SEZNAM = "https://search.seznam.cz/"
     YANDEX = "https://yandex.com/"
     YEP = "https://indexnow.yep.com/"

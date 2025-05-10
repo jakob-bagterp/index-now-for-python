@@ -1,0 +1,11 @@
+include README.md
+include LICENSE.md
+include pyproject.toml
+include setup.cfg
+
+graft src
+
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store
+global-exclude conftest.py

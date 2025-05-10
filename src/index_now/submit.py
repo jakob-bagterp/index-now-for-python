@@ -5,6 +5,25 @@ from .authentication import IndexNowAuthentication
 from .endpoint import SearchEngineEndpoint
 
 
+def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> None:
+    """Submits a list of URLs to the IndexNow API of a search engine.
+
+    Args:
+        authentication (IndexNowAuthentication): Authentication data for the IndexNow API.
+        url (str): URL to submit, e.g. `"https://example.com/page1"`.
+        endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
+    """
+
+    response = requests.get(url=str(endpoint), params={"url": url, "key": authentication.api_key, "keyLocation": authentication.api_key_location})
+
+    if response.status_code == 200:
+        print(f"{Color.GREEN}URL submitted successfully to the IndexNow API:{Color.OFF} {endpoint}")
+        print(f"Status code: {Color.GREEN}{response.status_code}{Color.OFF}")
+    else:
+        print("Failed to submit URL.")
+        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}. Response: {response.text}")
+
+
 def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[str], endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> None:
     """Submits a list of URLs to the IndexNow API of a search engine.
 

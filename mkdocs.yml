@@ -23,6 +23,9 @@ nav:
     - user-guide/index.md
   - Reference:
     - reference/index.md
+    - Configuration:
+      - IndexNowAuthentication: reference/configuration/authentication.md
+      - SearchEngineEndpoint: reference/configuration/endpoint.md
 
 theme:
   name: material

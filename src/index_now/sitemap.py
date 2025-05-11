@@ -166,6 +166,5 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         urls = filter_urls(urls, contains, skip, take)
         if not urls:
             raise ValueError("No URLs left after filtering. Please check your filter parameters.")
-        print(f"{Color.YELLOW}{len(urls)} URL(s) left after filtering.{Color.OFF}")
 
     submit_urls_to_index_now(authentication, urls, endpoint)

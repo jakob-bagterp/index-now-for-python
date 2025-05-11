@@ -49,26 +49,26 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
         take (int | None): Optional limit of URLs to be taken. Ignored by default and if set to  `None`.
 
     Returns:
-        list[str] | None: Filtered list of URLs, or `None` if no URLs are found.
+        list[str]: Filtered list of URLs, or empty list if no URLs are found.
     """
 
     if contains is not None:
         pattern = re.compile(contains)
         urls = [url for url in urls if pattern.search(url)]
         if not urls:
-            raise ValueError(f"No URLs left after filtering URLs containing \"{contains}\".")
+            print(f"{Color.YELLOW}No URLs left after filtering URLs containing \"{contains}\".{Color.OFF}")
 
     if skip is not None:
         urls = urls[skip:]
         if not urls:
-            raise ValueError(f"No URLs left after skipping {skip} URL(s) from sitemap.")
+            print(f"{Color.YELLOW}No URLs left after skipping {skip} URL(s) from sitemap.{Color.OFF}")
 
     if take is not None:
         urls = urls[:take]
         if not urls:
-            raise ValueError(f"No URLs left after skipping {0 if skip is None else skip} and taking {take} URL(s) from sitemap.")
+            print(f"{Color.YELLOW}No URLs left after skipping {0 if skip is None else skip} and taking {take} URL(s) from sitemap.{Color.OFF}")
 
-    return urls
+    return urls if urls else []
 
 
 def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_url: str, contains: str | None = None, skip: int | None = None, take: int | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> None:
@@ -90,6 +90,8 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
 
     if any([contains, skip, take]):
         urls = filter_urls(urls, contains, skip, take)
+        if not urls:
+            raise ValueError("No URLs left after filtering. Please check your filter parameters.")
         print(f"{Color.YELLOW}{len(urls)} URL(s) left after filtering.{Color.OFF}")
 
     submit_urls_to_index_now(authentication, urls, endpoint)

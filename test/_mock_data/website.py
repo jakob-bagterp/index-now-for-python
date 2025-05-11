@@ -29,3 +29,9 @@ BROWSERIST = IndexNowWebsiteData(
     authentication=GITHUB_PAGES_AUTHENTICATION,
     sitemap_url="https://jakob-bagterp.github.io/browserist/sitemap.xml",
 )
+
+
+INDEX_NOW_FOR_PYTHON = IndexNowWebsiteData(
+    authentication=GITHUB_PAGES_AUTHENTICATION,
+    sitemap_url="https://jakob-bagterp.github.io/index-now-for-python/sitemap.xml",
+)

@@ -14,6 +14,30 @@ def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, en
         authentication (IndexNowAuthentication): Authentication data for the IndexNow API.
         url (str): URL to submit, e.g. `"https://example.com/page1"`.
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
+
+    Example:
+        After adding your authentication details to the `IndexNowAuthentication` class, you can now submit a single URL to the IndexNow API:
+
+        ```python linenums="1" hl_lines="11"
+        from index_now import submit_url_to_index_now, IndexNowAuthentication
+
+        authentication = IndexNowAuthentication(
+            host="example.com",
+            api_key="a1b2c3d4",
+            api_key_location="https://example.com/a1b2c3d4.txt",
+        )
+
+        url = "https://example.com/page1"
+
+        submit_url_to_index_now(authentication, url)
+        ```
+
+        If you want to submit to a specific search engine, alternatively customize the endpoint:
+
+        ```python linenums="11" hl_lines="1-2" title=""
+        submit_url_to_index_now(authentication, url,
+            endpoint="https://www.bing.com/indexnow")
+        ```
     """
 
     response = requests.get(url=str(endpoint), params={"url": url, "key": authentication.api_key, "keyLocation": authentication.api_key_location})
@@ -33,6 +57,30 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
         authentication (IndexNowAuthentication): Authentication data for the IndexNow API.
         urls (list[str]): List of URLs to submit, e.g. `["https://example.com/page1", "https://example.com/page2"]`.
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
+
+    Example:
+        After adding your authentication details to the `IndexNowAuthentication` class, you can now submit multiple URLs to the IndexNow API:
+
+        ```python linenums="1" hl_lines="11"
+        from index_now import submit_urls_to_index_now, IndexNowAuthentication
+
+        authentication = IndexNowAuthentication(
+            host="example.com",
+            api_key="a1b2c3d4",
+            api_key_location="https://example.com/a1b2c3d4.txt",
+        )
+
+        urls = ["https://example.com/page1", "https://example.com/page2", "https://example.com/page3"]
+
+        submit_urls_to_index_now(authentication, urls)
+        ```
+
+        If you want to submit to a specific search engine, alternatively customize the endpoint:
+
+        ```python linenums="11" hl_lines="1-2" title=""
+        submit_urls_to_index_now(authentication, urls,
+            endpoint="https://www.bing.com/indexnow")
+        ```
     """
 
     payload: dict[str, str | list[str]] = {

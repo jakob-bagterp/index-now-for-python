@@ -84,10 +84,73 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
     Args:
         authentication (IndexNowAuthentication): Authentication data for the IndexNow API.
         sitemap_url (str): The URL of the sitemap to submit, e.g. `https://example.com/sitemap.xml`.
-        contains (str | None): Optional filter for URLs in the sitemap. If set, only URLs containing this string will be submitted. Ignored by default and if set to `None`.
+        contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default and if set to `None`.
         skip (int | None): Optional number of URLs from the sitemap to be skipped. Ignored by default and if set to `None`.
         take (int | None): Optional limit of URLs from the sitemap to taken. Ignored by default and if set to  `None`.
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
+
+    Example:
+        After adding your authentication details to the `IndexNowAuthentication` class, you can now submit an entire sitemap to the IndexNow API:
+
+        ```python linenums="1" hl_lines="11"
+        from index_now import submit_sitemap_to_index_now, IndexNowAuthentication
+
+        authentication = IndexNowAuthentication(
+            host="example.com",
+            api_key="a1b2c3d4",
+            api_key_location="https://example.com/a1b2c3d4.txt",
+        )
+
+        sitemap_url = "https://example.com/sitemap.xml"
+
+        submit_sitemap_to_index_now(authentication, sitemap_url)
+        ```
+
+        If you want to submit to a specific search engine, alternatively customize the endpoint:
+
+        ```python linenums="11" hl_lines="1-2" title=""
+        submit_sitemap_to_index_now(authentication, sitemap_url,
+            endpoint="https://www.bing.com/indexnow")
+        ```
+
+        If you want to only upload a portion of the sitemap URLs, alternatively use the `skip` and `take` parameters:
+
+        ```python linenums="1" hl_lines="11-12"
+        from index_now import submit_sitemap_to_index_now, IndexNowAuthentication
+
+        authentication = IndexNowAuthentication(
+            host="example.com",
+            api_key="a1b2c3d4",
+            api_key_location="https://example.com/a1b2c3d4.txt",
+        )
+
+        sitemap_url = "https://example.com/sitemap.xml"
+
+        submit_sitemap_to_index_now(authentication, sitemap_url,
+            skip=100, take=50)
+        ```
+
+        How to target URLs with a specific pattern by using the `contains` parameter:
+
+        ```python linenums="11" hl_lines="1-2" title=""
+        submit_sitemap_to_index_now(authentication, sitemap_url,
+            contains="section1")
+        ```
+
+        The `contains` parameter also accepts regular expressions for more advanced filtering:
+
+        ```python linenums="11" hl_lines="1-2" title=""
+        submit_sitemap_to_index_now(authentication, sitemap_url,
+            contains=r"(section1)|(section2)")
+        ```
+
+        Or combine the `contains`, `skip`, and `take` parameters to filter the URLs even further:
+
+        ```python linenums="11" hl_lines="1-3" title=""
+        submit_sitemap_to_index_now(authentication, sitemap_url,
+            contains=r"(section1)|(section2)",
+            skip=100, take=50)
+        ```
     """
 
     urls = get_urls_from_sitemap_xml(sitemap_url)

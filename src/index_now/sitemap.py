@@ -53,7 +53,7 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
     """
 
     if not urls:
-        print(f"{Color.YELLOW}No URLs left after filtering.{Color.OFF}")
+        print(f"{Color.YELLOW}No URLs given before filtering.{Color.OFF}")
         return []
 
     if contains is not None:
@@ -71,7 +71,7 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
 
     if take is not None:
         if take <= 0:
-            print(f"{Color.YELLOW}No URLs left after skipping {0 if skip is None else skip} and taking {take} URL(s) from sitemap.{Color.OFF}")
+            print(f"{Color.YELLOW}No URLs left. The value for take should be greater than 0.{Color.OFF}")
             return []
         urls = urls[:take]
 

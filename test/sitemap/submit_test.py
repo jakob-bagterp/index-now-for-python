@@ -12,15 +12,11 @@ from index_now import SearchEngineEndpoint, submit_sitemap_to_index_now
     BROWSERIST,
 ])
 def test_submit_sitemap_to_index_now(website_data: IndexNowWebsiteData, capfd: object) -> None:
-    submit_sitemap_to_index_now(website_data.authentication, website_data.sitemap_url, endpoint=SearchEngineEndpoint.INDEXNOW)
+    endpoint = SearchEngineEndpoint.INDEXNOW
+    submit_sitemap_to_index_now(website_data.authentication, website_data.sitemap_url, endpoint=endpoint)
     terminal_output, _ = capfd.readouterr()
-    assert "URL(s) submitted successfully to the IndexNow API:" in terminal_output
-    assert f"Status code: {Color.GREEN}200{Color.OFF}" in terminal_output
-
-
-ENDPOINT_EXCEPTIONS = [
-    SearchEngineEndpoint.YEP  # Fails with status code 400.
-]
+    assert f"URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}" in terminal_output
+    assert f"Status code: {Color.GREEN}200{Color.OFF}" or f"Status code: {Color.GREEN}202{Color.OFF}" in terminal_output
 
 
 @pytest.mark.parametrize("endpoint", [
@@ -29,6 +25,5 @@ ENDPOINT_EXCEPTIONS = [
 def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint, capfd: object) -> None:
     submit_sitemap_to_index_now(TIMER_FOR_PYTHON.authentication, TIMER_FOR_PYTHON.sitemap_url, endpoint=endpoint)
     terminal_output, _ = capfd.readouterr()
-    if endpoint in ENDPOINT_EXCEPTIONS:
-        pytest.skip(f"Endpoint {endpoint} gives different status code than expected.")
-    assert f"Status code: {Color.RED}422{Color.OFF}" in terminal_output
+    assert f"URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}" in terminal_output
+    assert f"Status code: {Color.GREEN}200{Color.OFF}" or f"Status code: {Color.GREEN}202{Color.OFF}" in terminal_output

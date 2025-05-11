@@ -13,11 +13,6 @@ def test_submit_url_to_index_now(capfd: object) -> None:
     assert f"Status code: {Color.GREEN}200{Color.OFF}" or f"Status code: {Color.GREEN}202{Color.OFF}" in terminal_output
 
 
-ENDPOINT_EXCEPTIONS = [
-    SearchEngineEndpoint.YEP  # Fails with status code 400.
-]
-
-
 @pytest.mark.parametrize("endpoint", [
     endpoint for endpoint in SearchEngineEndpoint
 ])

@@ -17,7 +17,7 @@ from index_now import SearchEngineEndpoint, submit_sitemap_to_index_now
 def test_submit_sitemap_to_index_now(website_data: IndexNowWebsiteData, capfd: object) -> None:
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
-        pytest.skip(f"Endpoint is not up: {endpoint}")
+        pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     submit_sitemap_to_index_now(website_data.authentication, website_data.sitemap_url, endpoint=endpoint)
     terminal_output, _ = capfd.readouterr()
     assert f"URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}" in terminal_output
@@ -31,7 +31,7 @@ def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint
     if endpoint in TEMPORARILY_SKIPPED_ENDPOINTS:
         pytest.skip(f"Endpoint is temporarily skipped: {endpoint}")
     if not is_endpoint_up(endpoint):
-        pytest.skip(f"Endpoint is not up: {endpoint}")
+        pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON.sitemap_url, endpoint=endpoint)
     terminal_output, _ = capfd.readouterr()
     assert f"URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}" in terminal_output
@@ -41,7 +41,7 @@ def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint
 def test_submit_sitemap_error_handling_of_invalid_sitemap() -> None:
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
-        pytest.skip(f"Endpoint is not up: {endpoint}")
+        pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     with pytest.raises(ValueError):
         submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap.xml", endpoint=endpoint)
 
@@ -49,6 +49,6 @@ def test_submit_sitemap_error_handling_of_invalid_sitemap() -> None:
 def test_submit_sitemap_error_handling_of_no_matches() -> None:
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
-        pytest.skip(f"Endpoint is not up: {endpoint}")
+        pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     with pytest.raises(ValueError):
         submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON.sitemap_url, contains="no-matches-at-all", endpoint=endpoint)

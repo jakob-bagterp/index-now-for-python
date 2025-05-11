@@ -4,6 +4,8 @@ from colorist import Color
 from .authentication import IndexNowAuthentication
 from .endpoint import SearchEngineEndpoint
 
+ACCEPTED_STATUS_CODES = [200, 202]
+
 
 def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> None:
     """Submits a list of URLs to the IndexNow API of a search engine.
@@ -16,7 +18,7 @@ def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, en
 
     response = requests.get(url=str(endpoint), params={"url": url, "key": authentication.api_key, "keyLocation": authentication.api_key_location})
 
-    if response.status_code == 200:
+    if response.status_code in ACCEPTED_STATUS_CODES:
         print(f"{Color.GREEN}URL submitted successfully to the IndexNow API:{Color.OFF} {endpoint}")
         print(f"Status code: {Color.GREEN}{response.status_code}{Color.OFF}")
     else:
@@ -45,7 +47,7 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
         headers={"Content-Type": "application/json; charset=utf-8"}
     )
 
-    if response.status_code == 200:
+    if response.status_code in ACCEPTED_STATUS_CODES:
         print(f"{Color.GREEN}{len(urls)} URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}")
         print(f"Status code: {Color.GREEN}{response.status_code}{Color.OFF}")
     else:

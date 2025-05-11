@@ -63,7 +63,7 @@ sitemap_url = "https://example.com/sitemap.xml"
 submit_sitemap_to_index_now(authentication, sitemap_url)
 ```
 
-### Submit to Specific Search Engine
+### Submit to Specific Search Engines
 How to use the default `SearchEngineEndpoint` options or a custom endpoint:
 
 ```python

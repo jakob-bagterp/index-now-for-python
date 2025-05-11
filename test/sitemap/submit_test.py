@@ -36,3 +36,11 @@ def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint
     terminal_output, _ = capfd.readouterr()
     assert f"URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}" in terminal_output
     assert f"Status code: {Color.GREEN}200{Color.OFF}" or f"Status code: {Color.GREEN}202{Color.OFF}" in terminal_output
+
+
+def test_submit_sitemap_error_handling_of_invalid_sitemap() -> None:
+    endpoint = SearchEngineEndpoint.YANDEX
+    if not is_endpoint_up(endpoint):
+        pytest.skip(f"Endpoint is not up: {endpoint}")
+    with pytest.raises(ValueError):
+        submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap.xml", endpoint=endpoint)

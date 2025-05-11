@@ -21,6 +21,13 @@ nav:
     - Installation: getting-started/installation.md
   - User Guide:
     - user-guide/index.md
+    - How to Submit:
+      - Single URL: user-guide/how-to-submit/single-url.md
+      - Multiple URLs: user-guide/how-to-submit/multiple-urls.md
+      - Entire Sitemap: user-guide/how-to-submit/sitemap.md
+    - Search Engines:
+      - Default Endpoint Options: user-guide/search-engines/default-endpoints.md
+      - Custom Endpoint: user-guide/search-engines/custom-endpoint.md
   - Reference:
     - reference/index.md
     - Methods:

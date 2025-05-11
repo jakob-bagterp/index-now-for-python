@@ -10,7 +10,7 @@ class IndexNowWebsiteData:
 
 
 GITHUB_PAGES_AUTHENTICATION = IndexNowAuthentication(
-    host="https://jakob-bagterp.github.io",
+    host="jakob-bagterp.github.io",
     api_key="6d71a14ac15c4c41a0c19e641f659208",
     api_key_location="https://jakob-bagterp.github.io/index-now-api-key.txt",
 )

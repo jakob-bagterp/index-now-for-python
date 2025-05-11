@@ -15,7 +15,7 @@ from index_now import SearchEngineEndpoint, submit_sitemap_to_index_now
     INDEX_NOW_FOR_PYTHON,
 ])
 def test_submit_sitemap_to_index_now(website_data: IndexNowWebsiteData, capfd: object) -> None:
-    endpoint = SearchEngineEndpoint.INDEXNOW
+    endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")
     submit_sitemap_to_index_now(website_data.authentication, website_data.sitemap_url, endpoint=endpoint)

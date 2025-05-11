@@ -52,23 +52,33 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
         list[str]: Filtered list of URLs, or empty list if no URLs are found.
     """
 
+    def is_slice_out_of_range(slice: int, urls: list[str]) -> bool:
+        return slice < 0 or slice >= len(urls)
+
+    if not urls:
+        print(f"{Color.YELLOW}No URLs left after filtering.{Color.OFF}")
+        return []
+
     if contains is not None:
         pattern = re.compile(contains)
         urls = [url for url in urls if pattern.search(url)]
         if not urls:
-            print(f"{Color.YELLOW}No URLs left after filtering URLs containing \"{contains}\".{Color.OFF}")
+            print(f"{Color.YELLOW}No URLs contained the pattern \"{contains}\".{Color.OFF}")
+            return []
 
     if skip is not None:
-        urls = urls[skip:]
-        if not urls:
+        if is_slice_out_of_range(skip, urls):
             print(f"{Color.YELLOW}No URLs left after skipping {skip} URL(s) from sitemap.{Color.OFF}")
+            return []
+        urls = urls[skip:]
 
     if take is not None:
-        urls = urls[:take]
-        if not urls:
+        if is_slice_out_of_range(take, urls):
             print(f"{Color.YELLOW}No URLs left after skipping {0 if skip is None else skip} and taking {take} URL(s) from sitemap.{Color.OFF}")
+            return []
+        urls = urls[:take]
 
-    return urls if urls else []
+    return urls
 
 
 def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_url: str, contains: str | None = None, skip: int | None = None, take: int | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> None:

@@ -34,9 +34,13 @@ def parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any) -> list[s
         list[str]: List of URLs found in the sitemap.xml file, or empty list if no URLs are found.
     """
 
-    sitemap_tree = lxml.etree.fromstring(sitemap_content)
-    urls = sitemap_tree.xpath("//ns:url/ns:loc/text()", namespaces={"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
-    return [str(url).strip() for url in urls] if isinstance(urls, list) and urls else []
+    try:
+        sitemap_tree = lxml.etree.fromstring(sitemap_content)
+        urls = sitemap_tree.xpath("//ns:url/ns:loc/text()", namespaces={"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
+        return [str(url).strip() for url in urls] if isinstance(urls, list) and urls else []
+    except Exception:
+        print(f"{Color.YELLOW}Invalid sitemap.xml format during parsing. Please check the sitemap URL.{Color.OFF}")
+        return []
 
 
 def filter_urls(urls: list[str], contains: str | None = None, skip: int | None = None, take: int | None = None) -> list[str]:
@@ -162,6 +166,5 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         urls = filter_urls(urls, contains, skip, take)
         if not urls:
             raise ValueError("No URLs left after filtering. Please check your filter parameters.")
-        print(f"{Color.YELLOW}{len(urls)} URL(s) left after filtering.{Color.OFF}")
 
     submit_urls_to_index_now(authentication, urls, endpoint)

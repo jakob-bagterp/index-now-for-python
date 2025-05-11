@@ -17,6 +17,8 @@ TEST_URLS = parse_sitemap_xml_and_get_urls(get_mock_sitemap_content())
     (TEST_URLS, "page1", None, 1, [TEST_URLS[1]]),
     (TEST_URLS, r"(page1)|(section1)", None, None, [TEST_URLS[i] for i in [1, 5, 6, 7]]),
     (TEST_URLS, r"(page1)|(section1)", 1, 2, [TEST_URLS[i] for i in [5, 6]]),
+    (TEST_URLS, "no-matches-at-all", None, None, []),
+    ([], None, None, None, []),
 ])
 def test_filter_urls(urls: list[str], contains: str | None, skip: int | None, take: int | None, expected: list[str]) -> None:
     filtered_urls = filter_urls(urls, contains, skip, take)

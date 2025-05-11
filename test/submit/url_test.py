@@ -1,6 +1,7 @@
 import pytest
 from _helper.endpoint import TEMPORARILY_SKIPPED_ENDPOINTS, is_endpoint_up
-from _mock_data.website import INDEX_NOW_FOR_PYTHON
+from _mock_data.website import (INDEX_NOW_FOR_PYTHON,
+                                INDEX_NOW_FOR_PYTHON_INVALID_API_KEY)
 from colorist import Color
 
 from index_now import SearchEngineEndpoint, submit_url_to_index_now
@@ -18,3 +19,13 @@ def test_submit_url_to_various_search_engines(endpoint: SearchEngineEndpoint, ca
     terminal_output, _ = capfd.readouterr()
     assert f"{Color.GREEN}URL submitted successfully to the IndexNow API:{Color.OFF} {endpoint}" in terminal_output
     assert f"Status code: {Color.GREEN}200{Color.OFF}" or f"Status code: {Color.GREEN}202{Color.OFF}" in terminal_output
+
+
+def test_submit_url_error_handling_of_invalid_api_key(capfd: object) -> None:
+    endpoint = SearchEngineEndpoint.MICROSOFT_BING
+    if not is_endpoint_up(endpoint):
+        pytest.skip(f"Endpoint is not up: {endpoint}")
+    submit_url_to_index_now(INDEX_NOW_FOR_PYTHON_INVALID_API_KEY.authentication, "https://jakob-bagterp.github.io/invalid-url/", endpoint=endpoint)
+    terminal_output, _ = capfd.readouterr()
+    assert "Failed to submit URL." in terminal_output
+    assert f"Status code: {Color.RED}4" in terminal_output

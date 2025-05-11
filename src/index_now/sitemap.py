@@ -1,4 +1,5 @@
 import re
+from typing import Any
 
 import lxml.etree
 import requests
@@ -9,20 +10,33 @@ from .endpoint import SearchEngineEndpoint
 from .submit import submit_urls_to_index_now
 
 
-def get_urls_from_sitemap_xml(sitemap_url: str) -> list[str] | None:
+def get_urls_from_sitemap_xml(sitemap_url: str) -> list[str]:
     """Get all URLs from a sitemap.xml file.
 
     Args:
         sitemap_url (str): The URL of the sitemap to get the URLs from.
 
     Returns:
-        list[str] | None: List of URLs found in the sitemap.xml file, or `None` if no URLs are found.
+        list[str] | None: List of URLs found in the sitemap.xml file, or empty list if no URLs are found.
     """
 
     response = requests.get(sitemap_url)
-    sitemap_tree = lxml.etree.fromstring(response.content)
+    return parse_sitemap_xml_and_get_urls(response.content)
+
+
+def parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any) -> list[str]:
+    """Parse the contents of a sitemap.xml file, e.g. from a response, and retrieve all the URLs from it.
+
+    Args:
+        content (str | bytes | Any): The content from the sitemap.xml file.
+
+    Returns:
+        list[str]: List of URLs found in the sitemap.xml file, or empty list if no URLs are found.
+    """
+
+    sitemap_tree = lxml.etree.fromstring(sitemap_content)
     urls = sitemap_tree.xpath("//ns:url/ns:loc/text()", namespaces={"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
-    return [str(url.strip()) for url in urls]
+    return [str(url.strip()) for url in urls] if urls else []
 
 
 def filter_urls(urls: list[str], contains: str | None = None, skip: int | None = None, take: int | None = None) -> list[str]:

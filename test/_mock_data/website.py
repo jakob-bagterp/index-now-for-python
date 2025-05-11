@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from index_now import IndexNowAuthentication
 
 
-@dataclass
+@dataclass(slots=True, frozen=True)
 class IndexNowWebsiteData:
     authentication: IndexNowAuthentication
     sitemap_url: str

@@ -15,7 +15,7 @@ Ready to try? Learn [how to install](https://jakob-bagterp.github.io/index-now-f
 
 ## Getting Started
 ### Basic Usage and Submit Individual URLs
-Firstly, create your authentication data with the `IndexNowAuthentication` class, which will be used throughout the examples:
+Firstly, ensure that you have an [API key for IndexNow](https://www.indexnow.org/api-key). Hereafter, add your authentication details to the `IndexNowAuthentication` class, which will be used throughout the examples:
 
 ```python
 from index_now import submit_url_to_index_now, IndexNowAuthentication
@@ -27,7 +27,7 @@ authentication = IndexNowAuthentication(
 )
 ```
 
-Hereafter, you can submit individual URLs to the IndexNow API:
+You can now submit individual URLs to the IndexNow API:
 
 ```python
 submit_url_to_index_now(authentication, "https://example.com/page1")

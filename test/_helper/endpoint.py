@@ -13,5 +13,5 @@ def is_endpoint_up(endpoint: SearchEngineEndpoint | str) -> bool:
     try:
         response = requests.get(f"{endpoint}/meta.json")
         return response.status_code == 200
-    except Exception:
-        return False
+    except Exception:  # pragma: no cover
+        return False  # pragma: no cover

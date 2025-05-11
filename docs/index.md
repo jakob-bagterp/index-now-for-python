@@ -93,7 +93,7 @@ for endpoint in [endpoint_bing, endpoint_custom]:
 ```
 
 ## Next Steps
-Ready to try? [Let's get started](./getting-started/index.md).
+Ready to try? [Let's get started](getting-started/index.md).
 
 !!! tip "Become a Sponsor"
     If you find this project helpful, please consider supporting its development. Your donations will help keep it alive and growing. Every contribution, no matter the size, makes a difference.

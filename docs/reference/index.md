@@ -11,14 +11,14 @@ Find details about all methods in this section.
 ## Quick Links
 How to submit:
 
-* [Single URL](./submit-single-url.md)
-* [Multiple URLs](./submit-multiple-urls.md)
-* [Entire sitemap](./submit-sitemap.md)
+* [Single URL](methods/submit-single-url.md)
+* [Multiple URLs](methods/submit-multiple-urls.md)
+* [Entire sitemap](methods/submit-sitemap.md)
 
 Configuration:
 
-* [IndexNowAuthentication](./configuration/authentication.md)
-* [SearchEngineEndpoint](./configuration/endpoint.md)
+* [IndexNowAuthentication](configuration/authentication.md)
+* [SearchEngineEndpoint](configuration/endpoint.md)
 
 ## Support the Project
 

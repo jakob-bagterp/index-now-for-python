@@ -27,6 +27,8 @@ authentication = IndexNowAuthentication(
 )
 ```
 
+Instances of `authentication = IndexNowAuthentication(...)` below refer to the section above.
+
 You can now submit individual URLs to the IndexNow API:
 
 ```python

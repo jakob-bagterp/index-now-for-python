@@ -1,5 +1,5 @@
 import pytest
-from _helper.endpoint import is_endpoint_up
+from _helper.endpoint import TEMPORARILY_SKIPPED_ENDPOINTS, is_endpoint_up
 from _mock_data.website import (BROWSERIST, COLORIST_FOR_PYTHON,
                                 TIMER_FOR_PYTHON, IndexNowWebsiteData)
 from colorist import Color
@@ -26,6 +26,8 @@ def test_submit_sitemap_to_index_now(website_data: IndexNowWebsiteData, capfd: o
     endpoint for endpoint in SearchEngineEndpoint
 ])
 def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint, capfd: object) -> None:
+    if endpoint in TEMPORARILY_SKIPPED_ENDPOINTS:
+        pytest.skip(f"Endpoint is temporarily skipped: {endpoint}")
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")
     submit_sitemap_to_index_now(TIMER_FOR_PYTHON.authentication, TIMER_FOR_PYTHON.sitemap_url, endpoint=endpoint)

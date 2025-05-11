@@ -6,5 +6,87 @@
 [![Test](https://github.com/jakob-bagterp/index-now-for-python/actions/workflows/test.yml/badge.svg)](https://github.com/jakob-bagterp/index-now-for-python/actions/workflows/test.yml)
 [![Downloads](https://static.pepy.tech/badge/index-now-for-python)](https://pepy.tech/project/index-now-for-python)
 
-# 🔎 Submit Sitemap and URLs to the IndexNow API of Various Search Enginges 🔍
-Submit sitemaps or custom URLs to the API of IndexNow services to [Bing](https://www.bing.com/indexnow) or other search engines to get your pages indexed faster.
+# 🔍 Submit URLs to the IndexNow API of Various Search Enginges 🔎
+Are you concerned about search engine optimization (SEO)? Do you want to make sure your website is indexed frequently by [Bing](https://www.bing.com/indexnow), [Yandex](https://yandex.com/indexnow), and other search engines?
+
+IndexNow for Python is a lightweight Python package that makes it easy to submit URLs or entire sitemaps to the IndexNow API of various search engines, so your pages can be indexed faster.
+
+Ready to try? Learn [how to install](https://jakob-bagterp.github.io/index-now-for-python/getting-started/installation/) and find tutorials in the [user guide](https://jakob-bagterp.github.io/index-now-for-python/user-guide/).
+
+## Getting Started
+### Basic Usage and Submit Individual URLs
+Firstly, create your authentication data with the `IndexNowAuthentication` class, which will be used throughout the examples:
+
+```python
+from index_now import submit_url_to_index_now, IndexNowAuthentication
+
+authentication = IndexNowAuthentication(
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
+)
+```
+
+Hereafter, you can submit individual URLs to the IndexNow API:
+
+```python
+submit_url_to_index_now(authentication, "https://example.com/page1")
+```
+
+### Submit Multiple URLs in Bulk
+How to submit multiple URLs in bulk to the IndexNow API:
+
+```python
+from index_now import submit_urls_to_index_now, IndexNowAuthentication
+
+authentication = IndexNowAuthentication(...)
+
+urls = [
+    "https://example.com/page1",
+    "https://example.com/page2",
+    "https://example.com/page3",
+]
+
+submit_urls_to_index_now(authentication, urls)
+```
+
+### Submit Entire Sitemap
+How to submit an entire sitemap to the IndexNow API:
+
+```python
+from index_now import submit_sitemap_to_index_now, IndexNowAuthentication
+
+authentication = IndexNowAuthentication(...)
+
+sitemap_url = "https://example.com/sitemap.xml"
+
+submit_sitemap_to_index_now(authentication, sitemap_url)
+```
+
+### Submit to Specific Search Engine
+How to use the default `SearchEngineEndpoint` options or a custom endpoint:
+
+```python
+from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
+
+authentication = IndexNowAuthentication(...)
+
+endpoint_bing = SearchEngineEndpoint.MICROSOFT_BING
+endpoint_custom = "https://example.com/indexnow"
+
+for endpoint in [endpoint_bing, endpoint_custom]:
+    submit_url_to_index_now(authentication, "https://example.com/page1", endpoint)
+```
+
+## Become a Sponsor 🏅
+If you find this project helpful, please consider supporting its development. Your donations will help keep it alive and growing. Every contribution, no matter the size, makes a difference.
+
+[Donate on GitHub Sponsors](https://github.com/sponsors/jakob-bagterp)
+
+Thank you for your support! 🙌
+
+## Contribute
+If you have suggestions or changes to the module, feel free to add to the code and create a [pull request](https://github.com/jakob-bagterp/index-now-for-python/pulls).
+
+## Report Bugs
+Report bugs and issues [here](https://github.com/jakob-bagterp/index-now-for-python/issues).

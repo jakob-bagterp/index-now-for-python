@@ -52,9 +52,6 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
         list[str]: Filtered list of URLs, or empty list if no URLs are found.
     """
 
-    def is_slice_out_of_range(slice: int, urls: list[str]) -> bool:
-        return slice < 0 or slice >= len(urls)
-
     if not urls:
         print(f"{Color.YELLOW}No URLs left after filtering.{Color.OFF}")
         return []
@@ -67,14 +64,14 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
             return []
 
     if skip is not None:
-        if is_slice_out_of_range(skip, urls):
+        if skip >= len(urls):
             print(f"{Color.YELLOW}No URLs left after skipping {skip} URL(s) from sitemap.{Color.OFF}")
             return []
         urls = urls[skip:]
 
     if take is not None:
-        if is_slice_out_of_range(take, urls):
-            print(f"{Color.YELLOW}No URLs left after skipping {0 if skip is None else skip} and taking {take} URL(s) from sitemap.{Color.OFF}")
+        if take <= 0:
+            print(f"{Color.YELLOW}Cannot take {take} URL(s). 'take' must be a positive integer.{Color.OFF}")
             return []
         urls = urls[:take]
 

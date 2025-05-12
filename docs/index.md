@@ -21,7 +21,7 @@ IndexNow for Python is a lightweight Python package that makes it easy to submit
 
 ## How It Works
 ### Submit Individual URLs to a Search Engine
-Firstly, ensure that you have an [API key for IndexNow](https://www.indexnow.org/api-key). Hereafter, add your authentication credentials to the `IndexNowAuthentication` class, which will be used throughout the examples:
+Firstly, ensure that you have an [API key for IndexNow](https://www.indexnow.org/api-key). Hereafter, add your authentication credentials to the [`IndexNowAuthentication`](reference/configuration/authentication.md) class, which will be used throughout the examples:
 
 ```python linenums="1" hl_lines="3-7"
 from index_now import submit_url_to_index_now, IndexNowAuthentication
@@ -74,7 +74,7 @@ submit_sitemap_to_index_now(authentication, sitemap_url)
 ```
 
 ### Submit to Specific Search Engines
-How to use the default `SearchEngineEndpoint` options or a custom endpoint:
+How to use the default [`SearchEngineEndpoint`](reference/configuration/endpoint.md) options or a custom endpoint:
 
 ```python linenums="1" hl_lines="9-13"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint

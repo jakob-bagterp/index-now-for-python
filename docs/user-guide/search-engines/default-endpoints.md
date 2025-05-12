@@ -19,7 +19,7 @@ But sometimes it's useful to know how to submit to a specific search engine. Thi
 
 ## Examples
 ### Submit to Different Search Engines
-The `SearchEngineEndpoint` class contains a list of default search engine endpoints. You can use the same credentials to submit URLs to different IndexNow APIs:
+The [`SearchEngineEndpoint`](../../reference/configuration/endpoint.md) class contains a list of default search engine endpoints. You can use the same credentials to submit URLs to different IndexNow APIs:
 
 ```python linenums="1" hl_lines="9-10 12-13"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint

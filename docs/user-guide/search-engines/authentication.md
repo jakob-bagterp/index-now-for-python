@@ -2,7 +2,6 @@
 title: How to Authenticate Your Site with IndexNow
 description: Learn how to use the API key and its location to securely submit URLs from your domain to the IndexNow API. Includes code examples for beginners and advanced users.
 tags:
-    - Documentation
     - Tutorial
     - Settings
     - Authentication
@@ -33,7 +32,7 @@ The API key will be required every time you submit a URL to any IndexNow API.
     If you're in any doubt, you can find more information about API keys in the [official IndexNow documentation](https://www.indexnow.org/api-key).
 
 ## How to Use Authentication Credentials
-Once you have an API key and secured the location of the API key file, you can now submit individual URLs to the IndexNow API:
+Once you have an API key and secured the location of the API key file, you can now update the [`IndexNowAuthentication`](../../reference/configuration/authentication.md) class with the authentication credentials and submit individual URLs to the IndexNow API:
 
 ```python linenums="1" hl_lines="3-7"
 from index_now import submit_url_to_index_now, IndexNowAuthentication
@@ -47,7 +46,7 @@ authentication = IndexNowAuthentication(
 submit_url_to_index_now(authentication, "https://example.com/page1")
 ```
 
-### Use the Same Authentication for Multiple Methods
+## Use the Same Authentication for Multiple Methods
 Whether you submit a single URL, multiple URLs or an entire Sitemap, the authentication credentials remain the same:
 
 ```python linenums="1" hl_lines="11 13 15"

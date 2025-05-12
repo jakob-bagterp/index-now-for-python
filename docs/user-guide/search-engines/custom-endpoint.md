@@ -6,7 +6,8 @@ tags:
     - Settings
 ---
 
-### Submit to Specific Endpoints
+# Custom Search Engine Endpoints for IndexNow
+## How to Submit URLs to a Specific Endpoint
 If you're not covered by the [default endpoints](default-endpoints.md), you can submit to a custom endpoint. This is useful if you want to submit to a specific search engine or if you have a custom IndexNow endpoint.
 
 ```python linenums="1" hl_lines="9-13"
@@ -24,6 +25,7 @@ submit_url_to_index_now(authentication, "https://example.com/page1",
     endpoint_custom)
 ```
 
+## More Information
 If you don't know the endpoint URL for a particular search engine, some of the [default endpoints](default-endpoints.md) might be a good place to start.
 
 !!! tip

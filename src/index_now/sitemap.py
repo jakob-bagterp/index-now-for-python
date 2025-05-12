@@ -94,7 +94,7 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 
     Example:
-        After adding your authentication details to the `IndexNowAuthentication` class, you can now submit an entire sitemap to the IndexNow API:
+        After adding your authentication credentials to the `IndexNowAuthentication` class, you can now submit an entire sitemap to the IndexNow API:
 
         ```python linenums="1" hl_lines="11"
         from index_now import submit_sitemap_to_index_now, IndexNowAuthentication

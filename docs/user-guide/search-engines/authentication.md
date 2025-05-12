@@ -32,7 +32,7 @@ The API key will be required every time you submit a URL to any IndexNow API.
 
     If you're in any doubt, you can find more information about API keys in the [official IndexNow documentation](https://www.indexnow.org/api-key).
 
-## How to Use Authentication Details
+## How to Use Authentication Credentials
 Once you have an API key and secured the location of the API key file, you can now submit individual URLs to the IndexNow API:
 
 ```python linenums="1" hl_lines="3-7"
@@ -48,7 +48,7 @@ submit_url_to_index_now(authentication, "https://example.com/page1")
 ```
 
 ### Use the Same Authentication for Multiple Methods
-Whether you submit a single URL, multiple URLs or an entire Sitemap, the authentication details remain the same:
+Whether you submit a single URL, multiple URLs or an entire Sitemap, the authentication credentials remain the same:
 
 ```python linenums="1" hl_lines="11 13 15"
 from index_now import submit_url_to_index_now, submit_urls_to_index_now, submit_sitemap_to_index_now, IndexNowAuthentication
@@ -69,7 +69,7 @@ submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml")
 ```
 
 !!! tip
-    Because the API key and authentication details are required each time you submit URLs to the IndexNow API, it's a good idea to create an IndexNowAuthentication class once and reuse it in all your scripts. Then you won't have to repeat the authentication details each time you submit a URL or more.
+    Because the API key and authentication credentials are required each time you submit URLs to the IndexNow API, it's a good idea to create an IndexNowAuthentication class once and reuse it in all your scripts. Then you won't have to repeat the authentication credentials each time you submit a URL or more.
 
     For example, how to keep separate files in the same directory:
 

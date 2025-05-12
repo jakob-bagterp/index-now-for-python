@@ -11,11 +11,14 @@ tags:
     - Yep
 ---
 
-# How to Use the Different Search Engine Endpoints
-You should not need to use multiple endpoints when using IndexNow. The service is designed to propagate URLs to other search engines once you've submitted successfully to one IndexNow endpoint. But sometimes it's useful to know how to submit to a specific search engine. This guide will show you how to do this.
+# Search Engine Endpoints for IndexNow
+## How to Use Default Endpoints
+You should not need to use multiple endpoints when using IndexNow. The service is designed to propagate URLs to other search engines once you've submitted successfully to one IndexNow endpoint.
+
+But sometimes it's useful to know how to submit to a specific search engine. This guide will show you how to do this.
 
 ## Examples
-### Basic Usage
+### Submit to Different Search Engines
 The `SearchEngineEndpoint` class contains a list of default search engine endpoints. You can use the same credentials to submit URLs to different IndexNow APIs:
 
 ```python linenums="1" hl_lines="9-10 12-13"
@@ -34,7 +37,7 @@ submit_url_to_index_now(authentication, "https://example.com/page2",
     SearchEngineEndpoint.YANDEX)
 ```
 
-### Submit to Multiple Endpoints
+### Submit to Multiple Search Engines
 If you want to submit to multiple search engine endpoints, here's how:
 
 ```python linenums="1" hl_lines="9-11"
@@ -51,8 +54,11 @@ for endpoint in SearchEngineEndpoint:
         endpoint)
 ```
 
+!!! warning
+    Submitting the samel URLs to multiple endpoints is not recommended. The IndexNow service is designed to propagate URLs to other search engines once you've submitted successfully to one IndexNow endpoint.
+
 ## List of Default Endpoints
-The following endpoints are provided by default with the IndexNow for Python package. If you can't find the endpoint you are looking for, you can also use a [custom endpoint] (custom-endpoint.md).
+The following endpoints are provided by default with the IndexNow for Python package:
 
 | Endpoint Enum                         | Name                                           | Endpoint URL                                                                         |
 | ------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
@@ -62,6 +68,8 @@ The following endpoints are provided by default with the IndexNow for Python pac
 | `SearchEngineEndpoint.SEZNAM`         | [Seznam.cz](https://www.seznam.cz)             | [https://search.seznam.cz/indexnow](https://search.seznam.cz/indexnow)               |
 | `SearchEngineEndpoint.YANDEX`         | [Yandex](https://yandex.com)                   | [https://yandex.com/indexnow](https://yandex.com/indexnow)                           |
 | `SearchEngineEndpoint.YEP`            | [Yep](https://yep.com)                         | [https://indexnow.yep.com/indexnow](https://indexnow.yep.com/indexnow)               |
+
+If you can't find the endpoint you are looking for, you can also use a [custom endpoint](custom-endpoint.md).
 
 !!! tip
     The IndexNow organisation maintains a list of currently available search engines that support the IndexNow API. Find it here:

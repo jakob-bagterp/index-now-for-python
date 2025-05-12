@@ -4,6 +4,7 @@ description: Quick guide to installing and using IndexNow for Python, so you can
 tags:
     - Tutorial
     - Installation
+    - Authentication
     - PyPI
 ---
 
@@ -20,12 +21,12 @@ pip install index-now-for-python
 Find more details and options in the [installation guide](installation.md).
 
 ## 2. Set Up an API Key
-To verify ownership of your domain, you need to create an API key. This key is hosted on your website, so the IndexNow API service can authenticate your requests. The API key will be required every time you submit a URL to the IndexNow API.
+To verify ownership of your domain, you need to create an API key. This key is hosted on your website so that the IndexNow API service can authenticate your requests. The API key is required each time you submit a URL to the IndexNow API.
 
-Find more information about the API key in the [official IndexNow documentation](https://www.indexnow.org/api-key) or the [getting started guide from Microsoft Bing](https://www.bing.com/indexnow/getstarted).
+For more information about the API key, see the [official IndexNow documentation](https://www.indexnow.org/api-key) or the [getting started guide from Microsoft Bing](https://www.bing.com/indexnow/getstarted#implementation).
 
 ## 3. First Script
-You're now ready to go:
+You're now ready to submit your first URL to the IndexNow API:
 
 ```python linenums="1"
 from index_now import submit_url_to_index_now, IndexNowAuthentication

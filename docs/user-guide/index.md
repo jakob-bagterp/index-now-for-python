@@ -20,6 +20,7 @@ How to use submit URLs to different search engines:
 
 * [Default endpoint options](search-engines/default-endpoints.md)
 * [Custom endpoint](search-engines/custom-endpoint.md)
+* [Authentication](search-engines/authentication.md)
 
 ## Support the Project
 

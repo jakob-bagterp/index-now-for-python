@@ -19,8 +19,10 @@ pip install index-now-for-python
 
 Find more details and options in the [installation guide](installation.md).
 
-## 2. Get an API Key
-To verify ownership of your domain, you need to create an API key. This key is hosted on your website, so the IndexNow API service can authenticate your requests. Find more information about the API key in the [IndexNow documentation](https://www.indexnow.org/api-key).
+## 2. Set Up an API Key
+To verify ownership of your domain, you need to create an API key. This key is hosted on your website, so the IndexNow API service can authenticate your requests. The API key will be required every time you submit a URL to the IndexNow API.
+
+Find more information about the API key in the [official IndexNow documentation](https://www.indexnow.org/api-key) or the [getting started guide from Microsoft Bing](https://www.bing.com/indexnow/getstarted).
 
 ## 3. First Script
 You're now ready to go:

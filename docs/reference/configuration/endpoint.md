@@ -16,3 +16,8 @@ tags:
 ## `SearchEngineEndpoint`
 
 ::: index_now.endpoint.SearchEngineEndpoint
+
+!!! tip
+    The IndexNow organisation maintains a list of currently available search engines that support the IndexNow API. Find it here:
+
+    [indexnow.org/searchengines.json](https://www.indexnow.org/searchengines.json)

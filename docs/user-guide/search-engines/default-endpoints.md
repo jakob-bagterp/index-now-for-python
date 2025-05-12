@@ -1,6 +1,6 @@
 ---
 title: How to Submit URLs to Various Search Engines
-description: Learn how to apply different endpoints for the IndexNow API, so you can submit URLs to various search engines.
+description: Learn how to use different endpoints for the IndexNow API, so you can submit URLs to various search engines. Includes code examples for beginners and advanced users.
 tags:
     - Tutorial
     - Settings
@@ -11,12 +11,12 @@ tags:
     - Yep
 ---
 
-# How to Use the Different Endpoints
-You do not normally need to use multiple endpoints, as the IndexNow service is designed to propagate URLs to other search engines once you've submitted to one. But sometimes it's handy to know how to submit to a specific search engine. This guide will show you how to do that.
+# How to Use the Different Search Engine Endpoints
+You should not need to use multiple endpoints when using IndexNow. The service is designed to propagate URLs to other search engines once you've submitted successfully to one IndexNow endpoint. But sometimes it's useful to know how to submit to a specific search engine. This guide will show you how to do this.
 
 ## Examples
 ### Basic Usage
-The `SearchEngineEndpoint` class contains a list of endpoints for default search engines. With the same authentication details, you can submit URLs to different IndexNow APIs:
+The `SearchEngineEndpoint` class contains a list of default search engine endpoints. You can use the same credentials to submit URLs to different IndexNow APIs:
 
 ```python linenums="1" hl_lines="9-10 12-13"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
@@ -35,7 +35,7 @@ submit_url_to_index_now(authentication, "https://example.com/page2",
 ```
 
 ### Submit to Multiple Endpoints
-If you want to submit to multiple endpoints, you can use a `for` loop to submit to each endpoint:
+If you want to submit to multiple search engine endpoints, here's how:
 
 ```python linenums="1" hl_lines="9-11"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
@@ -52,6 +52,7 @@ for endpoint in SearchEngineEndpoint:
 ```
 
 ## List of Default Endpoints
+The following endpoints are provided by default with the IndexNow for Python package. If you can't find the endpoint you are looking for, you can also use a [custom endpoint] (custom-endpoint.md).
 
 | Endpoint Enum                         | Name                                           | Endpoint URL                                                                         |
 | ------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
@@ -62,4 +63,7 @@ for endpoint in SearchEngineEndpoint:
 | `SearchEngineEndpoint.YANDEX`         | [Yandex](https://yandex.com)                   | [https://yandex.com/indexnow](https://yandex.com/indexnow)                           |
 | `SearchEngineEndpoint.YEP`            | [Yep](https://yep.com)                         | [https://indexnow.yep.com/indexnow](https://indexnow.yep.com/indexnow)               |
 
-Furthermoe, a list of available search engines that support the IndexNow API here: [indexnow.org/searchengines.json](https://www.indexnow.org/searchengines.json)
+!!! tip
+    The IndexNow organisation maintains a list of currently available search engines that support the IndexNow API. Find it here:
+
+    [indexnow.org/searchengines.json](https://www.indexnow.org/searchengines.json)

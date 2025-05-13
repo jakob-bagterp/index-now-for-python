@@ -20,8 +20,8 @@ If you are concerned about search engine optimization (SEO) and want to make sur
 IndexNow for Python is a lightweight Python package that makes it easy to submit URLs or entire sitemaps to the IndexNow API of various search engines, so your pages can be indexed faster.
 
 ## How It Works
-### Basic Usage and Submit Individual URLs
-Firstly, ensure that you have an [API key for IndexNow](https://www.indexnow.org/api-key). Hereafter, add your authentication details to the `IndexNowAuthentication` class, which will be used throughout the examples:
+### Submit Individual URLs to a Search Engine
+Firstly, ensure that you have an [API key for IndexNow](https://www.indexnow.org/api-key). Hereafter, add your authentication credentials to the [`IndexNowAuthentication`](reference/configuration/authentication.md) class, which will be used throughout the examples:
 
 ```python linenums="1" hl_lines="3-7"
 from index_now import submit_url_to_index_now, IndexNowAuthentication
@@ -39,7 +39,7 @@ You can now submit individual URLs to the IndexNow API:
 submit_url_to_index_now(authentication, "https://example.com/page1")
 ```
 
-### Submit Multiple URLs in Bulk
+### Submit Multiple URLs in Bulk to a Search Engine
 How to submit multiple URLs in bulk to the IndexNow API:
 
 ```python linenums="1" hl_lines="9-11"
@@ -56,7 +56,7 @@ urls = ["https://example.com/page1", "https://example.com/page2", "https://examp
 submit_urls_to_index_now(authentication, urls)
 ```
 
-### Submit Entire Sitemap
+### Submit Entire Sitemap to a Search Engine
 How to submit an entire sitemap to the IndexNow API:
 
 ```python linenums="1" hl_lines="9-11"
@@ -74,7 +74,7 @@ submit_sitemap_to_index_now(authentication, sitemap_url)
 ```
 
 ### Submit to Specific Search Engines
-How to use the default `SearchEngineEndpoint` options or a custom endpoint:
+How to use the default [`SearchEngineEndpoint`](reference/configuration/endpoint.md) options or a custom endpoint:
 
 ```python linenums="1" hl_lines="9-13"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint

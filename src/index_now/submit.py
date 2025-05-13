@@ -16,7 +16,7 @@ def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, en
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 
     Example:
-        After adding your authentication details to the `IndexNowAuthentication` class, you can now submit a single URL to the IndexNow API:
+        After adding your authentication credentials to the `IndexNowAuthentication` class, you can now submit a single URL to the IndexNow API:
 
         ```python linenums="1" hl_lines="11"
         from index_now import submit_url_to_index_now, IndexNowAuthentication
@@ -59,7 +59,7 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 
     Example:
-        After adding your authentication details to the `IndexNowAuthentication` class, you can now submit multiple URLs to the IndexNow API:
+        After adding your authentication credentials to the `IndexNowAuthentication` class, you can now submit multiple URLs to the IndexNow API:
 
         ```python linenums="1" hl_lines="11"
         from index_now import submit_urls_to_index_now, IndexNowAuthentication

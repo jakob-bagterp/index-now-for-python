@@ -5,6 +5,7 @@ tags:
     - Documentation
     - Tutorial
     - Settings
+    - Authentication
 ---
 
 # Authentication Settings for IndexNow

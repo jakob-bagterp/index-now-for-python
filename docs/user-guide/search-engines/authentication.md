@@ -19,6 +19,8 @@ The API key will be required every time you submit a URL to any IndexNow API.
     1. Generate an API key.
     2. Upload a text file containing the API key to your website. This is the API key location.
 
+    Example of a key file:
+
     ```python title="example.com/a1b2c3d4.txt"
     a1b2c3d4
     ```
@@ -47,7 +49,7 @@ submit_url_to_index_now(authentication, "https://example.com/page1")
 ```
 
 ## Use the Same Authentication for Multiple Methods
-Whether you submit a single URL, multiple URLs or an entire Sitemap, the authentication credentials remain the same:
+Whether you submit a single URL, multiple URLs, or an entire sitemap, the authentication credentials remain the same:
 
 ```python linenums="1" hl_lines="11 13 15"
 from index_now import submit_url_to_index_now, submit_urls_to_index_now, submit_sitemap_to_index_now, IndexNowAuthentication
@@ -82,7 +84,7 @@ submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml")
     )
     ```
 
-    ```python title="submit_urls.py"
+    ```python title="submit_url.py"
     from index_now import submit_url_to_index_now
     from .authentication import my_authentication
 

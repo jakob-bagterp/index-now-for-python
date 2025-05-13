@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 @dataclass(slots=True, frozen=True)
 class IndexNowAuthentication:
-    """Authentication data for the IndexNow API.
+    """Authentication credentials for the IndexNow API.
 
     Args:
         host (str): The host of the website to be indexed, e.g. `example.com`.

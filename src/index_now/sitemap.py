@@ -86,7 +86,7 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
     """Submit a sitemap to the IndexNow API of a search engine.
 
     Args:
-        authentication (IndexNowAuthentication): Authentication data for the IndexNow API.
+        authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
         sitemap_url (str): The URL of the sitemap to submit, e.g. `https://example.com/sitemap.xml`.
         contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default and if set to `None`.
         skip (int | None): Optional number of URLs from the sitemap to be skipped. Ignored by default and if set to `None`.

@@ -11,7 +11,7 @@ def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, en
     """Submits a list of URLs to the IndexNow API of a search engine.
 
     Args:
-        authentication (IndexNowAuthentication): Authentication data for the IndexNow API.
+        authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
         url (str): URL to submit, e.g. `"https://example.com/page1"`.
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 
@@ -54,8 +54,8 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
     """Submits a list of URLs to the IndexNow API of a search engine.
 
     Args:
-        authentication (IndexNowAuthentication): Authentication data for the IndexNow API.
-        urls (list[str]): List of URLs to submit, e.g. `["https://example.com/page1", "https://example.com/page2"]`.
+        authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
+        urls (list[str]): List of URLs to submit. For example: `["https://example.com/page1", "https://example.com/page2", "https://example.com/page3"]`
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 
     Example:

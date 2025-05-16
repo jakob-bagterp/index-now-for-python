@@ -15,7 +15,7 @@ tags:
 
 # IndexNow for Python 🔎
 ## Why Use IndexNow for Python?
-If you are concerned about search engine optimization (SEO) and want to make sure your website is indexed frequently by [Bing](https://www.bing.com/indexnow), [Yandex](https://yandex.com/indexnow), and other search engines, then IndexNow for Python may be the right choice for you.
+If you are concerned about search engine optimization (SEO) and want to make sure your website is indexed frequently by [Bing](https://www.bing.com/indexnow), [Yandex](https://yandex.com/indexnow), [DuckDuckGo](https://duckduckgo.com/), and other search engines, then IndexNow for Python may be the right choice for you.
 
 IndexNow for Python is a lightweight Python package that makes it easy to submit URLs or entire sitemaps to the IndexNow API of various search engines, so your pages can be indexed faster.
 

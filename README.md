@@ -15,7 +15,7 @@ Ready to try? Learn [how to install](https://jakob-bagterp.github.io/index-now-f
 
 ## Getting Started
 ### Basic Usage and Submit Individual URLs
-Firstly, ensure that you have an [API key for IndexNow](https://www.indexnow.org/api-key). Hereafter, add your authentication credentials to the `IndexNowAuthentication` class, which will be used throughout the examples:
+Firstly, ensure that you have an [API key for IndexNow](https://www.indexnow.org/api-key). Hereafter, add your authentication credentials to the `IndexNowAuthentication` class, which will be used throughout the examples. You can now submit individual URLs to the IndexNow API:
 
 ```python
 from index_now import submit_url_to_index_now, IndexNowAuthentication
@@ -25,15 +25,20 @@ authentication = IndexNowAuthentication(
     api_key="a1b2c3d4",
     api_key_location="https://example.com/a1b2c3d4.txt",
 )
-```
 
-Instances of `authentication = IndexNowAuthentication(...)` below refer to the section above.
-
-You can now submit individual URLs to the IndexNow API:
-
-```python
 submit_url_to_index_now(authentication, "https://example.com/page1")
 ```
+
+> [!IMPORTANT]
+> Instances of `authentication = IndexNowAuthentication(...)` below refer to this section:
+>
+> ```python
+> authentication = IndexNowAuthentication(
+>     host="example.com",
+>     api_key="a1b2c3d4",
+>     api_key_location="https://example.com/a1b2c3d4.txt",
+> )
+> ```
 
 ### Submit Multiple URLs in Bulk
 How to submit multiple URLs in bulk to the IndexNow API:

@@ -20,7 +20,7 @@ If you are concerned about search engine optimization (SEO) and want to make sur
 IndexNow for Python is a lightweight Python package that makes it easy to submit URLs or entire sitemaps to the IndexNow API of various search engines, so your pages can be indexed faster.
 
 !!! note "What is IndexNow?"
-    [IndexNow] (https://www.indexnow.org/) is an open source protocol that allows website owners to notify search engines when their content has changed, so that search engines can quickly crawl and index the new content. This is particularly useful for sites that update frequently or have dynamic content, and it is useful for search engines to know which pages to crawl and index since the last visit.
+    [IndexNow](https://www.indexnow.org/) is an open source protocol that allows website owners to notify search engines when their content has changed, so that search engines can quickly crawl and index the new content. This is particularly useful for sites that update frequently or have dynamic content, and it is useful for search engines to know which pages to crawl and index since the last visit.
 
     By using IndexNow, you can ensure that your website is indexed more frequently, which can improve your search engine rankings and drive more traffic to your site.
 

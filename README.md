@@ -74,7 +74,7 @@ from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEng
 
 authentication = IndexNowAuthentication(...)
 
-endpoint_bing = SearchEngineEndpoint.MICROSOFT_BING
+endpoint_bing = SearchEngineEndpoint.BING
 endpoint_custom = "https://example.com/indexnow"
 
 for endpoint in [endpoint_bing, endpoint_custom]:

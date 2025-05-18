@@ -26,7 +26,7 @@ def test_submit_urls_to_various_search_engines(endpoint: SearchEngineEndpoint, c
 
 
 def test_submit_urls_error_handling_of_invalid_api_key(capfd: object) -> None:
-    endpoint = SearchEngineEndpoint.MICROSOFT_BING
+    endpoint = SearchEngineEndpoint.BING
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     submit_urls_to_index_now(INDEX_NOW_FOR_PYTHON_INVALID_API_KEY.authentication, ["https://jakob-bagterp.github.io/invalid-url/"], endpoint=endpoint)

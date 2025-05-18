@@ -92,7 +92,7 @@ authentication = IndexNowAuthentication(
     api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
-endpoint_bing = SearchEngineEndpoint.MICROSOFT_BING
+endpoint_bing = SearchEngineEndpoint.BING
 endpoint_custom = "https://example.com/indexnow"
 
 for endpoint in [endpoint_bing, endpoint_custom]:

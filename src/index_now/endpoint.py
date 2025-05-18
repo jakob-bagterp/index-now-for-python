@@ -7,7 +7,7 @@ class SearchEngineEndpoint(Enum):
 
     Attributes:
         SearchEngineEndpoint.INDEXNOW (Enum): IndexNow default endpoint.
-        SearchEngineEndpoint.MICROSOFT_BING (Enum): [Microsoft Bing](https://www.bing.com).
+        SearchEngineEndpoint.BING (Enum): [Microsoft Bing](https://www.bing.com).
         SearchEngineEndpoint.NAVER (Enum): [Naver](https://www.naver.com).
         SearchEngineEndpoint.SEZNAM (Enum): [Seznam.cz](https://www.seznam.cz).
         SearchEngineEndpoint.YANDEX (Enum): [Yandex](https://yandex.com).
@@ -25,7 +25,7 @@ class SearchEngineEndpoint(Enum):
             api_key_location="https://example.com/a1b2c3d4.txt",
         )
 
-        endpoint_bing = SearchEngineEndpoint.MICROSOFT_BING
+        endpoint_bing = SearchEngineEndpoint.BING
         endpoint_yandex = SearchEngineEndpoint.YANDEX
         endpoint_custom = "https://example.com/indexnow"
 
@@ -35,7 +35,7 @@ class SearchEngineEndpoint(Enum):
     """
 
     INDEXNOW = "https://api.indexnow.org/indexnow"
-    MICROSOFT_BING = "https://www.bing.com/indexnow"
+    BING = "https://www.bing.com/indexnow"
     NAVER = "https://searchadvisor.naver.com/indexnow"
     SEZNAM = "https://search.seznam.cz/indexnow"
     YANDEX = "https://yandex.com/indexnow"

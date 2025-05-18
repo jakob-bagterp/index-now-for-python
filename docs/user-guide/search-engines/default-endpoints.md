@@ -31,7 +31,7 @@ authentication = IndexNowAuthentication(
 )
 
 submit_url_to_index_now(authentication, "https://example.com/page1",
-    SearchEngineEndpoint.MICROSOFT_BING)
+    SearchEngineEndpoint.BING)
 
 submit_url_to_index_now(authentication, "https://example.com/page2",
     SearchEngineEndpoint.YANDEX)
@@ -63,7 +63,7 @@ The following endpoints are provided by default with the IndexNow for Python pac
 | Endpoint Enum                         | Name                                           | Endpoint URL                                                                         |
 | ------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
 | `SearchEngineEndpoint.INDEXNOW`       | [IndexNow](https://www.indexnow.org) (default) | [https://api.indexnow.org/indexnow](https://api.indexnow.org/indexnow)               |
-| `SearchEngineEndpoint.MICROSOFT_BING` | [Microsoft Bing](https://www.bing.com)         | [https://www.bing.com/indexnow](https://www.bing.com/indexnow)                       |
+| `SearchEngineEndpoint.BING`           | [Microsoft Bing](https://www.bing.com)         | [https://www.bing.com/indexnow](https://www.bing.com/indexnow)                       |
 | `SearchEngineEndpoint.NAVER`          | [Naver](https://www.naver.com)                 | [https://searchadvisor.naver.com/indexnow](https://searchadvisor.naver.com/indexnow) |
 | `SearchEngineEndpoint.SEZNAM`         | [Seznam.cz](https://www.seznam.cz)             | [https://search.seznam.cz/indexnow](https://search.seznam.cz/indexnow)               |
 | `SearchEngineEndpoint.YANDEX`         | [Yandex](https://yandex.com)                   | [https://yandex.com/indexnow](https://yandex.com/indexnow)                           |

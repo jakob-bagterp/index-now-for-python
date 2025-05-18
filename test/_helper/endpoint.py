@@ -3,7 +3,7 @@ import requests
 from index_now import SearchEngineEndpoint
 
 TEMPORARILY_SKIPPED_ENDPOINTS = [
-    SearchEngineEndpoint.MICROSOFT_BING,
+    SearchEngineEndpoint.BING,
 ]
 
 

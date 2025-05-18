@@ -1,9 +1,6 @@
 name: Submit sitemap to IndexNow
 
 on:
-  pull_request:
-    branches:
-      - "**"
   workflow_run:
     workflows: [MkDocs]
     branches: master

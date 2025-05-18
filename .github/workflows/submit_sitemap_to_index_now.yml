@@ -32,4 +32,4 @@ jobs:
               api_key_location="https://jakob-bagterp.github.io/index-now-api-key.txt",
             )
 
-            submit_sitemap_to_index_now(authentication, "https://jakob-bagterp.github.io/index-now-for-python/sitemap.xml", endpoint=SearchEngineEndpoint.YANDEX)
+            submit_sitemap_to_index_now(authentication, "https://jakob-bagterp.github.io/index-now-for-python/sitemap.xml", endpoint=SearchEngineEndpoint.BING)

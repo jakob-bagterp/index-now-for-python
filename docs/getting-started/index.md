@@ -23,7 +23,7 @@ Find more details and options in the [installation guide](installation.md).
 ## 2. Set Up an API Key
 To verify ownership of your domain, you need to create an API key. This key is hosted on your website so that the IndexNow API service can authenticate your requests. The API key is required each time you submit a URL to the IndexNow API.
 
-For more information about the API key, see the [official IndexNow documentation](https://www.indexnow.org/api-key) or the [getting started guide from Microsoft Bing](https://www.bing.com/indexnow/getstarted#implementation).
+For more information about the API key, see the [official IndexNow documentation](https://www.indexnow.org/api-key) or the [getting started guide from Microsoft Bing](https://www.bing.com/indexnow/getstarted#implementation). Or learn [how to generate your own API key](../user-guide/tips-and-tricks/generate-api-keys.md).
 
 ## 3. First Script
 You're now ready to submit your first URL to the IndexNow API:

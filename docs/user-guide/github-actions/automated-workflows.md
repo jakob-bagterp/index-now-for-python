@@ -26,7 +26,7 @@ on:
       - master
 
 jobs:
-  build:
+  submit-sitemap:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

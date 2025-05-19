@@ -22,6 +22,10 @@ How to use submit URLs to different search engines:
 * [Custom endpoint](search-engines/custom-endpoint.md)
 * [Authentication](search-engines/authentication.md)
 
+How to use automated workflows:
+
+* [Automated sitemap submission with GitHub Actions](github-actions/automated-workflows.md)
+
 ## Support the Project
 
 !!! tip "Become a Sponsor"

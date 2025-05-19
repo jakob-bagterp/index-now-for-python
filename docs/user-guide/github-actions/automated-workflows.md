@@ -70,7 +70,7 @@ There are several ways to trigger workflows in GitHub Actions. The most common o
 !!! tip
     If you want to update the workflow example above, simple update the trigger to `workflow_run` instead of `pull_request` and `push`.
 
-    ```yaml linenums="3"
+    ```yaml linenums="3" title=".github/workflows/submit_sitemap_to_index_now.yml"
     on:
       workflow_run:
         workflows: ["Deploy Website"]

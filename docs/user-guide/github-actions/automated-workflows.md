@@ -81,4 +81,4 @@ There are several ways to trigger workflows in GitHub Actions. The most common o
 ### MkDocs and GitHub Pages
 If you are using [MkDocs](https://www.mkdocs.org) to build a website is hosted on [GitHub Pages](https://pages.github.com), it is a good idea to use the [`workflow_run`](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_run) event to trigger the workflow after deploying your website.
 
-Find and example [here](https://github.com/jakob-bagterp/index-now-for-python/blob/master/.github/workflows/submit_sitemap_to_index_now.yml).
+Find an example [here](https://github.com/jakob-bagterp/index-now-for-python/blob/master/.github/workflows/submit_sitemap_to_index_now.yml).

@@ -26,6 +26,10 @@ How to use automated workflows:
 
 * [Automated sitemap submission with GitHub Actions](github-actions/automated-workflows.md)
 
+Tips and tricks:
+
+* [Generate API keys](tips-and-tricks/generate-api-keys.md)
+
 ## Support the Project
 
 !!! tip "Become a Sponsor"

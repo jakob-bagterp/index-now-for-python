@@ -31,6 +31,8 @@ nav:
       - Custom Endpoint: user-guide/search-engines/custom-endpoint.md
     - GitHub Actions:
       - Automated Workflows: user-guide/github-actions/automated-workflows.md
+    - Tips and Tricks:
+      - Generate API Keys: user-guide/tips-and-tricks/generate-api-keys.md
   - Reference:
     - reference/index.md
     - Methods:

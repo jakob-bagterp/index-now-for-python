@@ -29,6 +29,8 @@ nav:
       - Authentication: user-guide/search-engines/authentication.md
       - Default Endpoints: user-guide/search-engines/default-endpoints.md
       - Custom Endpoint: user-guide/search-engines/custom-endpoint.md
+    - Tips and Tricks:
+      - Generate API Keys: user-guide/tips-and-trick/generate-api-keys.md
   - Reference:
     - reference/index.md
     - Methods:

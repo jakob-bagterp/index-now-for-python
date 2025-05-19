@@ -22,6 +22,10 @@ How to use submit URLs to different search engines:
 * [Custom endpoint](search-engines/custom-endpoint.md)
 * [Authentication](search-engines/authentication.md)
 
+Tips and tricks:
+
+* [Generate API keys](tools/generate-api-key.md)
+
 ## Support the Project
 
 !!! tip "Become a Sponsor"

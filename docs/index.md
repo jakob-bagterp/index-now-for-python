@@ -49,7 +49,7 @@ submit_url_to_index_now(authentication, "https://example.com/page1")
 ### Multiple URLs in Bulk
 How to submit multiple URLs in bulk to the IndexNow API:
 
-```python linenums="1" hl_lines="9-11"
+```python linenums="1" hl_lines="9-15"
 from index_now import submit_urls_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
@@ -58,7 +58,11 @@ authentication = IndexNowAuthentication(
     api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
-urls = ["https://example.com/page1", "https://example.com/page2", "https://example.com/page3"]
+urls = [
+    "https://example.com/page1",
+    "https://example.com/page2",
+    "https://example.com/page3"
+]
 
 submit_urls_to_index_now(authentication, urls)
 ```
@@ -83,7 +87,7 @@ submit_sitemap_to_index_now(authentication, sitemap_url)
 ### Submit to Specific Search Engines
 How to use the default [`SearchEngineEndpoint`](reference/configuration/endpoint.md) options or a custom endpoint:
 
-```python linenums="1" hl_lines="9-13"
+```python linenums="1" hl_lines="9-12 16"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
 
 authentication = IndexNowAuthentication(
@@ -96,7 +100,11 @@ endpoint_bing = SearchEngineEndpoint.BING
 endpoint_custom = "https://example.com/indexnow"
 
 for endpoint in [endpoint_bing, endpoint_custom]:
-    submit_url_to_index_now(authentication, "https://example.com/page1", endpoint)
+    submit_url_to_index_now(
+        authentication,
+        "https://example.com/page1",
+        endpoint
+    )
 ```
 
 ## Next Steps

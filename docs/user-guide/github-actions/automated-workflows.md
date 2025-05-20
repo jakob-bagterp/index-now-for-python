@@ -29,9 +29,10 @@ jobs:
   submit-sitemap:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.13"
       - name: Install dependencies
@@ -51,7 +52,7 @@ jobs:
             submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml", endpoint=SearchEngineEndpoint.YANDEX)
 ```
 
-!!! info "Checklist"
+!!! abstract "Checklist"
     Before running the workflow, make sure you have done the following:
 
     - Added the API key `INDEX_NOW_API_KEY` as a [secret to your repository](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions).

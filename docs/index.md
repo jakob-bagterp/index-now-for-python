@@ -26,8 +26,8 @@ IndexNow for Python is a lightweight Python package that makes it easy to submit
 
     Search engines such as [Bing](https://www.bing.com/indexnow), [Yandex](https://yandex.com/indexnow), [DuckDuckGo](https://duckduckgo.com/) (via Bing's index) and others already support IndexNow, but not all search engines. For example, Google is not on board, but this may change in the future.
 
-## How It Works
-### Submit Individual URLs to a Search Engine
+## How It Works and Submitting URLs to a Search Engine
+### Individual URL
 Firstly, ensure that you have an [API key for IndexNow](https://www.indexnow.org/api-key). Hereafter, add your authentication credentials to the [`IndexNowAuthentication`](reference/configuration/authentication.md) class, which will be used throughout the examples:
 
 ```python linenums="1" hl_lines="3-7"
@@ -42,14 +42,14 @@ authentication = IndexNowAuthentication(
 
 You can now submit individual URLs to the IndexNow API:
 
-```python linenums="8" hl_lines="1"
+```python linenums="8" hl_lines="1" title=""
 submit_url_to_index_now(authentication, "https://example.com/page1")
 ```
 
-### Submit Multiple URLs in Bulk to a Search Engine
+### Multiple URLs in Bulk
 How to submit multiple URLs in bulk to the IndexNow API:
 
-```python linenums="1" hl_lines="9-11"
+```python linenums="1" hl_lines="9-15"
 from index_now import submit_urls_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
@@ -58,12 +58,16 @@ authentication = IndexNowAuthentication(
     api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
-urls = ["https://example.com/page1", "https://example.com/page2", "https://example.com/page3"]
+urls = [
+    "https://example.com/page1",
+    "https://example.com/page2",
+    "https://example.com/page3"
+]
 
 submit_urls_to_index_now(authentication, urls)
 ```
 
-### Submit Entire Sitemap to a Search Engine
+### Entire Sitemap
 How to submit an entire sitemap to the IndexNow API:
 
 ```python linenums="1" hl_lines="9-11"
@@ -80,10 +84,10 @@ sitemap_url = "https://example.com/sitemap.xml"
 submit_sitemap_to_index_now(authentication, sitemap_url)
 ```
 
-### Submit to Specific Search Engines
+### Submit to Different Search Engines
 How to use the default [`SearchEngineEndpoint`](reference/configuration/endpoint.md) options or a custom endpoint:
 
-```python linenums="1" hl_lines="9-13"
+```python linenums="1" hl_lines="9-12 14"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
 
 authentication = IndexNowAuthentication(
@@ -96,7 +100,23 @@ endpoint_bing = SearchEngineEndpoint.BING
 endpoint_custom = "https://example.com/indexnow"
 
 for endpoint in [endpoint_bing, endpoint_custom]:
-    submit_url_to_index_now(authentication, "https://example.com/page1", endpoint)
+    submit_url_to_index_now(authentication, "https://example.com/page1",
+        endpoint)
+```
+
+Pattern for submitting to different search engines:
+
+```python linenums="1" hl_lines="6 8 10"
+url = "https://example.com/page1"
+urls = ["https://example.com/page1", "https://example.com/page2"]
+sitemap_url = "https://example.com/sitemap.xml"
+endpoint = SearchEngineEndpoint.YANDEX
+
+submit_url_to_index_now(authentication, url, endpoint)
+
+submit_urls_to_index_now(authentication, urls, endpoint)
+
+submit_sitemap_to_index_now(authentication, sitemap_url, endpoint)
 ```
 
 ## Next Steps

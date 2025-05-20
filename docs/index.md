@@ -42,7 +42,7 @@ authentication = IndexNowAuthentication(
 
 You can now submit individual URLs to the IndexNow API:
 
-```python linenums="8" hl_lines="1"
+```python linenums="8" hl_lines="1" title=""
 submit_url_to_index_now(authentication, "https://example.com/page1")
 ```
 

@@ -87,7 +87,7 @@ submit_sitemap_to_index_now(authentication, sitemap_url)
 ### Submit to Specific Search Engines
 How to use the default [`SearchEngineEndpoint`](reference/configuration/endpoint.md) options or a custom endpoint:
 
-```python linenums="1" hl_lines="9-12 16"
+```python linenums="1" hl_lines="9-12 14"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
 
 authentication = IndexNowAuthentication(
@@ -100,11 +100,23 @@ endpoint_bing = SearchEngineEndpoint.BING
 endpoint_custom = "https://example.com/indexnow"
 
 for endpoint in [endpoint_bing, endpoint_custom]:
-    submit_url_to_index_now(
-        authentication,
-        "https://example.com/page1",
-        endpoint
-    )
+    submit_url_to_index_now(authentication, "https://example.com/page1",
+        endpoint)
+```
+
+Pattern for submitting to different search engines:
+
+```python linenums="1" hl_lines="6 8 10"
+url = "https://example.com/page1"
+urls = ["https://example.com/page1", "https://example.com/page2"]
+sitemap_url = "https://example.com/sitemap.xml"
+endpoint = SearchEngineEndpoint.YANDEX
+
+submit_url_to_index_now(authentication, url, endpoint)
+
+submit_urls_to_index_now(authentication, urls, endpoint)
+
+submit_sitemap_to_index_now(authentication, sitemap_url, endpoint)
 ```
 
 ## Next Steps

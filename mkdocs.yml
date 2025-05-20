@@ -2,7 +2,7 @@ site_name: IndexNow for Python 🔎
 site_url: https://jakob-bagterp.github.io/index-now-for-python/
 site_description: Lightweight Python package that makes it easy to submit URLs to the IndexNow API of various search engines
 site_author: Jakob Bagterp
-copyright: Copyright © 2025 - , Jakob Bagterp. All Rights Reserved.
+copyright: Copyright © 2025 – present, Jakob Bagterp. All Rights Reserved.
 repo_url: https://github.com/jakob-bagterp/index-now-for-python
 
 nav:
@@ -79,6 +79,8 @@ theme:
       toggle:
         icon: material/eye-outline
         name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
 
 markdown_extensions:
   - toc:

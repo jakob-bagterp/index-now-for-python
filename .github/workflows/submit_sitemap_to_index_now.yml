@@ -16,7 +16,9 @@ jobs:
         with:
           python-version: "3.13"
       - name: Install dependencies
-        run: pip install index-now-for-python
+        run: |
+          pip install --upgrade pip
+          pip install index-now-for-python
       - name: Submit sitemap to IndexNow
         uses: jannekem/run-python-script-action@v1
         with:

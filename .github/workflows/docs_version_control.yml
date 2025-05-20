@@ -15,8 +15,8 @@ jobs:
           fetch-depth: 0
       - name: Set up Git
         run: |
-            git config --global user.name Docs Deploy
-            git config --global user.email docs@dummy.bot.com
+          git config --global user.name Docs Deploy
+          git config --global user.email docs@dummy.bot.com
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -27,9 +27,9 @@ jobs:
           pip install -r ./docs/requirements.txt
       - name: Set release notes tag
         run: |
-            export RELEASE_TAG_VERSION=${{ github.event.release.tag_name }}
-            echo "RELEASE_TAG_VERSION=${RELEASE_TAG_VERSION:1}" >> $GITHUB_ENV
+          export RELEASE_TAG_VERSION=${{ github.event.release.tag_name }}
+          echo "RELEASE_TAG_VERSION=${RELEASE_TAG_VERSION:1}" >> $GITHUB_ENV
       - name: Deploy docs website and API reference
         run: |
-            mike deploy --push --update-aliases ${RELEASE_TAG_VERSION} latest
-            mike set-default --push latest
+          mike deploy --push --update-aliases ${RELEASE_TAG_VERSION} latest
+          mike set-default --push latest

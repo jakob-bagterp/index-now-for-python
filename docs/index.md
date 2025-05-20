@@ -84,7 +84,7 @@ sitemap_url = "https://example.com/sitemap.xml"
 submit_sitemap_to_index_now(authentication, sitemap_url)
 ```
 
-### Submit to Specific Search Engines
+### Submit to Different Search Engines
 How to use the default [`SearchEngineEndpoint`](reference/configuration/endpoint.md) options or a custom endpoint:
 
 ```python linenums="1" hl_lines="9-12 14"

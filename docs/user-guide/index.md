@@ -28,7 +28,7 @@ How to use automated workflows:
 
 Tips and tricks:
 
-* [Generate API keys](tips-and-tricks/generate-api-keys.md)
+* [Generate custom API keys](tips-and-tricks/generate-api-keys.md)
 
 ## Support the Project
 

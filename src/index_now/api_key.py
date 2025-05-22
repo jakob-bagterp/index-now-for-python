@@ -54,4 +54,4 @@ def generate_api_key(length: int = 32) -> str:
 
     if length <= 32:
         return str(uuid.uuid4()).replace("-", "")[:length]
-    return "".join(random.choices(string.ascii_lowercase + string.digits, k=length))
+    return "".join(random.choices(string.ascii_lowercase + string.ascii_uppercase + string.digits, k=length))

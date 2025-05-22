@@ -25,7 +25,7 @@ def generate_api_key(length: int = 32) -> str:
 
         This will print a random API key of 32 characters. Example:
 
-        ```bash title=""
+        ```shell title=""
         5017988d51af458491d21ecab6ed1811
         ```
 
@@ -43,7 +43,7 @@ def generate_api_key(length: int = 32) -> str:
 
         This will print two random API keys of 16 and 64 characters. Example:
 
-        ```bash title=""
+        ```shell title=""
         5017988d51af4584
         5017988d51af458491d21ecab6ed18115017988d51af458491d21ecab6ed1811
         ```

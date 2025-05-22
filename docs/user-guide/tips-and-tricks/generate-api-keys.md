@@ -33,7 +33,7 @@ print(api_key)
 
 This will output a 32 character hexadecimal string:
 
-```bash title=""
+```shell title=""
 5017988d51af458491d21ecab6ed1811
 ```
 
@@ -52,7 +52,7 @@ print(api_key_64)
 
 This will print two random API keys of 16 and 64 characters. Example:
 
-```bash title=""
+```shell title=""
 5017988d51af4584
 5017988d51af458491d21ecab6ed18115017988d51af458491d21ecab6ed1811
 ```

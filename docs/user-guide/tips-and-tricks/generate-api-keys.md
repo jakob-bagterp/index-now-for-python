@@ -4,6 +4,7 @@ description: Learn how to generate API keys to verify your website and submit UR
 tags:
     - Tutorial
     - Settings
+    - API Key
 ---
 
 # How to Generate API Keys for IndexNow

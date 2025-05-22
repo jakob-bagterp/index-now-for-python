@@ -5,6 +5,7 @@ tags:
     - Tutorial
     - Installation
     - Authentication
+    - API Key
     - PyPI
 ---
 

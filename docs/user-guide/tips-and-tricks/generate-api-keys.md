@@ -31,7 +31,7 @@ api_key = generate_api_key()
 print(api_key)
 ```
 
-This will output a 32 character hexadecimal string:
+This will print a random API key of 32 characters. Example:
 
 ```shell title=""
 5017988d51af458491d21ecab6ed1811

@@ -17,7 +17,7 @@ If you don't want to use the [API key generator from Microsoft Bing](https://www
 ### Requirements
 According to the [IndexNow documentation](https://www.indexnow.org/documentation), the requirements are:
 
-!!! quote
+!!! quote "IndexNow API Key Requirements"
     Your-key should have a minimum of 8 and a maximum of 128 hexadecimal characters. The key can contain only the following characters: lowercase characters (a-z), uppercase characters (A-Z), numbers (0-9), and dashes (-).
 
 ### Basic Usage
@@ -31,7 +31,7 @@ api_key = generate_api_key()
 print(api_key)
 ```
 
-This will output a 32 character hexadecimal string:
+This will print a random API key of 32 characters. Example:
 
 ```shell title=""
 5017988d51af458491d21ecab6ed1811

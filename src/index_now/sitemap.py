@@ -82,7 +82,7 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
     return urls
 
 
-def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_url: str, contains: str | None = None, skip: int | None = None, take: int | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> None:
+def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_url: str, contains: str | None = None, skip: int | None = None, take: int | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
     """Submit a sitemap to the IndexNow API of a search engine.
 
     Args:
@@ -92,6 +92,9 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         skip (int | None): Optional number of URLs from the sitemap to be skipped. Ignored by default or if set to `None`.
         take (int | None): Optional limit of URLs from the sitemap to taken. Ignored by default and if set to  `None`.
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
+
+    Returns:
+        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc.
 
     Example:
         After adding your authentication credentials to the `IndexNowAuthentication` class, you can now submit an entire sitemap to the IndexNow API:
@@ -167,10 +170,11 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         if not urls:
             raise ValueError("No URLs left after filtering. Please check your filter parameters.")
 
-    submit_urls_to_index_now(authentication, urls, endpoint)
+    status_code = submit_urls_to_index_now(authentication, urls, endpoint)
+    return status_code
 
 
-def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap_urls: list[str], contains: str | None = None, skip: int | None = None, take: int | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> None:
+def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap_urls: list[str], contains: str | None = None, skip: int | None = None, take: int | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
     """Submit multiple sitemaps to the IndexNow API of a search engine.
 
     Args:
@@ -180,6 +184,9 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
         skip (int | None): Optional number of URLs from the sitemaps to be skipped. Ignored by default or if set to `None`.
         take (int | None): Optional limit of URLs from the sitemaps to be taken. Ignored by default or if set to `None`.
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
+
+    Returns:
+        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc.
 
     Example:
         After adding your authentication credentials to the `IndexNowAuthentication` class, you can now submit multiple sitemaps to the IndexNow API:
@@ -266,4 +273,5 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
         if not urls:
             raise ValueError("No URLs left after filtering. Please check your filter parameters.")
 
-    submit_urls_to_index_now(authentication, urls, endpoint)
+    status_code = submit_urls_to_index_now(authentication, urls, endpoint)
+    return status_code

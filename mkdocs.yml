@@ -24,7 +24,7 @@ nav:
     - How to Submit:
       - Single URL: user-guide/how-to-submit/single-url.md
       - Multiple URLs: user-guide/how-to-submit/multiple-urls.md
-      - Entire Sitemap: user-guide/how-to-submit/sitemap.md
+      - Entire Sitemap or Multiple Sitemaps: user-guide/how-to-submit/sitemap.md
     - Search Engines:
       - Authentication: user-guide/search-engines/authentication.md
       - Default Endpoints: user-guide/search-engines/default-endpoints.md

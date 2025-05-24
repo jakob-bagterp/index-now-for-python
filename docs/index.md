@@ -5,7 +5,7 @@ tags:
     - Tutorial
 ---
 
-[![Latest version](https://img.shields.io/static/v1?label=version&message=0.1.4&color=yellowgreen)](https://github.com/jakob-bagterp/index-now-for-python/releases/latest)
+[![Latest version](https://img.shields.io/static/v1?label=version&message=0.1.6&color=yellowgreen)](https://github.com/jakob-bagterp/index-now-for-python/releases/latest)
 [![Python 3.10 | 3.11 | 3.12 | 3.13+](https://img.shields.io/static/v1?label=python&message=3.10%20|%203.11%20|%203.12%20|%203.13%2B&color=blueviolet)](https://www.python.org)
 [![MIT license](https://img.shields.io/static/v1?label=license&message=MIT&color=blue)](https://github.com/jakob-bagterp/index-now-for-python/blob/master/LICENSE.md)
 [![Codecov](https://codecov.io/gh/jakob-bagterp/index-now-for-python/branch/master/graph/badge.svg?token=SGVMPJ1JWI)](https://codecov.io/gh/jakob-bagterp/index-now-for-python)
@@ -79,9 +79,9 @@ authentication = IndexNowAuthentication(
     api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
-sitemap_url = "https://example.com/sitemap.xml"
+sitemap_location = "https://example.com/sitemap.xml"
 
-submit_sitemap_to_index_now(authentication, sitemap_url)
+submit_sitemap_to_index_now(authentication, sitemap_location)
 ```
 
 ### Submit to Different Search Engines
@@ -109,14 +109,14 @@ Pattern for submitting to different search engines:
 ```python linenums="1" hl_lines="6 8 10"
 url = "https://example.com/page1"
 urls = ["https://example.com/page1", "https://example.com/page2"]
-sitemap_url = "https://example.com/sitemap.xml"
+sitemap_location = "https://example.com/sitemap.xml"
 endpoint = SearchEngineEndpoint.YANDEX
 
 submit_url_to_index_now(authentication, url, endpoint)
 
 submit_urls_to_index_now(authentication, urls, endpoint)
 
-submit_sitemap_to_index_now(authentication, sitemap_url, endpoint)
+submit_sitemap_to_index_now(authentication, sitemap_location, endpoint)
 ```
 
 ## Next Steps

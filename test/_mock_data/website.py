@@ -6,7 +6,7 @@ from index_now import IndexNowAuthentication
 @dataclass(slots=True, frozen=True)
 class IndexNowWebsiteData:
     authentication: IndexNowAuthentication
-    sitemap_url: str
+    sitemap_location: str
 
 
 GITHUB_PAGES_AUTHENTICATION = IndexNowAuthentication(
@@ -23,26 +23,26 @@ GITHUB_PAGES_AUTHENTICATION_INVALID_API_KEY = IndexNowAuthentication(
 
 TIMER_FOR_PYTHON = IndexNowWebsiteData(
     authentication=GITHUB_PAGES_AUTHENTICATION,
-    sitemap_url="https://jakob-bagterp.github.io/timer-for-python/sitemap.xml",
+    sitemap_location="https://jakob-bagterp.github.io/timer-for-python/sitemap.xml",
 )
 
 COLORIST_FOR_PYTHON = IndexNowWebsiteData(
     authentication=GITHUB_PAGES_AUTHENTICATION,
-    sitemap_url="https://jakob-bagterp.github.io/colorist-for-python/sitemap.xml",
+    sitemap_location="https://jakob-bagterp.github.io/colorist-for-python/sitemap.xml",
 )
 
 BROWSERIST = IndexNowWebsiteData(
     authentication=GITHUB_PAGES_AUTHENTICATION,
-    sitemap_url="https://jakob-bagterp.github.io/browserist/sitemap.xml",
+    sitemap_location="https://jakob-bagterp.github.io/browserist/sitemap.xml",
 )
 
 
 INDEX_NOW_FOR_PYTHON = IndexNowWebsiteData(
     authentication=GITHUB_PAGES_AUTHENTICATION,
-    sitemap_url="https://jakob-bagterp.github.io/index-now-for-python/sitemap.xml",
+    sitemap_location="https://jakob-bagterp.github.io/index-now-for-python/sitemap.xml",
 )
 
 INDEX_NOW_FOR_PYTHON_INVALID_API_KEY = IndexNowWebsiteData(
     authentication=GITHUB_PAGES_AUTHENTICATION_INVALID_API_KEY,
-    sitemap_url="https://jakob-bagterp.github.io/index-now-for-python/sitemap.xml",
+    sitemap_location="https://jakob-bagterp.github.io/index-now-for-python/sitemap.xml",
 )

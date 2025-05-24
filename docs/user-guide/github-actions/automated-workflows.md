@@ -57,7 +57,7 @@ jobs:
 
     - Added the API key `INDEX_NOW_API_KEY` as a [secret to your repository](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions).
     - Uploaded the API key to the location specified in the `api_key_location` parameter.
-    - Updated the sitemap URL in the `sitemap_url` parameter.
+    - Updated the URL of the sitemap in the `sitemap_location` parameter.
     - Adjusted the `host`, `endpoint`, and other parameters to suit your needs.
 
 ## Event-Triggered Workflows

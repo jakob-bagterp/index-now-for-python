@@ -43,13 +43,13 @@ authentication = IndexNowAuthentication(
     api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
-sitemap_urls = [
+sitemap_locations = [
     "https://example.com/sitemap1.xml",
     "https://example.com/sitemap2.xml",
     "https://example.com/sitemap3.xml",
 ]
 
-submit_sitemaps_to_index_now(authentication, sitemap_urls)
+submit_sitemaps_to_index_now(authentication, sitemap_locations)
 ```
 
 ## How to Filter the URLs
@@ -73,7 +73,7 @@ submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml",
 The same applies to submitting multiple sitemaps:
 
 ```python linenums="15" hl_lines="1-2"
-submit_sitemaps_to_index_now(authentication, sitemap_urls,
+submit_sitemaps_to_index_now(authentication, sitemap_locations,
     contains="section1", skip=2, take=3)
 ```
 
@@ -88,7 +88,7 @@ submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml",
 Example for multiple sitemaps:
 
 ```python linenums="15" hl_lines="1-2"
-submit_sitemaps_to_index_now(authentication, sitemap_urls,
+submit_sitemaps_to_index_now(authentication, sitemap_locations,
     contains="section1")
 ```
 
@@ -103,7 +103,7 @@ submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml",
 Example for multiple sitemaps:
 
 ```python linenums="15" hl_lines="1-2"
-submit_sitemaps_to_index_now(authentication, sitemap_urls,
+submit_sitemaps_to_index_now(authentication, sitemap_locations,
     contains=r"(section1)|(section2)")
 ```
 
@@ -118,7 +118,7 @@ submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml",
 Example for multiple sitemaps:
 
 ```python linenums="15" hl_lines="1-2"
-submit_sitemaps_to_index_now(authentication, sitemap_urls,
+submit_sitemaps_to_index_now(authentication, sitemap_locations,
     skip=10, take=20)
 ```
 

@@ -25,11 +25,15 @@ def test_submit_multiple_sitemaps_to_index_now(capfd: object) -> None:
 
 
 def test_submit_multiple_sitemaps_error_handling_of_invalid_sitemap() -> None:
+    INVALID_SITEMAP_URLS = [
+        "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap1.xml",
+        "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap2.xml"
+    ]
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     with pytest.raises(ValueError):
-        submit_sitemaps_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap.xml", endpoint=endpoint)
+        submit_sitemaps_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INVALID_SITEMAP_URLS, endpoint=endpoint)
 
 
 def test_submit_multiple_sitemaps_error_handling_of_no_matches() -> None:

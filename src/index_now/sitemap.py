@@ -168,3 +168,102 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
             raise ValueError("No URLs left after filtering. Please check your filter parameters.")
 
     submit_urls_to_index_now(authentication, urls, endpoint)
+
+
+def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap_urls: list[str], contains: str | None = None, skip: int | None = None, take: int | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> None:
+    """Submit multiple sitemaps to the IndexNow API of a search engine.
+
+    Args:
+        authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
+        sitemap_urls (list[str]): List of sitemap URLs to submit, e.g. `["https://example.com/sitemap1.xml", "https://example.com/sitemap2.xml, "https://example.com/sitemap3.xml"]`.
+        contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default or if set to `None`.
+        skip (int | None): Optional number of URLs from the sitemaps to be skipped. Ignored by default or if set to `None`.
+        take (int | None): Optional limit of URLs from the sitemaps to be taken. Ignored by default or if set to `None`.
+        endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
+
+    Example:
+        After adding your authentication credentials to the `IndexNowAuthentication` class, you can now submit multiple sitemaps to the IndexNow API:
+
+        ```python linenums="1" hl_lines="11-14"
+        from index_now import submit_sitemaps_to_index_now, IndexNowAuthentication
+
+        authentication = IndexNowAuthentication(
+            host="example.com",
+            api_key="a1b2c3d4",
+            api_key_location="https://example.com/a1b2c3d4.txt",
+        )
+
+        sitemap_urls = [
+            "https://example.com/sitemap1.xml",
+            "https://example.com/sitemap2.xml",
+            "https://example.com/sitemap3.xml",
+        ]
+
+        submit_sitemaps_to_index_now(authentication, sitemap_urls)
+        ```
+
+        If you want to submit to a specific search engine, alternatively customize the endpoint:
+
+        ```python linenums="11" hl_lines="1-2" title=""
+        submit_sitemaps_to_index_now(authentication, sitemap_url,
+            endpoint="https://www.bing.com/indexnow")
+        ```
+
+        If you want to only upload a portion of the sitemap URLs, alternatively use the `skip` and `take` parameters:
+
+        ```python linenums="1" hl_lines="14-15"
+        from index_now import submit_sitemaps_to_index_now, IndexNowAuthentication
+
+        authentication = IndexNowAuthentication(
+            host="example.com",
+            api_key="a1b2c3d4",
+            api_key_location="https://example.com/a1b2c3d4.txt",
+        )
+
+        sitemap_urls = [
+            "https://example.com/sitemap1.xml",
+            "https://example.com/sitemap2.xml",
+            "https://example.com/sitemap3.xml",
+        ]
+
+        submit_sitemaps_to_index_now(authentication, sitemap_url,
+            skip=100, take=50)
+        ```
+
+        How to target URLs with a specific pattern by using the `contains` parameter:
+
+        ```python linenums="14" hl_lines="1-2" title=""
+        submit_sitemaps_to_index_now(authentication, sitemap_url,
+            contains="section1")
+        ```
+
+        The `contains` parameter also accepts regular expressions for more advanced filtering:
+
+        ```python linenums="14" hl_lines="1-2" title=""
+        submit_sitemaps_to_index_now(authentication, sitemap_url,
+            contains=r"(section1)|(section2)")
+        ```
+
+        Or combine the `contains`, `skip`, and `take` parameters to filter the URLs even further:
+
+        ```python linenums="14" hl_lines="1-3" title=""
+        submit_sitemaps_to_index_now(authentication, sitemap_url,
+            contains=r"(section1)|(section2)",
+            skip=100, take=50)
+        ```
+    """
+
+    urls: list[str] = []
+    for sitemap_url in sitemap_urls:
+        sitemap_urls_found = get_urls_from_sitemap_xml(sitemap_url)
+        urls.extend([url for url in sitemap_urls_found if url not in urls])  # Ensure no duplicates.
+    if not urls:
+        raise ValueError(f"No URLs found in sitemaps. Please check the sitemap URLs: {sitemap_urls}")
+    print(f"Found {Color.GREEN}{len(urls)} URL(s){Color.OFF} in total from sitemap.")
+
+    if any([contains, skip, take]):
+        urls = filter_urls(urls, contains, skip, take)
+        if not urls:
+            raise ValueError("No URLs left after filtering. Please check your filter parameters.")
+
+    submit_urls_to_index_now(authentication, urls, endpoint)

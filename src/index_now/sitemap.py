@@ -48,8 +48,8 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
 
     Args:
         urls (list[str]): List of URLs to be filtered.
-        contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default and if set to `None`.
-        skip (int | None): Optional number of URLs to be skipped. Ignored by default and if set to `None`.
+        contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default or if set to `None`.
+        skip (int | None): Optional number of URLs to be skipped. Ignored by default or if set to `None`.
         take (int | None): Optional limit of URLs to be taken. Ignored by default and if set to  `None`.
 
     Returns:
@@ -88,8 +88,8 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
     Args:
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
         sitemap_url (str): The URL of the sitemap to submit, e.g. `https://example.com/sitemap.xml`.
-        contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default and if set to `None`.
-        skip (int | None): Optional number of URLs from the sitemap to be skipped. Ignored by default and if set to `None`.
+        contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default or if set to `None`.
+        skip (int | None): Optional number of URLs from the sitemap to be skipped. Ignored by default or if set to `None`.
         take (int | None): Optional limit of URLs from the sitemap to taken. Ignored by default and if set to  `None`.
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 

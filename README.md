@@ -61,9 +61,9 @@ from index_now import submit_sitemap_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(...)
 
-sitemap_url = "https://example.com/sitemap.xml"
+sitemap_location = "https://example.com/sitemap.xml"
 
-submit_sitemap_to_index_now(authentication, sitemap_url)
+submit_sitemap_to_index_now(authentication, sitemap_location)
 ```
 
 ### Submit to Specific Search Engines

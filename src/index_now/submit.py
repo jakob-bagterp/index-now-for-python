@@ -8,7 +8,7 @@ ACCEPTED_STATUS_CODES = [200, 202]
 
 
 def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
-    """Submits a list of URLs to the IndexNow API of a search engine.
+    """Submit a list of URLs to the IndexNow API of a search engine.
 
     Args:
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
@@ -55,7 +55,7 @@ def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, en
 
 
 def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[str], endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
-    """Submits a list of URLs to the IndexNow API of a search engine.
+    """Submit a list of URLs to the IndexNow API of a search engine.
 
     Args:
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.

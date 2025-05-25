@@ -276,8 +276,8 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
 
     urls: list[str] = []
     for sitemap_location in sitemap_locations:
-        sitemap_locations_found = get_urls_from_sitemap_xml(sitemap_location)
-        urls.extend([url for url in sitemap_locations_found if url not in urls])  # Ensure no duplicates.
+        found_urls = get_urls_from_sitemap_xml(sitemap_location)
+        urls = merge_and_remove_duplicates(urls, found_urls)
     if not urls:
         raise ValueError(f"No URLs found in sitemaps. Please check the sitemap locations: {sitemap_locations}")
     print(f"Found {Color.GREEN}{len(urls)} URL(s){Color.OFF} in total from sitemap.")

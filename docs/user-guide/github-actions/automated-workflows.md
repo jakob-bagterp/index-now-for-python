@@ -33,7 +33,7 @@ jobs:
           host: example.com
           api_key: ${{ secrets.INDEX_NOW_API_KEY }}
           api_key_location: https://example.com/${{ secrets.INDEX_NOW_API_KEY }}.txt
-          sitemap_location: https://example.com/sitemap.xml
+          sitemap_locations: https://example.com/sitemap.xml
           endpoint: yandex
 ```
 

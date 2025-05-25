@@ -82,6 +82,20 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
     return urls
 
 
+def merge_and_remove_duplicates(urls1: list[str], urls2: list[str]) -> list[str]:
+    """Merge and remove duplicate URLs from two lists.
+
+    Args:
+        urls1 (list[str]): List of URLs to merge with.
+        urls2 (list[str]): List of URLs to merge with.
+
+    Returns:
+        list[str]: List of URLs with duplicates removed.
+    """
+
+    return sorted(list(set(urls1) | set(urls2)))
+
+
 def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_location: str, contains: str | None = None, skip: int | None = None, take: int | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
     """Submit a sitemap to the IndexNow API of a search engine.
 

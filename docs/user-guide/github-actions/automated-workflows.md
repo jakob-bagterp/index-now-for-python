@@ -37,6 +37,14 @@ jobs:
           endpoint: yandex
 ```
 
+Alternatively, if you would like to submit your sitemap on a schedule, such as once a month, adjust the `on` condition.
+
+```yaml linenums="3" title=".github/workflows/submit_sitemap_to_index_now.yml"
+on:
+  schedule:
+    - cron: 0 0 1 * *  # Run at midnight UTC on the 1st day of each month.
+```
+
 !!! tip
     The [`workflow_run` event](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_run) is used to trigger the workflow after the GitHub Pages build and deployment is completed. This ensures that the sitemap is submitted only after the latest changes are live.
 

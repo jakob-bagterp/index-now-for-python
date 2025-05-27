@@ -133,6 +133,7 @@ jobs:
       name: release
     permissions:
       id-token: write
+
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
@@ -147,6 +148,7 @@ jobs:
     name: Test PyPI installation
     needs: [pypi_publish, details]
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -197,6 +199,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -220,10 +223,11 @@ jobs:
     name: Dispatch event to Homebrew tap repository
     needs: [details, github_release, pypi_publish, test_pypi_installation]
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     environment:
       name: release
+    permissions:
+      contents: write
+
     steps:
       - name: Dispatch repository dispatch event
         uses: peter-evans/repository-dispatch@v3

@@ -23,7 +23,7 @@ class Today(DateRange):
         )
 
     def __repr__(self) -> str:
-        return f"Day(today={self.start})"
+        return f"Today({self.start})"
 
 
 class Day(DateRange):
@@ -50,7 +50,7 @@ class DaysAgo(DateRange):
         self.days_ago = days_ago
 
     def __repr__(self) -> str:
-        return f"DaysAgo(days_ago={self.days_ago})"
+        return f"DaysAgo(days_ago={self.days_ago}, start={self.start}, end={self.end})"
 
 
 class LaterThan(DateRange):
@@ -64,7 +64,7 @@ class LaterThan(DateRange):
         self.date = date
 
     def __repr__(self) -> str:
-        return f"LaterThan(date={self.date})"
+        return f"LaterThan(date={self.date}, start={self.start}, end={self.end})"
 
 
 class EarlierThan(DateRange):
@@ -78,4 +78,4 @@ class EarlierThan(DateRange):
         self.date = date
 
     def __repr__(self) -> str:
-        return f"EarlierThan(date={self.date})"
+        return f"EarlierThan(date={self.date}, start={self.start}, end={self.end})"

@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 class DateRange(ABC):
     """A date range for filtering sitemap URLs."""
 
+    __slots__ = ["start", "end"]
+
     def __init__(self, start: datetime, end: datetime) -> None:
         self.start: datetime = start
         self.end: datetime = end
@@ -47,6 +49,8 @@ class Day(DateRange):
 class DaysAgo(DateRange):
     """A number of days ago from today as range for filtering sitemap URLs."""
 
+    __slots__ = ["start", "end", "days_ago"]
+
     def __init__(self, days_ago: int) -> None:
         super().__init__(
             start=datetime.now() - timedelta(days=days_ago),
@@ -61,6 +65,8 @@ class DaysAgo(DateRange):
 class LaterThan(DateRange):
     """Period of time after a specific date as range for filtering sitemap URLs."""
 
+    __slots__ = ["start", "end", "date"]
+
     def __init__(self, date: datetime) -> None:
         super().__init__(
             start=date,
@@ -74,6 +80,8 @@ class LaterThan(DateRange):
 
 class EarlierThan(DateRange):
     """Period of time before a specific date as range for filtering sitemap URLs."""
+
+    __slots__ = ["start", "end", "date"]
 
     def __init__(self, date: datetime) -> None:
         super().__init__(

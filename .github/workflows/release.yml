@@ -214,6 +214,8 @@ jobs:
     name: Dispatch event to Homebrew tap repository
     needs: [details, github_release, pypi_publish, test_pypi_installation]
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     environment:
       name: release
     steps:

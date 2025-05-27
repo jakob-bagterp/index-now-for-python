@@ -1,7 +1,8 @@
 import pytest
 from _helper.sitemap import get_mock_sitemap_content
 
-from index_now.sitemap import filter_urls, parse_sitemap_xml_and_get_urls
+from index_now.sitemap.submit import (filter_urls,
+                                      parse_sitemap_xml_and_get_urls)
 
 TEST_URLS = parse_sitemap_xml_and_get_urls(get_mock_sitemap_content())
 

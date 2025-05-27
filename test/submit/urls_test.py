@@ -5,7 +5,7 @@ from _mock_data.website import (INDEX_NOW_FOR_PYTHON,
 from colorist import Color
 
 from index_now import SearchEngineEndpoint, submit_urls_to_index_now
-from index_now.sitemap import get_urls_from_sitemap_xml
+from index_now.sitemap.submit import get_urls_from_sitemap_xml
 
 INDEX_NOW_FOR_PYTHON_SITEMAP_LOCATIONS = get_urls_from_sitemap_xml(INDEX_NOW_FOR_PYTHON.sitemap_location)
 

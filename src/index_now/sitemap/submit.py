@@ -5,9 +5,9 @@ import lxml.etree
 import requests
 from colorist import Color
 
-from .authentication import IndexNowAuthentication
-from .endpoint import SearchEngineEndpoint
-from .url.submit import submit_urls_to_index_now
+from ..authentication import IndexNowAuthentication
+from ..endpoint import SearchEngineEndpoint
+from ..url.submit import submit_urls_to_index_now
 
 
 def get_urls_from_sitemap_xml(sitemap_location: str) -> list[str]:

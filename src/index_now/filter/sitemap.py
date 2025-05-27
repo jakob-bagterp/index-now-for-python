@@ -1,7 +1,8 @@
 from abc import ABC
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from enum import Enum, unique
+
+from .change_frequency import ChangeFrequency
 
 
 class DateRange(ABC):
@@ -81,19 +82,6 @@ class EarlierThan(DateRange):
 
     def __repr__(self) -> str:
         return f"EarlierThan(date={self.date})"
-
-
-@unique
-class ChangeFrequency(Enum):
-    """The change frequency of a sitemap URL, e.g. `<changefreq>monthly</changefreq>`, and is used to indicate to a crawler how often the resource is expected to change. Reference: https://www.sitemaps.org/protocol.html#xmlTagDefinitions"""
-
-    ALWYAS = "always"
-    HOURLY = "hourly"
-    DAILY = "daily"
-    WEEKLY = "weekly"
-    MONTHLY = "monthly"
-    YEARLY = "yearly"
-    NEVER = "never"
 
 
 @dataclass(slots=True, frozen=True)

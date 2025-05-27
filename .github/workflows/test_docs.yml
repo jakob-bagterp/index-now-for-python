@@ -1,8 +1,5 @@
 name: Test MkDocs
 
-permissions:
-  contents: read
-
 on:
   pull_request:
     branches:
@@ -10,6 +7,9 @@ on:
   push:
     branches:
       - master
+
+permissions:
+  contents: read
 
 jobs:
   test-docs-build:

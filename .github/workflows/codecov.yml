@@ -1,4 +1,6 @@
 name: CodeCov
+permissions:
+  contents: read
 
 on:
   push:

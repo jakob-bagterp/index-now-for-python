@@ -1,11 +1,12 @@
 name: CodeCov
-permissions:
-  contents: read
 
 on:
   push:
     branches:
       - master
+
+permissions:
+  contents: read
 
 jobs:
   codecov:

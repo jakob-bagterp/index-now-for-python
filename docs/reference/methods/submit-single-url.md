@@ -10,4 +10,4 @@ tags:
 # Submit Single URL to the IndexNow API
 ## `submit_url_to_index_now()`
 
-::: index_now.submit.submit_url_to_index_now
+::: index_now.submit.url.submit_url_to_index_now

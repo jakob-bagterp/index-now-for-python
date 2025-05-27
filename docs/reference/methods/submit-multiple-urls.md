@@ -10,4 +10,4 @@ tags:
 # Submit Multiple URLs in Bulk to the IndexNow API
 ## `submit_urls_to_index_now()`
 
-::: index_now.submit.submit_urls_to_index_now
+::: index_now.submit.url.submit_urls_to_index_now

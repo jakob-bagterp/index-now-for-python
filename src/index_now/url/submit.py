@@ -1,8 +1,8 @@
 import requests
 from colorist import Color
 
-from .authentication import IndexNowAuthentication
-from .endpoint import SearchEngineEndpoint
+from ..authentication import IndexNowAuthentication
+from ..endpoint import SearchEngineEndpoint
 
 ACCEPTED_STATUS_CODES = [200, 202]
 

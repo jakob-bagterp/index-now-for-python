@@ -24,7 +24,7 @@ nav:
     - How to Submit:
       - Single URL: user-guide/how-to-submit/single-url.md
       - Multiple URLs: user-guide/how-to-submit/multiple-urls.md
-      - Entire Sitemap: user-guide/how-to-submit/sitemap.md
+      - Entire Sitemap or Multiple Sitemaps: user-guide/how-to-submit/sitemap.md
     - Search Engines:
       - Authentication: user-guide/search-engines/authentication.md
       - Default Endpoints: user-guide/search-engines/default-endpoints.md
@@ -39,6 +39,8 @@ nav:
       - Submit Single URL: reference/methods/submit-single-url.md
       - Submit Multiple URLs: reference/methods/submit-multiple-urls.md
       - Submit Entire Sitemap: reference/methods/submit-sitemap.md
+      - Submit Multiple Sitemaps: reference/methods/submit-multiple-sitemaps.md
+      - Generate API Key: reference/methods/generate-api-key.md
     - Configuration:
       - IndexNowAuthentication: reference/configuration/authentication.md
       - SearchEngineEndpoint: reference/configuration/endpoint.md
@@ -185,6 +187,7 @@ plugins:
 
 exclude_docs: |
   /requirements.txt
+  /README.md
 
 watch:
   - src

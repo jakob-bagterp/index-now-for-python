@@ -7,7 +7,7 @@ from colorist import Color
 from index_now import SearchEngineEndpoint, submit_urls_to_index_now
 from index_now.sitemap import get_urls_from_sitemap_xml
 
-INDEX_NOW_FOR_PYTHON_SITEMAP_URLS = get_urls_from_sitemap_xml(INDEX_NOW_FOR_PYTHON.sitemap_url)
+INDEX_NOW_FOR_PYTHON_SITEMAP_LOCATIONS = get_urls_from_sitemap_xml(INDEX_NOW_FOR_PYTHON.sitemap_location)
 
 
 @pytest.mark.parametrize("endpoint", [
@@ -18,8 +18,9 @@ def test_submit_urls_to_various_search_engines(endpoint: SearchEngineEndpoint, c
         pytest.skip(f"Endpoint is temporarily skipped: {endpoint}")
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
-    assert len(INDEX_NOW_FOR_PYTHON_SITEMAP_URLS) > 10
-    submit_urls_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON_SITEMAP_URLS, endpoint=endpoint)
+    assert len(INDEX_NOW_FOR_PYTHON_SITEMAP_LOCATIONS) > 10
+    status_code = submit_urls_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON_SITEMAP_LOCATIONS, endpoint=endpoint)
+    assert status_code in [200, 202]
     terminal_output, _ = capfd.readouterr()
     assert f"URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}" in terminal_output
     assert f"Status code: {Color.GREEN}200{Color.OFF}" or f"Status code: {Color.GREEN}202{Color.OFF}" in terminal_output
@@ -29,7 +30,8 @@ def test_submit_urls_error_handling_of_invalid_api_key(capfd: object) -> None:
     endpoint = SearchEngineEndpoint.BING
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
-    submit_urls_to_index_now(INDEX_NOW_FOR_PYTHON_INVALID_API_KEY.authentication, ["https://jakob-bagterp.github.io/invalid-url/"], endpoint=endpoint)
+    status_code = submit_urls_to_index_now(INDEX_NOW_FOR_PYTHON_INVALID_API_KEY.authentication, ["https://jakob-bagterp.github.io/invalid-url/"], endpoint=endpoint)
+    assert str(status_code).startswith("4")
     terminal_output, _ = capfd.readouterr()
     assert "Failed to submit URL(s)." in terminal_output
     assert f"Status code: {Color.RED}4" in terminal_output

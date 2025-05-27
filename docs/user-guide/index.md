@@ -14,7 +14,7 @@ How to submit:
 
 * [Single URL](how-to-submit/single-url.md)
 * [Multiple URLs](how-to-submit/multiple-urls.md)
-* [Entire sitemap](how-to-submit/sitemap.md)
+* [Entire sitemap or multiple sitemaps](how-to-submit/sitemap.md)
 
 How to use submit URLs to different search engines:
 
@@ -28,7 +28,7 @@ How to use automated workflows:
 
 Tips and tricks:
 
-* [Generate API keys](tips-and-tricks/generate-api-keys.md)
+* [Generate custom API keys](tips-and-tricks/generate-api-keys.md)
 
 ## Support the Project
 

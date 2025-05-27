@@ -1,4 +1,4 @@
-[![Latest version](https://img.shields.io/static/v1?label=version&message=0.1.3&color=yellowgreen)](https://github.com/jakob-bagterp/index-now-for-python/releases/latest)
+[![Latest version](https://img.shields.io/static/v1?label=version&message=0.1.6&color=yellowgreen)](https://github.com/jakob-bagterp/index-now-for-python/releases/latest)
 [![Python 3.10 | 3.11 | 3.12 | 3.13+](https://img.shields.io/static/v1?label=python&message=3.10%20|%203.11%20|%203.12%20|%203.13%2B&color=blueviolet)](https://www.python.org)
 [![MIT license](https://img.shields.io/static/v1?label=license&message=MIT&color=blue)](https://github.com/jakob-bagterp/index-now-for-python/blob/master/LICENSE.md)
 [![Codecov](https://codecov.io/gh/jakob-bagterp/index-now-for-python/branch/master/graph/badge.svg?token=SGVMPJ1JWI)](https://codecov.io/gh/jakob-bagterp/index-now-for-python)
@@ -61,9 +61,9 @@ from index_now import submit_sitemap_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(...)
 
-sitemap_url = "https://example.com/sitemap.xml"
+sitemap_location = "https://example.com/sitemap.xml"
 
-submit_sitemap_to_index_now(authentication, sitemap_url)
+submit_sitemap_to_index_now(authentication, sitemap_location)
 ```
 
 ### Submit to Specific Search Engines

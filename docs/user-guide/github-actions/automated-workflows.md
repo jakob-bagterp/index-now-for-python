@@ -7,10 +7,64 @@ tags:
 ---
 
 # Workflow Automation with GitHub Actions
-If you're using [GitHub Actions](https://github.com/features/actions) to build and deploy your website, you can automate the process of submitting your sitemap to the IndexNow API. This is particularly useful if you have a large number of pages on your site and want to submit them all at once when you deploy your site.
+If you're using [GitHub Actions](https://github.com/features/actions) to build and deploy your site, you can automate the process of submitting your sitemap to the IndexNow API. This is particularly useful if you have a large number of pages on your site and want to submit them all at once when you deploy your site.
 
 ## How to Automatically Submit a Sitemap to IndexNow
-Put a YAML workflow file in the `.github/workflows` directory of your repository. We want the workflow to be triggered every time you push to the `master` branch or create a pull request to the `master` branch, and we will then execute the [`submit_sitemap_to_index_now()`](../../reference/methods/submit-sitemap.md) method.
+### GitHub Pages
+For users of [GitHub Pages](https://pages.github.com), the easiest way to build and deploy your site is to use the existing [`index-now-submit-sitemap-urls-action` workflow](https://github.com/marketplace/actions/index-now-submit-sitemap-urls-action), as it's based on that package. This will also work if you're using [MkDocs](https://www.mkdocs.org) to build your site with GitHub Pages, but will probably work in many other cases as well.
+
+All you need to do is adapt the example below to your needs:
+
+```yaml linenums="1" title=".github/workflows/submit_sitemap_to_index_now.yml"
+name: Submit Sitemap to IndexNow
+
+on:
+  workflow_run:
+    workflows: [pages-build-deployment]
+    types: [completed]
+
+jobs:
+  submit-sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit sitemap URLs to IndexNow
+        uses: jakob-bagterp/index-now-submit-sitemap-urls-action@v1
+        with:
+          host: example.com
+          api_key: ${{ secrets.INDEX_NOW_API_KEY }}
+          api_key_location: https://example.com/${{ secrets.INDEX_NOW_API_KEY }}.txt
+          sitemap_locations: https://example.com/sitemap.xml
+          endpoint: yandex
+```
+
+Alternatively, if you would like to submit your sitemap on a schedule, such as once a month, adjust the `on` condition.
+
+```yaml linenums="3" title=".github/workflows/submit_sitemap_to_index_now.yml"
+on:
+  schedule:
+    - cron: 0 0 1 * *  # Run at midnight UTC on the 1st day of each month.
+```
+
+!!! tip
+    The [`workflow_run` event](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#workflow_run) is used to trigger the workflow after the GitHub Pages build and deployment is completed. This ensures that the sitemap is submitted only after the latest changes are live.
+
+    ```yaml linenums="3" title=".github/workflows/submit_sitemap_to_index_now.yml"
+    on:
+      workflow_run:
+        workflows: [pages-build-deployment]
+        types: [completed]
+    ```
+
+!!! abstract "Checklist"
+    Before running the workflow, make sure you have done the following:
+
+    - Added the API key `INDEX_NOW_API_KEY` as a [secret to your repository](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions).
+    - Uploaded the API key to the location specified in the `api_key_location` parameter.
+    - Updated the URL of the sitemap in the `sitemap_location` parameter.
+    - Adjusted the `host`, `endpoint`, and other parameters to suit your needs.
+
+### Custom GitHub Actions Workflow
+You can customise your workflow even more, though the starting point is the same: Put a YAML workflow file in the `.github/workflows` directory of your repository. We want the workflow to be triggered every time you push to the `master` branch or create a pull request to the `master` branch, and we will then execute the [`submit_sitemap_to_index_now()`](../../reference/methods/submit-sitemap.md) method.
 
 Example of a workflow file:
 
@@ -52,16 +106,8 @@ jobs:
             submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml", endpoint=SearchEngineEndpoint.YANDEX)
 ```
 
-!!! abstract "Checklist"
-    Before running the workflow, make sure you have done the following:
-
-    - Added the API key `INDEX_NOW_API_KEY` as a [secret to your repository](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions).
-    - Uploaded the API key to the location specified in the `api_key_location` parameter.
-    - Updated the sitemap URL in the `sitemap_url` parameter.
-    - Adjusted the `host`, `endpoint`, and other parameters to suit your needs.
-
 ## Event-Triggered Workflows
-Imagine that the sitemap is submitted before a website deployment is complete. We don't want this to happen, otherwise we won't be using the most up-to-date sitemap.
+Imagine that the sitemap is submitted before a site deployment is complete. We don't want this to happen, otherwise we won't be using the most up-to-date sitemap.
 
 There are several ways to trigger workflows in GitHub Actions. The most common options in this context are:
 
@@ -75,11 +121,6 @@ There are several ways to trigger workflows in GitHub Actions. The most common o
     on:
       workflow_run:
         workflows: ["Deploy Website"]
-        branches: master
-        types: completed
+        branches: [master]
+        types: [completed]
     ```
-
-### MkDocs and GitHub Pages
-If you are using [MkDocs](https://www.mkdocs.org) to build a website is hosted on [GitHub Pages](https://pages.github.com), it is a good idea to use the [`workflow_run`](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#workflow_run) event to trigger the workflow after deploying your website.
-
-Find an example [here](https://github.com/jakob-bagterp/index-now-for-python/blob/master/.github/workflows/submit_sitemap_to_index_now.yml).

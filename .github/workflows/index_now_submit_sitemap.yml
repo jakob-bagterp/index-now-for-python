@@ -1,0 +1,21 @@
+name: Submit Sitemap to IndexNow
+
+on:
+  schedule:
+    - cron: 0 0 1 * *  # Run at midnight UTC on the 1st day of each month.
+
+permissions: read-all
+
+jobs:
+  submit-sitemap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Submit sitemap URLs to IndexNow
+        uses: jakob-bagterp/index-now-submit-sitemap-urls-action@v1
+        with:
+          host: jakob-bagterp.github.io
+          api_key: 6d71a14ac15c4c41a0c19e641f659208
+          api_key_location: https://jakob-bagterp.github.io/index-now-api-key.txt
+          sitemap_locations: https://jakob-bagterp.github.io/index-now-for-python/sitemap.xml
+          endpoint: yandex

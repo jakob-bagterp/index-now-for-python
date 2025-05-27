@@ -14,6 +14,7 @@ How to submit:
 * [Single URL](methods/submit-single-url.md)
 * [Multiple URLs](methods/submit-multiple-urls.md)
 * [Entire sitemap](methods/submit-sitemap.md)
+* [Multiple sitemaps](methods/submit-multiple-sitemaps.md)
 
 Configuration:
 

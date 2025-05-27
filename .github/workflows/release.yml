@@ -148,6 +148,8 @@ jobs:
     name: Test PyPI installation
     needs: [pypi_publish, details]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4

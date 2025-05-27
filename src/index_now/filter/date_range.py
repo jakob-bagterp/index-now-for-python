@@ -12,6 +12,11 @@ class DateRange(ABC):
     def __repr__(self) -> str:
         return f"DateRange(start={self.start}, end={self.end})"
 
+    def is_within_range(self, date: datetime) -> bool:
+        """Check if a given date is within the date range."""
+
+        return self.start <= date <= self.end
+
 
 class Today(DateRange):
     """Today as range for filtering sitemap URLs."""

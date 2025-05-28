@@ -46,7 +46,7 @@ def filter_sitemap_urls(urls: list[SitemapUrl], filter: SitemapFilter) -> list[s
         return []
 
     if filter.change_frequency is not None:
-        urls = [url for url in urls if url.changefreq == filter.change_frequency]
+        urls = [url for url in urls if url.changefreq and url.changefreq.lower() == filter.change_frequency.value.lower()]
 
     if filter.date_range is not None:
         urls = [url for url in urls if url.lastmod and filter.date_range.is_within_range(datetime.fromisoformat(url.lastmod))]

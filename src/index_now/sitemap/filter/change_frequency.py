@@ -12,3 +12,6 @@ class ChangeFrequency(Enum):
     MONTHLY = "monthly"
     YEARLY = "yearly"
     NEVER = "never"
+
+    def __str__(self) -> str:
+        return str(self.value.lower())

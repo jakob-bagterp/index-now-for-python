@@ -12,7 +12,7 @@ class DateRange(ABC):
         self.end: datetime = end
 
     def __repr__(self) -> str:
-        return f"DateRange(start={self.start}, end={self.end})"
+        return f"DateRange(start={self.start.date()}, end={self.end.date()})"
 
     def is_within_range(self, date: datetime) -> bool:
         """Check if a given date is within the date range."""
@@ -30,7 +30,7 @@ class Today(DateRange):
         )
 
     def __repr__(self) -> str:
-        return f"Today({self.start})"
+        return f"Today({self.start.date()})"
 
 
 class Day(DateRange):
@@ -43,7 +43,7 @@ class Day(DateRange):
         )
 
     def __repr__(self) -> str:
-        return f"Day(day={self.start})"
+        return f"Day(day={self.start.date()})"
 
 
 class DaysAgo(DateRange):
@@ -59,7 +59,7 @@ class DaysAgo(DateRange):
         self.days_ago = days_ago
 
     def __repr__(self) -> str:
-        return f"DaysAgo(days_ago={self.days_ago}, start={self.start}, end={self.end})"
+        return f"DaysAgo(days_ago={self.days_ago}, start={self.start.date()}, end={self.end.date()})"
 
 
 class LaterThan(DateRange):
@@ -75,7 +75,7 @@ class LaterThan(DateRange):
         self.date = date
 
     def __repr__(self) -> str:
-        return f"LaterThan(date={self.date}, start={self.start}, end={self.end})"
+        return f"LaterThan(date={self.date.date()}, start={self.start.date()}, end={self.end.date()})"
 
 
 class EarlierThan(DateRange):
@@ -91,4 +91,4 @@ class EarlierThan(DateRange):
         self.date = date
 
     def __repr__(self) -> str:
-        return f"EarlierThan(date={self.date}, start={self.start}, end={self.end})"
+        return f"EarlierThan(date={self.date.date()}, start={self.start.date()}, end={self.end.date()})"

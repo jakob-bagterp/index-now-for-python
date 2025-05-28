@@ -1,6 +1,6 @@
 import pytest
 
-from index_now.sitemap.submit import merge_and_remove_duplicates
+from index_now.sitemap.filter.sitemap import merge_and_remove_duplicates
 
 URLS_1 = ["https://example.com", "https://example.com/section1", "https://example.com/section1/page1", "https://example.com/section1/page2", "https://example.com/section2"]
 URLS_2 = ["https://example.com", "https://example.com/section1", "https://example.com/section2", "https://example.com/section3"]

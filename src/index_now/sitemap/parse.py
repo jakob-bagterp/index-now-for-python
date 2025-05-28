@@ -38,11 +38,11 @@ def parse_sitemap_xml_and_get_urls_as_elements(sitemap_content: str | bytes | An
         urls: list[SitemapUrl] = []
         sitemap_tree = lxml.etree.fromstring(sitemap_content)
         sitemap_urls = sitemap_tree.xpath("//ns:url", namespaces=SITEMAP_SCHEMA_NAMESPACE)
-        for sitemap_url in sitemap_urls:
-            loc = sitemap_url.xpath("ns:loc/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)[0].strip()
-            lastmod = next(iter(sitemap_url.xpath("ns:lastmod/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
-            changefreq = next(iter(sitemap_url.xpath("ns:changefreq/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
-            priority = next(iter(sitemap_url.xpath("ns:priority/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
+        for sitemap_url in sitemap_urls:  # type: ignore
+            loc = sitemap_url.xpath("ns:loc/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)[0].strip()  # type: ignore
+            lastmod = next(iter(sitemap_url.xpath("ns:lastmod/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)  # type: ignore
+            changefreq = next(iter(sitemap_url.xpath("ns:changefreq/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)  # type: ignore
+            priority = next(iter(sitemap_url.xpath("ns:priority/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)  # type: ignore
             url = SitemapUrl(
                 loc=str(loc),
                 lastmod=str(lastmod) if lastmod else None,

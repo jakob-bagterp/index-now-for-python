@@ -69,13 +69,18 @@ class LaterThan(DateRange):
 
     def __init__(self, date: datetime) -> None:
         super().__init__(
-            start=date + timedelta(days=1),
-            end=datetime.today(),
+            start=date,
+            end=datetime.max,
         )
         self.date = date
 
     def __repr__(self) -> str:
         return f"LaterThan(date={self.date.date()}, start={self.start.date()}, end={self.end.date()})"
+
+    def is_within_range(self, date: datetime) -> bool:
+        """Check if a given date is within the date range."""
+
+        return self.start.date() < date.date()
 
 
 class LaterThanAndIncluding(DateRange):
@@ -86,12 +91,17 @@ class LaterThanAndIncluding(DateRange):
     def __init__(self, date: datetime) -> None:
         super().__init__(
             start=date,
-            end=datetime.today(),
+            end=datetime.max,
         )
         self.date = date
 
     def __repr__(self) -> str:
         return f"LaterThan(date={self.date.date()}, start={self.start.date()}, end={self.end.date()})"
+
+    def is_within_range(self, date: datetime) -> bool:
+        """Check if a given date is within the date range."""
+
+        return self.start.date() <= date.date()
 
 
 class EarlierThan(DateRange):
@@ -102,12 +112,17 @@ class EarlierThan(DateRange):
     def __init__(self, date: datetime) -> None:
         super().__init__(
             start=datetime.min,
-            end=date - timedelta(days=1),
+            end=date,
         )
         self.date = date
 
     def __repr__(self) -> str:
         return f"EarlierThan(date={self.date.date()}, start={self.start.date()}, end={self.end.date()})"
+
+    def is_within_range(self, date: datetime) -> bool:
+        """Check if a given date is within the date range."""
+
+        return date.date() < self.end.date()
 
 
 class EarlierThanAndIncluding(DateRange):
@@ -124,3 +139,8 @@ class EarlierThanAndIncluding(DateRange):
 
     def __repr__(self) -> str:
         return f"EarlierThan(date={self.date.date()}, start={self.start.date()}, end={self.end.date()})"
+
+    def is_within_range(self, date: datetime) -> bool:
+        """Check if a given date is within the date range."""
+
+        return date.date() <= self.end.date()

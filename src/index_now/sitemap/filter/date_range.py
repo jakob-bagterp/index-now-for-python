@@ -69,6 +69,22 @@ class LaterThan(DateRange):
 
     def __init__(self, date: datetime) -> None:
         super().__init__(
+            start=date - timedelta(days=1),
+            end=datetime.now(),
+        )
+        self.date = date
+
+    def __repr__(self) -> str:
+        return f"LaterThan(date={self.date.date()}, start={self.start.date()}, end={self.end.date()})"
+
+
+class LaterThanAndIncluding(DateRange):
+    """Period of time after and including a specific date as range for filtering sitemap URLs."""
+
+    __slots__ = ["start", "end", "date"]
+
+    def __init__(self, date: datetime) -> None:
+        super().__init__(
             start=date,
             end=datetime.now(),
         )
@@ -80,6 +96,22 @@ class LaterThan(DateRange):
 
 class EarlierThan(DateRange):
     """Period of time before a specific date as range for filtering sitemap URLs."""
+
+    __slots__ = ["start", "end", "date"]
+
+    def __init__(self, date: datetime) -> None:
+        super().__init__(
+            start=datetime.min,
+            end=date - timedelta(days=1),
+        )
+        self.date = date
+
+    def __repr__(self) -> str:
+        return f"EarlierThan(date={self.date.date()}, start={self.start.date()}, end={self.end.date()})"
+
+
+class EarlierThanAndIncluding(DateRange):
+    """Period of time before and including a specific date as range for filtering sitemap URLs."""
 
     __slots__ = ["start", "end", "date"]
 

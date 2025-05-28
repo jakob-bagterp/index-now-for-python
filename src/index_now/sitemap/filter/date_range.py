@@ -69,7 +69,7 @@ class LaterThan(DateRange):
 
     def __init__(self, date: datetime) -> None:
         super().__init__(
-            start=date - timedelta(days=1),
+            start=date + timedelta(days=1),
             end=datetime.today(),
         )
         self.date = date

@@ -43,12 +43,13 @@ def parse_sitemap_xml_and_get_urls_as_elements(sitemap_content: str | bytes | An
             lastmod = next(iter(sitemap_url.xpath("ns:lastmod/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
             changefreq = next(iter(sitemap_url.xpath("ns:changefreq/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
             priority = next(iter(sitemap_url.xpath("ns:priority/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
-            urls.append(SitemapUrl(
+            url = SitemapUrl(
                 loc=str(loc),
                 lastmod=str(lastmod) if lastmod else None,
                 changefreq=str(changefreq) if changefreq else None,
                 priority=float(priority) if priority is not None else None
-            ))
+            )
+            urls.append(url)
         return urls
     except Exception:
         print(f"{Color.YELLOW}Invalid sitemap.xml format during parsing. Please check the sitemap location.{Color.OFF}")

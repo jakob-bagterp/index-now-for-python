@@ -20,6 +20,24 @@ class DateRange(ABC):
         return self.start.date() <= date.date() <= self.end.date()
 
 
+class Between(DateRange):
+    """A date range between two not included dates for filtering sitemap URLs."""
+
+    __slots__ = ["start", "end"]
+
+    def __init__(self, start: datetime, end: datetime) -> None:
+        self.start: datetime = start
+        self.end: datetime = end
+
+    def __repr__(self) -> str:
+        return f"Between(start={self.start.date()}, end={self.end.date()})"
+
+    def is_within_range(self, date: datetime) -> bool:
+        """Check if a given date is within the date range."""
+
+        return self.start.date() < date.date() < self.end.date()
+
+
 class Today(DateRange):
     """Today as range for filtering sitemap URLs."""
 

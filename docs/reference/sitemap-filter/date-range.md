@@ -7,56 +7,48 @@ tags:
 ---
 
 # Date Range Filter Options
-## `DateRange`
 
+## `DateRange`
 ::: index_now.sitemap.filter.date_range.DateRange
     options:
         members: false
 
 ## `Between`
-
 ::: index_now.sitemap.filter.date_range.Between
     options:
         members: false
 
 ## `Today`
-
 ::: index_now.sitemap.filter.date_range.Today
     options:
         members: false
 
 ## `Day`
-
 ::: index_now.sitemap.filter.date_range.Day
     options:
         members: false
 
 ## `DaysAgo`
-
 ::: index_now.sitemap.filter.date_range.DaysAgo
     options:
         members: false
 
 ## `LaterThan`
-
 ::: index_now.sitemap.filter.date_range.LaterThan
     options:
         members: false
 
 ## `LaterThanAndIncluding`
-
 ::: index_now.sitemap.filter.date_range.LaterThanAndIncluding
     options:
         members: false
 
 ## `EarlierThan`
-
 ::: index_now.sitemap.filter.date_range.EarlierThan
     options:
         members: false
 
 ## `EarlierThanAndIncluding`
-
 ::: index_now.sitemap.filter.date_range.EarlierThanAndIncluding
     options:
         members: false

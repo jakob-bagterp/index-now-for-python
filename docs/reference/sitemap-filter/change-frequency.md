@@ -7,6 +7,6 @@ tags:
 ---
 
 # Change Frequency Filter Options
-## `ChangeFrequency`
 
+## `ChangeFrequency`
 ::: index_now.sitemap.filter.change_frequency.ChangeFrequency

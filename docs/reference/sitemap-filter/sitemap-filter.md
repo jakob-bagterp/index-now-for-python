@@ -8,6 +8,6 @@ tags:
 
 
 # Sitemap Filter Settings
-## `SitemapFilter`
 
+## `SitemapFilter`
 ::: index_now.sitemap.filter.sitemap.SitemapFilter

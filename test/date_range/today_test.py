@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from index_now.sitemap.filter.date_range import Today
+from index_now import Today
 
 
 @pytest.mark.parametrize("date_to_check, expected", [

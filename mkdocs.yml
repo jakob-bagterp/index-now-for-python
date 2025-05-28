@@ -41,6 +41,10 @@ nav:
       - Submit Entire Sitemap: reference/methods/submit-sitemap.md
       - Submit Multiple Sitemaps: reference/methods/submit-multiple-sitemaps.md
       - Generate API Key: reference/methods/generate-api-key.md
+    - Sitemap Filter:
+      - SitemapFilter: reference/sitemap-filter/sitemap-filter.md
+      - DateRange: reference/sitemap-filter/date-range.md
+      - ChangeFrequency: reference/sitemap-filter/change-frequency.md
     - Configuration:
       - IndexNowAuthentication: reference/configuration/authentication.md
       - SearchEngineEndpoint: reference/configuration/endpoint.md

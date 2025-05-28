@@ -11,7 +11,7 @@ from .date_range import DateRange
 
 @dataclass(slots=True, frozen=True)
 class SitemapFilter:
-    """Configuration class for filtering sitemap URLs based text, change frequency, date, and more.
+    """Configuration class for filtering sitemap URLs based on text, change frequency, date ranges and other criteria.
 
     Attributes:
         change_frequency (ChangeFrequency | None): Optional filter for URLs based on change frequency. Ignored by default or if set to `None`.
@@ -20,6 +20,69 @@ class SitemapFilter:
         excludes (str | None): Optional filter for URLs. Can be simple string (e.g. `"not-include-this"`) or regular expression (e.g. `r"(not-include-this)|(not-include-that)"`). Ignored by default or if set to `None`.
         skip (int | None): Optional number of URLs to be skipped. Ignored by default or if set to `None`.
         take (int | None): Optional limit of URLs to be taken. Ignored by default or if set to `None`.
+
+    Example:
+        Get all URLs containing `section1`:
+
+        ```python linenums="1"
+        from index_now import SitemapFilter
+
+        filter = SitemapFilter(contains="section1")
+        ```
+
+        Get all URLs that contain either `section1` or `section2`:
+
+        ```python linenums="1"
+        from index_now import SitemapFilter
+
+        filter = SitemapFilter(contains=r"(section1)|(section2)")
+        ```
+
+        Exclude any URL that contains `section3`:
+
+        ```python linenums="1"
+        from index_now import SitemapFilter
+
+        filter = SitemapFilter(excludes="section3")
+        ```
+
+        Only the URLs modified within the past 2 days:
+
+        ```python linenums="1"
+        from index_now import SitemapFilter, DaysAgo
+
+        filter = SitemapFilter(date_range=DaysAgo(days_ago=2))
+        ```
+
+        Get all URLs from January, 2025:
+
+        ```python linenums="1"
+        from datetime import datetime
+        from index_now import SitemapFilter, DateRange
+
+        january_2025 = DateRange(
+            start=datetime(2025, 1, 1),
+            end=datetime(2025, 1, 31),
+        )
+
+        filter = SitemapFilter(date_range=january_2025)
+        ```
+
+        Get all URLs with a change frequency set to `daily`:
+
+        ```python linenums="1"
+        from index_now import SitemapFilter, ChangeFrequency
+
+        filter = SitemapFilter(change_frequency=ChangeFrequency.DAILY)
+        ```
+
+        From a large sitemap, skip the first 10 URLs and take the next 20 URLs:
+
+        ```python linenums="1"
+        from index_now import SitemapFilter
+
+        filter = SitemapFilter(skip=10, take=20)
+        ```
     """
 
     change_frequency: ChangeFrequency | None = None

@@ -3,19 +3,19 @@ from colorist import Color
 from ..authentication import IndexNowAuthentication
 from ..endpoint import SearchEngineEndpoint
 from ..url.submit import submit_urls_to_index_now
-from .filter.sitemap import filter_urls, merge_and_remove_duplicates
-from .get import get_urls_from_sitemap_xml
+from .filter.sitemap import SitemapFilter, filter_sitemap_urls
+from .get import get_sitemap_xml
+from .parse import (parse_sitemap_xml_and_get_urls,
+                    parse_sitemap_xml_and_get_urls_as_elements)
 
 
-def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_location: str, contains: str | None = None, skip: int | None = None, take: int | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
+def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_location: str, filter: SitemapFilter | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
     """Submit a sitemap to the IndexNow API of a search engine.
 
     Args:
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
         sitemap_location (str): The URL of the sitemap to submit, e.g. `https://example.com/sitemap.xml`.
-        contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default or if set to `None`.
-        skip (int | None): Optional number of URLs from the sitemap to be skipped. Ignored by default or if set to `None`.
-        take (int | None): Optional limit of URLs from the sitemap to taken. Ignored by default and if set to  `None`.
+        filter (SitemapFilter | None): Optional filter for URLs. Ignored by default or if set to `None`.
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 
     Returns:
@@ -85,29 +85,30 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         ```
     """
 
-    urls = get_urls_from_sitemap_xml(sitemap_location)
-    if not urls:
-        raise ValueError(f"No URLs found in sitemap. Please check the sitemap location: {sitemap_location}")
-    print(f"Found {Color.GREEN}{len(urls)} URL(s){Color.OFF} in total from sitemap.")
-
-    if any([contains, skip, take]):
-        urls = filter_urls(urls, contains, skip, take)
+    urls: list[str] = []
+    sitemap_xml = get_sitemap_xml(sitemap_location)
+    if not filter:
+        urls = parse_sitemap_xml_and_get_urls(sitemap_xml)
+        if not urls:
+            raise ValueError(f"No URLs found in sitemap. Please check the sitemap location: {sitemap_location}")
+    else:
+        url_elements = parse_sitemap_xml_and_get_urls_as_elements(sitemap_xml)
+        urls = filter_sitemap_urls(url_elements, filter)
         if not urls:
             raise ValueError("No URLs left after filtering. Please check your filter parameters.")
+    print(f"Found {Color.GREEN}{len(urls)} URL(s){Color.OFF} in total from sitemap.")
 
     status_code = submit_urls_to_index_now(authentication, urls, endpoint)
     return status_code
 
 
-def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap_locations: list[str], contains: str | None = None, skip: int | None = None, take: int | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
+def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap_locations: list[str], filter: SitemapFilter | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
     """Submit multiple sitemaps to the IndexNow API of a search engine.
 
     Args:
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
         sitemap_locations (list[str]): List of sitemap locations to submit, e.g. `["https://example.com/sitemap1.xml", "https://example.com/sitemap2.xml, "https://example.com/sitemap3.xml"]`.
-        contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default or if set to `None`.
-        skip (int | None): Optional number of URLs from the sitemaps to be skipped. Ignored by default or if set to `None`.
-        take (int | None): Optional limit of URLs from the sitemaps to be taken. Ignored by default or if set to `None`.
+        filter (SitemapFilter | None): Optional filter for URLs. Ignored by default or if set to `None`.
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 
     Returns:
@@ -185,18 +186,20 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
         ```
     """
 
-    urls: list[str] = []
+    merged_urls: list[str] = []
     for sitemap_location in sitemap_locations:
-        found_urls = get_urls_from_sitemap_xml(sitemap_location)
-        urls = merge_and_remove_duplicates(urls, found_urls)
-    if not urls:
+        sitemap_xml = get_sitemap_xml(sitemap_location)
+        if not filter:
+            urls = parse_sitemap_xml_and_get_urls(sitemap_xml)
+            merged_urls.extend(urls)
+        else:
+            url_elements = parse_sitemap_xml_and_get_urls_as_elements(sitemap_xml)
+            merged_urls.extend(filter_sitemap_urls(url_elements, filter))
+            if not merged_urls:
+                raise ValueError("No URLs left after filtering. Please check your filter parameters.")
+    if not merged_urls:
         raise ValueError(f"No URLs found in sitemaps. Please check the sitemap locations: {sitemap_locations}")
-    print(f"Found {Color.GREEN}{len(urls)} URL(s){Color.OFF} in total from sitemap.")
+    print(f"Found {Color.GREEN}{len(merged_urls)} URL(s){Color.OFF} in total from sitemap.")
 
-    if any([contains, skip, take]):
-        urls = filter_urls(urls, contains, skip, take)
-        if not urls:
-            raise ValueError("No URLs left after filtering. Please check your filter parameters.")
-
-    status_code = submit_urls_to_index_now(authentication, urls, endpoint)
+    status_code = submit_urls_to_index_now(authentication, merged_urls, endpoint)
     return status_code

@@ -1,8 +1,10 @@
 import re
 from dataclasses import dataclass
+from datetime import datetime
 
 from colorist import Color
 
+from ..parse import SitemapUrl
 from .change_frequency import ChangeFrequency
 from .date_range import DateRange
 
@@ -28,14 +30,12 @@ class SitemapFilter:
     take: int | None = None
 
 
-def filter_urls(urls: list[str], contains: str | None = None, skip: int | None = None, take: int | None = None) -> list[str]:
+def filter_sitemap_urls(urls: list[SitemapUrl], filter: SitemapFilter) -> list[str]:
     """Filter URLs based on the given criteria.
 
     Args:
-        urls (list[str]): List of URLs to be filtered.
-        contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default or if set to `None`.
-        skip (int | None): Optional number of URLs to be skipped. Ignored by default or if set to `None`.
-        take (int | None): Optional limit of URLs to be taken. Ignored by default and if set to  `None`.
+        urls (list[SitemapUrl]): List of URLs to be filtered.
+        filter (SitemapFilter): Filter for URLs.
 
     Returns:
         list[str]: Filtered list of URLs, or empty list if no URLs are found.
@@ -45,37 +45,36 @@ def filter_urls(urls: list[str], contains: str | None = None, skip: int | None =
         print(f"{Color.YELLOW}No URLs given before filtering.{Color.OFF}")
         return []
 
-    if contains is not None:
-        pattern = re.compile(contains)
-        urls = [url for url in urls if pattern.search(url)]
+    if filter.change_frequency is not None:
+        urls = [url for url in urls if url.changefreq == filter.change_frequency]
+
+    if filter.date_range is not None:
+        urls = [url for url in urls if url.lastmod and filter.date_range.is_within_range(datetime.fromisoformat(url.lastmod))]
+
+    if filter.contains is not None:
+        pattern = re.compile(filter.contains)
+        urls = [url for url in urls if pattern.search(url.loc)]
         if not urls:
-            print(f"{Color.YELLOW}No URLs contained the pattern \"{contains}\".{Color.OFF}")
+            print(f"{Color.YELLOW}No URLs contained the pattern \"{filter.contains}\".{Color.OFF}")
             return []
 
-    if skip is not None:
-        if skip >= len(urls):
-            print(f"{Color.YELLOW}No URLs left after skipping {skip} URL(s) from sitemap.{Color.OFF}")
+    if filter.excludes is not None:
+        pattern = re.compile(filter.excludes)
+        urls = [url for url in urls if not pattern.search(url.loc)]
+        if not urls:
+            print(f"{Color.YELLOW}No URLs left after excluding the pattern \"{filter.excludes}\".{Color.OFF}")
             return []
-        urls = urls[skip:]
 
-    if take is not None:
-        if take <= 0:
+    if filter.skip is not None:
+        if filter.skip >= len(urls):
+            print(f"{Color.YELLOW}No URLs left after skipping {filter.skip} URL(s) from sitemap.{Color.OFF}")
+            return []
+        urls = urls[filter.skip:]
+
+    if filter.take is not None:
+        if filter.take <= 0:
             print(f"{Color.YELLOW}No URLs left. The value for take should be greater than 0.{Color.OFF}")
             return []
-        urls = urls[:take]
+        urls = urls[:filter.take]
 
-    return urls
-
-
-def merge_and_remove_duplicates(urls1: list[str], urls2: list[str]) -> list[str]:
-    """Merge and remove duplicate URLs from two lists.
-
-    Args:
-        urls1 (list[str]): List of URLs to merge with.
-        urls2 (list[str]): List of URLs to merge with.
-
-    Returns:
-        list[str]: List of URLs with duplicates removed.
-    """
-
-    return sorted(list(set(urls1) | set(urls2)))
+    return [url.loc for url in urls]

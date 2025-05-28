@@ -34,7 +34,7 @@ When you want full control over which URLs are submitted to IndexNow, the `Sitem
 </urlset>
 ```
 
-The [date range](date_range.md) filter can ensure that only URLs that has been modified in 2025 are submitted to IndexNow, and furthermore we can exclude any URLs that contain the word `page`. This will effectively submit the URL `https://example.com` to IndexNow because it is the only one that meets these criteria:
+The [date range](date-range.md) filter can ensure that only URLs that has been modified in 2025 are submitted to IndexNow, and furthermore we can exclude any URLs that contain the word `page`. This will effectively submit the URL `https://example.com` to IndexNow because it is the only one that meets these criteria:
 
 ```python linenums="1" hl_lines="4-5"
 from index_now import DateRange, SitemapFilter, submit_sitemap_to_index_now, IndexNowAuthentication

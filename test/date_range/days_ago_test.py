@@ -2,16 +2,23 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from index_now.sitemap.filter.date_range import Day
+from index_now.sitemap.filter.date_range import DaysAgo
 
 
-@pytest.mark.parametrize("date_input, date_to_check, expected", [
-    (datetime.today(), datetime.today(), True),
-    (datetime.now(), datetime.now(), True),
-    (datetime.today() + timedelta(days=1), datetime.today(), False),
-    (datetime.today() - timedelta(days=1), datetime.today(), False),
-    (datetime(2023, 1, 1), datetime.today(), False),
+@pytest.mark.parametrize("days_ago, date_to_check, expected", [
+    (1, datetime.today(), True),
+    (1, datetime.now(), True),
+    (1, datetime.today() + timedelta(days=1), False),  # Tomorrow.
+    (1, datetime.today() - timedelta(days=1), True),  # Yesterday.
+    (1, datetime(2023, 1, 1), False),
+    (2, datetime.today(), True),
+    (2, datetime.now(), True),
+    (2, datetime.today() + timedelta(days=1), False),  # Tomorrow.
+    (2, datetime.today() - timedelta(days=1), True),  # Yesterday.
+    (2, datetime.today() - timedelta(days=2), True),
+    (2, datetime.today() - timedelta(days=3), False),
+    (2, datetime(2023, 1, 1), False),
 ])
-def test_date_range_today(date_input: datetime, date_to_check: datetime, expected: bool) -> None:
-    date_range = Day(date_input)
+def test_date_range_today(days_ago: int, date_to_check: datetime, expected: bool) -> None:
+    date_range = DaysAgo(days_ago)
     assert date_range.is_within_range(date_to_check) == expected

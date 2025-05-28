@@ -51,5 +51,6 @@ submit_sitemap_to_index_now(
     authentication, "https://example.com/sitemap.xml", filter)
 ```
 
-## `ChangeFrequency`
+## Documentation
+### `ChangeFrequency`
 ::: index_now.sitemap.filter.change_frequency.ChangeFrequency

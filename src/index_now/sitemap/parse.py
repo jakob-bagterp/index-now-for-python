@@ -22,8 +22,42 @@ class SitemapUrl:
     priority: float | None = None
 
 
+def parse_sitemap_xml_and_get_urls_as_elements(sitemap_content: str | bytes | Any) -> list[SitemapUrl]:
+    """Parse the contents of a sitemap.xml file, e.g. from a response, and retrieve all the URLs from it as `SitemapUrl` objects.
+
+    Args:
+        content (str | bytes | Any): The content from the sitemap.xml file.
+
+    Returns:
+        list[SitemapUrl]: List of SitemapUrl objects found in the sitemap.xml file, or empty list if no URLs are found.
+    """
+
+    try:
+        urls: list[SitemapUrl] = []
+        sitemap_tree = lxml.etree.fromstring(sitemap_content)
+        sitemap_urls = sitemap_tree.xpath("//ns:url", namespaces={"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
+        for sitemap_url in sitemap_urls:
+            ns = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+            loc = sitemap_url.xpath("ns:loc/text()", namespaces=ns)[0].strip()
+            lastmod = next(iter(sitemap_url.xpath("ns:lastmod/text()", namespaces=ns)), None)
+            changefreq = next(iter(sitemap_url.xpath("ns:changefreq/text()", namespaces=ns)), None)
+            priority_string = next(iter(sitemap_url.xpath("ns:priority/text()", namespaces=ns)), None)
+            priority = float(priority_string) if priority_string is not None else None
+
+            urls.append(SitemapUrl(
+                loc=str(loc),
+                lastmod=str(lastmod) if lastmod else None,
+                changefreq=str(changefreq) if changefreq else None,
+                priority=priority
+            ))
+        return urls
+    except Exception:
+        print(f"{Color.YELLOW}Invalid sitemap.xml format during parsing. Please check the sitemap location.{Color.OFF}")
+        return []
+
+
 def parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any) -> list[str]:
-    """Parse the contents of a sitemap.xml file, e.g. from a response, and retrieve all the URLs from it.
+    """Fastest method to parse the contents of a sitemap.xml file, e.g. from a response, and retrieve all the URLs from it.
 
     Args:
         content (str | bytes | Any): The content from the sitemap.xml file.

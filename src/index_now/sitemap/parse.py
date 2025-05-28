@@ -42,12 +42,12 @@ def parse_sitemap_xml_and_get_urls_as_elements(sitemap_content: str | bytes | An
             loc = sitemap_url.xpath("ns:loc/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)[0].strip()
             lastmod = next(iter(sitemap_url.xpath("ns:lastmod/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
             changefreq = next(iter(sitemap_url.xpath("ns:changefreq/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
-            priority_string = next(iter(sitemap_url.xpath("ns:priority/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
+            priority = next(iter(sitemap_url.xpath("ns:priority/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
             urls.append(SitemapUrl(
                 loc=str(loc),
                 lastmod=str(lastmod) if lastmod else None,
                 changefreq=str(changefreq) if changefreq else None,
-                priority=float(priority_string) if priority_string is not None else None
+                priority=float(priority) if priority is not None else None
             ))
         return urls
     except Exception:

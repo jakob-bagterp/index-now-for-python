@@ -4,6 +4,8 @@ from typing import Any
 import lxml.etree
 from colorist import Color
 
+SITEMAP_SCHEMA_NAMESPACE = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+
 
 @dataclass(slots=True, frozen=True)
 class SitemapUrl:
@@ -35,13 +37,12 @@ def parse_sitemap_xml_and_get_urls_as_elements(sitemap_content: str | bytes | An
     try:
         urls: list[SitemapUrl] = []
         sitemap_tree = lxml.etree.fromstring(sitemap_content)
-        sitemap_urls = sitemap_tree.xpath("//ns:url", namespaces={"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
+        sitemap_urls = sitemap_tree.xpath("//ns:url", namespaces=SITEMAP_SCHEMA_NAMESPACE)
         for sitemap_url in sitemap_urls:
-            ns = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
-            loc = sitemap_url.xpath("ns:loc/text()", namespaces=ns)[0].strip()
-            lastmod = next(iter(sitemap_url.xpath("ns:lastmod/text()", namespaces=ns)), None)
-            changefreq = next(iter(sitemap_url.xpath("ns:changefreq/text()", namespaces=ns)), None)
-            priority_string = next(iter(sitemap_url.xpath("ns:priority/text()", namespaces=ns)), None)
+            loc = sitemap_url.xpath("ns:loc/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)[0].strip()
+            lastmod = next(iter(sitemap_url.xpath("ns:lastmod/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
+            changefreq = next(iter(sitemap_url.xpath("ns:changefreq/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
+            priority_string = next(iter(sitemap_url.xpath("ns:priority/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
             priority = float(priority_string) if priority_string is not None else None
 
             urls.append(SitemapUrl(
@@ -68,7 +69,7 @@ def parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any) -> list[s
 
     try:
         sitemap_tree = lxml.etree.fromstring(sitemap_content)
-        sitemap_urls = sitemap_tree.xpath("//ns:url/ns:loc/text()", namespaces={"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
+        sitemap_urls = sitemap_tree.xpath("//ns:url/ns:loc/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)
         return [str(url).strip() for url in sitemap_urls] if isinstance(sitemap_urls, list) and sitemap_urls else []
     except Exception:
         print(f"{Color.YELLOW}Invalid sitemap.xml format during parsing. Please check the sitemap location.{Color.OFF}")

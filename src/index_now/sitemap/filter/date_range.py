@@ -25,8 +25,8 @@ class Today(DateRange):
 
     def __init__(self) -> None:
         super().__init__(
-            start=datetime.now(),
-            end=datetime.now(),
+            start=datetime.today(),
+            end=datetime.today(),
         )
 
     def __repr__(self) -> str:
@@ -53,8 +53,8 @@ class DaysAgo(DateRange):
 
     def __init__(self, days_ago: int) -> None:
         super().__init__(
-            start=datetime.now() - timedelta(days=days_ago),
-            end=datetime.now(),
+            start=datetime.today() - timedelta(days=days_ago),
+            end=datetime.today(),
         )
         self.days_ago = days_ago
 
@@ -70,7 +70,7 @@ class LaterThan(DateRange):
     def __init__(self, date: datetime) -> None:
         super().__init__(
             start=date - timedelta(days=1),
-            end=datetime.now(),
+            end=datetime.today(),
         )
         self.date = date
 
@@ -86,7 +86,7 @@ class LaterThanAndIncluding(DateRange):
     def __init__(self, date: datetime) -> None:
         super().__init__(
             start=date,
-            end=datetime.now(),
+            end=datetime.today(),
         )
         self.date = date
 

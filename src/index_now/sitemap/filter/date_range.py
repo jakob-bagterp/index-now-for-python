@@ -17,7 +17,7 @@ class DateRange(ABC):
     def is_within_range(self, date: datetime) -> bool:
         """Check if a given date is within the date range."""
 
-        return self.start <= date <= self.end
+        return self.start.date() <= date.date() <= self.end.date()
 
 
 class Today(DateRange):

@@ -36,7 +36,7 @@ Let's image that we have a sitemap with three URLs, each with different last mod
 </urlset>
 ```
 
-With `DateRange` we can target any URLs that have a last modified date of March 1, 2025 or later:
+Using the `LaterThanAndIncluding` date range, we can target any URLs with a last modified date of March 1, 2025 or later:
 
 ```python linenums="1" hl_lines="4-5"
 from datetime import datetime
@@ -54,6 +54,8 @@ authentication = IndexNowAuthentication(
 submit_sitemap_to_index_now(
     authentication, "https://example.com/sitemap.xml", filter)
 ```
+
+This will effectively filter out URLs outside of this date range, ensuring that only the URL  `https://example.com/page2` is submitted to IndexNow.
 
 ## Documentation
 ### `DateRange`

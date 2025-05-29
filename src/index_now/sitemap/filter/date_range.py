@@ -95,6 +95,27 @@ class Today(DateRange):
         return f"Today({self.start.date()})"
 
 
+class Yesterday(DateRange):
+    """Yesterday as range for filtering sitemap URLs.
+
+    Example:
+        ```python linenums="1"
+        from index_now import Yesterday, SitemapFilter
+
+        filter = SitemapFilter(date_range=Yesterday())
+        ```
+    """
+
+    def __init__(self) -> None:
+        super().__init__(
+            start=datetime.today() - timedelta(days=1),
+            end=datetime.today() - timedelta(days=1),
+        )
+
+    def __repr__(self) -> str:
+        return f"Yesterday({self.start.date()})"
+
+
 class Day(DateRange):
     """A specific date for filtering sitemap URLs.
 

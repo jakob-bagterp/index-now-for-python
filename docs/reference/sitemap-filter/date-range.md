@@ -71,6 +71,11 @@ submit_sitemap_to_index_now(
     options:
         members: false
 
+### `Yesterday`
+::: index_now.sitemap.filter.date_range.Yesterday
+    options:
+        members: false
+
 ### `Day`
 ::: index_now.sitemap.filter.date_range.Day
     options:

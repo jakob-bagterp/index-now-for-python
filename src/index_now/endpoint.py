@@ -6,7 +6,7 @@ class SearchEngineEndpoint(Enum):
     """Endpoint options for the [IndexNow API](https://www.indexnow.org/faq).
 
     Attributes:
-        SearchEngineEndpoint.INDEXNOW (Enum): IndexNow default endpoint.
+        SearchEngineEndpoint.INDEXNOW (Enum): [IndexNow](https://www.indexnow.org) default endpoint.
         SearchEngineEndpoint.BING (Enum): [Microsoft Bing](https://www.bing.com).
         SearchEngineEndpoint.NAVER (Enum): [Naver](https://www.naver.com).
         SearchEngineEndpoint.SEZNAM (Enum): [Seznam.cz](https://www.seznam.cz).

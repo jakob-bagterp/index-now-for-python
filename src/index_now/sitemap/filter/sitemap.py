@@ -51,7 +51,7 @@ class SitemapFilter:
         ```python linenums="1"
         from index_now import SitemapFilter, DaysAgo
 
-        filter = SitemapFilter(date_range=DaysAgo(days_ago=2))
+        filter = SitemapFilter(date_range=DaysAgo(2))
         ```
 
         Get all URLs from January, 2025:

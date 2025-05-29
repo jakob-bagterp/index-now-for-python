@@ -63,7 +63,19 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         submit_sitemap_to_index_now(authentication, sitemap_location, filter)
         ```
 
-        Instead of filtering by amount, you can target URLs with a specific pattern using the `contains` parameter:
+        Instead of filtering by amount, you can filter by last modified date using the `date_range` parameter. Firstly, add one of the [date range options](../sitemap-filter/date-range.md) to the imports, e.g. `DaysAgo`:
+
+        ```python linenums="1" title=""
+        from index_now import DaysAgo, submit_sitemaps_to_index_now, IndexNowAuthentication, SitemapFilter
+        ```
+
+        Then use the `date_range` parameter to filter URLs by last modified date:
+
+        ```python linenums="11" hl_lines="1" title=""
+        filter = SitemapFilter(date_range=DaysAgo(2))
+        ```
+
+        Or target URLs with a specific pattern using the `contains` parameter:
 
         ```python linenums="11" hl_lines="1" title=""
         filter = SitemapFilter(contains="section1")
@@ -81,10 +93,11 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         filter = SitemapFilter(excludes="page1")
         ```
 
-        Or combine all the `contains` and `excludes`, `skip` and `take` parameters to filter the URLs even further:
+        Or combine all the `contains` and `excludes`, `skip` and `take`, `date_range` and other parameters to filter the URLs even further:
 
-        ```python linenums="11" hl_lines="1-7" title=""
+        ```python linenums="11" hl_lines="1-8" title=""
         filter = SitemapFilter(
+            date_range=DaysAgo(2),
             contains=r"(section1)|(section2)",
             excludes="page1",
             skip=100,
@@ -172,28 +185,41 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
         submit_sitemaps_to_index_now(authentication, sitemap_location, filter)
         ```
 
-        Instead of filtering by amount, you can target URLs with a specific pattern using the `contains` parameter:
+        Instead of filtering by amount, you can filter by last modified date using the `date_range` parameter. Firstly, add one of the [date range options](../sitemap-filter/date-range.md) to the imports, e.g. `DaysAgo`:
 
-        ```python linenums="11" hl_lines="1" title=""
+        ```python linenums="1" title=""
+        from index_now import DaysAgo, submit_sitemaps_to_index_now, IndexNowAuthentication, SitemapFilter
+        ```
+
+        Then use the `date_range` parameter to filter URLs by last modified date:
+
+        ```python linenums="15" hl_lines="1" title=""
+        filter = SitemapFilter(date_range=DaysAgo(2))
+        ```
+
+        Or target URLs with a specific pattern using the `contains` parameter:
+
+        ```python linenums="15" hl_lines="1" title=""
         filter = SitemapFilter(contains="section1")
         ```
 
         The `contains` parameter also accepts regular expressions for more advanced filtering:
 
-        ```python linenums="11" hl_lines="1" title=""
+        ```python linenums="15" hl_lines="1" title=""
         filter = SitemapFilter(contains=r"(section1)|(section2)")
         ```
 
         Or use the `excludes` parameter to exclude URLs that match a specific pattern:
 
-        ```python linenums="11" hl_lines="1" title=""
+        ```python linenums="15" hl_lines="1" title=""
         filter = SitemapFilter(excludes="page1")
         ```
 
-        Or combine all the `contains` and `excludes`, `skip` and `take` parameters to filter the URLs even further:
+        Or combine all the `contains` and `excludes`, `skip` and `take`, `date_range` and other parameters to filter the URLs even further:
 
-        ```python linenums="11" hl_lines="1-7" title=""
+        ```python linenums="15" hl_lines="1-8" title=""
         filter = SitemapFilter(
+            date_range=DaysAgo(2),
             contains=r"(section1)|(section2)",
             excludes="page1",
             skip=100,

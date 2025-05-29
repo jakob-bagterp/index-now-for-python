@@ -14,8 +14,8 @@ class SitemapFilter:
     """Configuration class for filtering sitemap URLs based on text, change frequency, date ranges and other criteria.
 
     Attributes:
-        change_frequency (ChangeFrequency | str | None): Optional filter for URLs based on change frequency, e.g. `daily`, `weekly`, `monthly`, etc.. Ignored by default or if set to `None`.
-        date_range (DateRange | None): Optional filter for URLs based on a date range, e.g. `Today`, `Day`, `DaysAgo`, `LaterThan`, `EarlierThan`, etc. Ignored by default or if set to `None`.
+        change_frequency (ChangeFrequency | str | None): Optional filter for URLs based on change frequency, e.g. `daily`, `weekly`, `monthly`, etc. Note that if no `<changefreq>` element is found in the sitemap entry, the filter is bypassed. Ignored by default or if set to `None`.
+        date_range (DateRange | None): Optional filter for URLs based on a date range, e.g. `Today`, `Day`, `DaysAgo`, `LaterThan`, `EarlierThan`, etc. Note that if no `<lastmod>` element is found in the sitemap entry, the filter is bypassed. Ignored by default or if set to `None`.
         contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default or if set to `None`.
         excludes (str | None): Optional filter for URLs. Can be simple string (e.g. `"not-include-this"`) or regular expression (e.g. `r"(not-include-this)|(not-include-that)"`). Ignored by default or if set to `None`.
         skip (int | None): Optional number of URLs to be skipped. Ignored by default or if set to `None`.
@@ -104,15 +104,27 @@ def filter_sitemap_urls(urls: list[SitemapUrl], filter: SitemapFilter) -> list[s
         list[str]: Filtered list of URLs, or empty list if no URLs are found.
     """
 
+    def filter_by_change_frequency(urls: list[SitemapUrl], change_frequency: ChangeFrequency | str) -> list[SitemapUrl]:
+        return [
+            url for url in urls
+            if not url.changefreq or url.changefreq.lower() == str(change_frequency).lower()
+        ]
+
+    def filter_by_date_range(urls: list[SitemapUrl], date_range: DateRange) -> list[SitemapUrl]:
+        return [
+            url for url in urls
+            if not url.lastmod or date_range.is_within_range(datetime.fromisoformat(url.lastmod))
+        ]
+
     if not urls:
         print(f"{Color.YELLOW}No URLs given before filtering.{Color.OFF}")
         return []
 
     if filter.change_frequency is not None:
-        urls = [url for url in urls if url.changefreq and url.changefreq.lower() == str(filter.change_frequency).lower()]
+        urls = filter_by_change_frequency(urls, filter.change_frequency)
 
     if filter.date_range is not None:
-        urls = [url for url in urls if url.lastmod and filter.date_range.is_within_range(datetime.fromisoformat(url.lastmod))]
+        urls = filter_by_date_range(urls, filter.date_range)
 
     if filter.contains is not None:
         pattern = re.compile(filter.contains)

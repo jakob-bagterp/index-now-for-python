@@ -127,7 +127,7 @@ class Day(DateRange):
         from datetime import datetime
         from index_now import Day, SitemapFilter
 
-        day = Day(day=datetime(2025, 1, 1))
+        day = Day(datetime(2025, 1, 1))
 
         filter = SitemapFilter(date_range=day)
         ```
@@ -153,7 +153,7 @@ class DaysAgo(DateRange):
         ```python linenums="1" hl_lines="3"
         from index_now import DaysAgo, SitemapFilter
 
-        days_ago = DaysAgo(days_ago=1)
+        days_ago = DaysAgo(2)
 
         filter = SitemapFilter(date_range=days_ago)
         ```
@@ -183,7 +183,7 @@ class LaterThan(DateRange):
         from datetime import datetime
         from index_now import LaterThan, SitemapFilter
 
-        later_than = LaterThan(date=datetime(2025, 1, 1))
+        later_than = LaterThan(datetime(2025, 1, 1))
 
         filter = SitemapFilter(date_range=later_than)
         ```
@@ -218,7 +218,7 @@ class LaterThanAndIncluding(DateRange):
         from datetime import datetime
         from index_now import LaterThanAndIncluding, SitemapFilter
 
-        later_than_including = LaterThanAndIncluding(date=datetime(2025, 1, 1))
+        later_than_including = LaterThanAndIncluding(datetime(2025, 1, 1))
 
         filter = SitemapFilter(date_range=later_than_including)
         ```
@@ -253,7 +253,7 @@ class EarlierThan(DateRange):
         from datetime import datetime
         from index_now import EarlierThan, SitemapFilter
 
-        earlier_than = EarlierThan(date=datetime(2025, 1, 1))
+        earlier_than = EarlierThan(datetime(2025, 1, 1))
 
         filter = SitemapFilter(date_range=earlier_than)
         ```
@@ -288,7 +288,7 @@ class EarlierThanAndIncluding(DateRange):
         from datetime import datetime
         from index_now import EarlierThanAndIncluding, SitemapFilter
 
-        earlier_than_including = EarlierThanAndIncluding(date=datetime(2025, 1, 1))
+        earlier_than_including = EarlierThanAndIncluding(datetime(2025, 1, 1))
 
         filter = SitemapFilter(date_range=earlier_than_including)
         ```

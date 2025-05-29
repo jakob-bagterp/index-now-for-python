@@ -14,12 +14,12 @@ class DateRange(ABC):
         from datetime import datetime
         from index_now import DateRange, SitemapFilter
 
-        date_range = DateRange(
+        january_2025 = DateRange(
             start=datetime(2025, 1, 1),
             end=datetime(2025, 1, 31),
         )
 
-        filter = SitemapFilter(date_range=date_range)
+        filter = SitemapFilter(date_range=january_2025)
         ```
     """
 
@@ -50,12 +50,12 @@ class Between(DateRange):
         from datetime import datetime
         from index_now import Between, SitemapFilter
 
-        date_range = Between(
+        january_2_to_30_2025 = Between(
             start=datetime(2025, 1, 1),
             end=datetime(2025, 1, 31),
         )
 
-        filter = SitemapFilter(date_range=date_range)
+        filter = SitemapFilter(date_range=january_2_to_30_2025)
         ```
     """
 
@@ -127,9 +127,9 @@ class Day(DateRange):
         from datetime import datetime
         from index_now import Day, SitemapFilter
 
-        day = Day(datetime(2025, 1, 1))
+        new_year_2025 = Day(datetime(2025, 1, 1))
 
-        filter = SitemapFilter(date_range=day)
+        filter = SitemapFilter(date_range=new_year_2025)
         ```
     """
 
@@ -153,9 +153,9 @@ class DaysAgo(DateRange):
         ```python linenums="1" hl_lines="3"
         from index_now import DaysAgo, SitemapFilter
 
-        days_ago = DaysAgo(2)
+        two_days_ago = DaysAgo(2)
 
-        filter = SitemapFilter(date_range=days_ago)
+        filter = SitemapFilter(date_range=two_days_ago)
         ```
     """
 
@@ -183,9 +183,9 @@ class LaterThan(DateRange):
         from datetime import datetime
         from index_now import LaterThan, SitemapFilter
 
-        later_than = LaterThan(datetime(2025, 1, 1))
+        after_new_year_2025 = LaterThan(datetime(2025, 1, 1))
 
-        filter = SitemapFilter(date_range=later_than)
+        filter = SitemapFilter(date_range=after_new_year_2025)
         ```
     """
 
@@ -218,9 +218,9 @@ class LaterThanAndIncluding(DateRange):
         from datetime import datetime
         from index_now import LaterThanAndIncluding, SitemapFilter
 
-        later_than_including = LaterThanAndIncluding(datetime(2025, 1, 1))
+        new_year_2025_or_later = LaterThanAndIncluding(datetime(2025, 1, 1))
 
-        filter = SitemapFilter(date_range=later_than_including)
+        filter = SitemapFilter(date_range=new_year_2025_or_later)
         ```
     """
 
@@ -253,9 +253,9 @@ class EarlierThan(DateRange):
         from datetime import datetime
         from index_now import EarlierThan, SitemapFilter
 
-        earlier_than = EarlierThan(datetime(2025, 1, 1))
+        before_2025 = EarlierThan(datetime(2025, 1, 1))
 
-        filter = SitemapFilter(date_range=earlier_than)
+        filter = SitemapFilter(date_range=before_2025)
         ```
     """
 
@@ -288,9 +288,9 @@ class EarlierThanAndIncluding(DateRange):
         from datetime import datetime
         from index_now import EarlierThanAndIncluding, SitemapFilter
 
-        earlier_than_including = EarlierThanAndIncluding(datetime(2025, 1, 1))
+        new_year_2025_or_before = EarlierThanAndIncluding(datetime(2025, 1, 1))
 
-        filter = SitemapFilter(date_range=earlier_than_including)
+        filter = SitemapFilter(date_range=new_year_2025_or_before)
         ```
     """
 

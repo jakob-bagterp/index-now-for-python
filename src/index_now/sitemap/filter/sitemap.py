@@ -109,10 +109,12 @@ def filter_sitemap_urls(urls: list[SitemapUrl], filter: SitemapFilter) -> list[s
         return []
 
     if filter.change_frequency is not None:
-        urls = [url for url in urls if url.changefreq and url.changefreq.lower() == str(filter.change_frequency).lower()]
+        if any(url.changefreq for url in urls):  # Bypass if no <changefreq> elements in sitemap.
+            urls = [url for url in urls if url.changefreq and url.changefreq.lower() == str(filter.change_frequency).lower()]
 
     if filter.date_range is not None:
-        urls = [url for url in urls if url.lastmod and filter.date_range.is_within_range(datetime.fromisoformat(url.lastmod))]
+        if any(url.lastmod for url in urls):  # Bypass if no <lastmod> elements in sitemap.
+            urls = [url for url in urls if url.lastmod and filter.date_range.is_within_range(datetime.fromisoformat(url.lastmod))]
 
     if filter.contains is not None:
         pattern = re.compile(filter.contains)

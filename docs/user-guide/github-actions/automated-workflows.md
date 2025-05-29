@@ -11,7 +11,7 @@ If you're using [GitHub Actions](https://github.com/features/actions) to build a
 
 ## How to Automatically Submit a Sitemap to IndexNow
 ### GitHub Pages
-For users of [GitHub Pages](https://pages.github.com), the easiest way to build and deploy your site is to use the existing [`index-now-submit-sitemap-action` workflow](https://github.com/marketplace/actions/index-now-submit-sitemap-action), as it's based on that package. This will also work if you're using [MkDocs](https://www.mkdocs.org) to build your site with GitHub Pages, but will probably work in many other cases as well.
+For users of [GitHub Pages](https://pages.github.com), the easiest way to build and deploy your site is to use the existing [`index-now-submit-sitemap-urls-action` workflow](https://github.com/marketplace/actions/index-now-submit-sitemap-urls-action), as it's based on that package. This will also work if you're using [MkDocs](https://www.mkdocs.org) to build your site with GitHub Pages, but will probably work in many other cases as well.
 
 All you need to do is adapt the example below to your needs:
 
@@ -28,13 +28,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Submit sitemap URLs to IndexNow
-        uses: jakob-bagterp/index-now-submit-sitemap-action@v1
+        uses: jakob-bagterp/index-now-submit-sitemap-urls-action@v1
         with:
           host: example.com
           api_key: ${{ secrets.INDEX_NOW_API_KEY }}
           api_key_location: https://example.com/${{ secrets.INDEX_NOW_API_KEY }}.txt
-          sitemap_location: https://example.com/sitemap.xml
+          sitemap_locations: https://example.com/sitemap.xml
           endpoint: yandex
+```
+
+Alternatively, if you would like to submit your sitemap on a schedule, such as once a month, adjust the `on` condition.
+
+```yaml linenums="3" title=".github/workflows/submit_sitemap_to_index_now.yml"
+on:
+  schedule:
+    - cron: 0 0 1 * *  # Run at midnight UTC on the 1st day of each month.
 ```
 
 !!! tip

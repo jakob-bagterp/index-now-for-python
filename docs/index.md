@@ -87,7 +87,7 @@ submit_sitemap_to_index_now(authentication, sitemap_location)
 ### Submit to Different Search Engines
 How to use the default [`SearchEngineEndpoint`](reference/configuration/endpoint.md) options or a custom endpoint:
 
-```python linenums="1" hl_lines="9-12 14"
+```python linenums="1" hl_lines="9-10 12 14"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
 
 authentication = IndexNowAuthentication(
@@ -104,20 +104,8 @@ for endpoint in [endpoint_bing, endpoint_custom]:
         endpoint)
 ```
 
-Pattern for submitting to different search engines:
-
-```python linenums="1" hl_lines="6 8 10"
-url = "https://example.com/page1"
-urls = ["https://example.com/page1", "https://example.com/page2"]
-sitemap_location = "https://example.com/sitemap.xml"
-endpoint = SearchEngineEndpoint.YANDEX
-
-submit_url_to_index_now(authentication, url, endpoint)
-
-submit_urls_to_index_now(authentication, urls, endpoint)
-
-submit_sitemap_to_index_now(authentication, sitemap_location, endpoint)
-```
+!!! warning
+    It is not recommended to submit the same URLs to multiple endpoints. Once you have successfully submitted to one [IndexNow](https://www.indexnow.org) endpoint, the IndexNow service is designed to propagate your URLs to other search engines, so you do not need to submit to multiple endpoints.
 
 ## Next Steps
 Ready to try? [Let's get started](getting-started/index.md).

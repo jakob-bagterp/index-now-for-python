@@ -122,7 +122,7 @@ class Yesterday(DateRange):
         )
 
     def __repr__(self) -> str:
-        return f"Yesterday({self.start.date()})"
+        return f"Yesterday(start={self.start.date()}, end={self.end.date()})"
 
 
 class Day(DateRange):

@@ -16,6 +16,11 @@ How to submit:
 * [Entire sitemap](methods/submit-sitemap.md)
 * [Multiple sitemaps](methods/submit-multiple-sitemaps.md)
 
+Using the sitemap filter:
+
+* [Sitemap filter](sitemap-filter/sitemap-filter.md)
+* [Date ranges](sitemap-filter/date-range.md)
+
 Configuration:
 
 * [IndexNowAuthentication](configuration/authentication.md)

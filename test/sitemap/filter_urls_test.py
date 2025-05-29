@@ -1,25 +1,48 @@
+from datetime import datetime
+
 import pytest
 from _helper.sitemap import get_mock_sitemap_content
 
-from index_now.sitemap import filter_urls, parse_sitemap_xml_and_get_urls
+from index_now import (Between, ChangeFrequency, DateRange, DaysAgo,
+                       EarlierThan, EarlierThanAndIncluding, LaterThan,
+                       LaterThanAndIncluding, SitemapFilter, Today, Yesterday)
+from index_now.sitemap.filter.sitemap import SitemapUrl, filter_sitemap_urls
+from index_now.sitemap.parse import parse_sitemap_xml_and_get_urls_as_elements
 
-TEST_URLS = parse_sitemap_xml_and_get_urls(get_mock_sitemap_content())
+SITEMAP_URLS = parse_sitemap_xml_and_get_urls_as_elements(get_mock_sitemap_content())
+SITEMAP_URLS_LOC = [url.loc for url in SITEMAP_URLS]
 
 
-@pytest.mark.parametrize("urls, contains, skip, take, expected", [
-    (TEST_URLS, None, None, None, TEST_URLS),
-    (TEST_URLS, None, 0, None, TEST_URLS),
-    (TEST_URLS, None, None, 0, []),
-    (TEST_URLS, None, 1, None, TEST_URLS[1:]),
-    (TEST_URLS, None, len(TEST_URLS), None, []),
-    (TEST_URLS, None, 0, 1, TEST_URLS[0:1]),
-    (TEST_URLS, "page1", None, None, [TEST_URLS[i] for i in [1, 5, 7]]),
-    (TEST_URLS, "page1", None, 1, [TEST_URLS[1]]),
-    (TEST_URLS, r"(page1)|(section1)", None, None, [TEST_URLS[i] for i in [1, 5, 6, 7]]),
-    (TEST_URLS, r"(page1)|(section1)", 1, 2, [TEST_URLS[i] for i in [5, 6]]),
-    (TEST_URLS, "no-matches-at-all", None, None, []),
-    ([], None, None, None, []),
+@pytest.mark.parametrize("sitemap_urls, filter, expected", [
+    (SITEMAP_URLS, SitemapFilter(), SITEMAP_URLS_LOC),
+    (SITEMAP_URLS, SitemapFilter(skip=0), SITEMAP_URLS_LOC),
+    (SITEMAP_URLS, SitemapFilter(take=0), []),
+    (SITEMAP_URLS, SitemapFilter(skip=1), SITEMAP_URLS_LOC[1:]),
+    (SITEMAP_URLS, SitemapFilter(skip=len(SITEMAP_URLS_LOC)), []),
+    (SITEMAP_URLS, SitemapFilter(skip=0, take=1), SITEMAP_URLS_LOC[0:1]),
+    (SITEMAP_URLS, SitemapFilter(contains="page1"), [SITEMAP_URLS_LOC[i] for i in [1, 5, 7]]),
+    (SITEMAP_URLS, SitemapFilter(contains="page1", take=1), [SITEMAP_URLS_LOC[1]]),
+    (SITEMAP_URLS, SitemapFilter(contains=r"(page1)|(section1)"), [SITEMAP_URLS_LOC[i] for i in [1, 5, 6, 7]]),
+    (SITEMAP_URLS, SitemapFilter(contains=r"(page1)|(section1)", skip=1, take=2), [SITEMAP_URLS_LOC[i] for i in [5, 6]]),
+    (SITEMAP_URLS, SitemapFilter(contains="no-matches-at-all"), []),
+    (SITEMAP_URLS, SitemapFilter(excludes="page"), SITEMAP_URLS_LOC[0:1]),
+    (SITEMAP_URLS, SitemapFilter(excludes="/page"), [SITEMAP_URLS_LOC[i] for i in [0, 5, 6, 7, 8]]),
+    (SITEMAP_URLS, SitemapFilter(excludes=r"(page1)|(section?\d)"), [SITEMAP_URLS_LOC[i] for i in [0, 2, 3, 4]]),
+    (SITEMAP_URLS, SitemapFilter(excludes="subpage"), [SITEMAP_URLS_LOC[i] for i in [0, 1, 2, 3, 4]]),
+    (SITEMAP_URLS, SitemapFilter(change_frequency=ChangeFrequency.DAILY), [SITEMAP_URLS_LOC[i] for i in [2, 7]]),
+    (SITEMAP_URLS, SitemapFilter(change_frequency="daily"), [SITEMAP_URLS_LOC[i] for i in [2, 7]]),
+    (SITEMAP_URLS, SitemapFilter(date_range=DateRange(start=datetime(2025, 3, 15), end=datetime(2025, 3, 20))), SITEMAP_URLS_LOC[8:]),
+    (SITEMAP_URLS, SitemapFilter(date_range=Between(datetime(2025, 1, 20), datetime(2025, 2, 20))), SITEMAP_URLS_LOC[3:5]),
+    (SITEMAP_URLS, SitemapFilter(date_range=Today()), []),
+    (SITEMAP_URLS, SitemapFilter(date_range=Yesterday()), []),
+    (SITEMAP_URLS, SitemapFilter(date_range=DaysAgo(2)), []),
+    (SITEMAP_URLS, SitemapFilter(date_range=DaysAgo((datetime.today() - datetime(2025, 3, 15)).days)), SITEMAP_URLS_LOC[8:]),
+    (SITEMAP_URLS, SitemapFilter(date_range=LaterThan(datetime(2025, 3, 10))), SITEMAP_URLS_LOC[8:]),
+    (SITEMAP_URLS, SitemapFilter(date_range=LaterThanAndIncluding(datetime(2025, 3, 10))), SITEMAP_URLS_LOC[7:]),
+    (SITEMAP_URLS, SitemapFilter(date_range=EarlierThan(datetime(2025, 1, 20))), SITEMAP_URLS_LOC[0:2]),
+    (SITEMAP_URLS, SitemapFilter(date_range=EarlierThanAndIncluding(datetime(2025, 1, 20))), SITEMAP_URLS_LOC[0:3]),
+    ([], SitemapFilter(), []),
 ])
-def test_filter_urls(urls: list[str], contains: str | None, skip: int | None, take: int | None, expected: list[str]) -> None:
-    filtered_urls = filter_urls(urls, contains, skip, take)
+def test_filter_sitemap_urls(sitemap_urls: list[SitemapUrl], filter: SitemapFilter, expected: list[str]) -> None:
+    filtered_urls = filter_sitemap_urls(sitemap_urls, filter)
     assert filtered_urls == expected

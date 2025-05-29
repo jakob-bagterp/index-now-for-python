@@ -2,37 +2,54 @@
     <url>
         <loc>https://example.com</loc>
         <lastmod>2025-01-01</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://example.com/page1</loc>
-        <lastmod>2025-01-01</lastmod>
+        <lastmod>2025-01-10</lastmod>
+        <changefreq>hourly</changefreq>
+        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://example.com/page2</loc>
-        <lastmod>2025-01-01</lastmod>
+        <lastmod>2025-01-20</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.5</priority>
     </url>
     <url>
         <loc>https://example.com/page3</loc>
-        <lastmod>2025-01-01</lastmod>
+        <lastmod>2025-01-30</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.3</priority>
     </url>
     <url>
         <loc>https://example.com/page4</loc>
-        <lastmod>2025-01-01</lastmod>
+        <lastmod>2025-02-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.2</priority>
     </url>
     <url>
         <loc>https://example.com/section1/subpage1</loc>
-        <lastmod>2025-01-01</lastmod>
+        <lastmod>2025-02-20</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
     </url>
     <url>
         <loc>https://example.com/section1/subpage2</loc>
-        <lastmod>2025-01-01</lastmod>
+        <lastmod>2025-03-01</lastmod>
+        <changefreq>never</changefreq>
     </url>
     <url>
         <loc>https://example.com/section2/subpage1</loc>
-        <lastmod>2025-01-01</lastmod>
+        <lastmod>2025-03-10</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.4</priority>
     </url>
     <url>
         <loc>https://example.com/section2/subpage2</loc>
-        <lastmod>2025-01-01</lastmod>
+        <lastmod>2025-03-20</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.1</priority>
     </url>
 </urlset>

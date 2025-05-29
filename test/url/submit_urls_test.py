@@ -5,9 +5,10 @@ from _mock_data.website import (INDEX_NOW_FOR_PYTHON,
 from colorist import Color
 
 from index_now import SearchEngineEndpoint, submit_urls_to_index_now
-from index_now.sitemap import get_urls_from_sitemap_xml
+from index_now.sitemap.get import get_sitemap_xml
+from index_now.sitemap.parse import parse_sitemap_xml_and_get_urls
 
-INDEX_NOW_FOR_PYTHON_SITEMAP_LOCATIONS = get_urls_from_sitemap_xml(INDEX_NOW_FOR_PYTHON.sitemap_location)
+INDEX_NOW_FOR_PYTHON_SITEMAP_URLS = parse_sitemap_xml_and_get_urls(get_sitemap_xml(INDEX_NOW_FOR_PYTHON.sitemap_location))
 
 
 @pytest.mark.parametrize("endpoint", [
@@ -18,8 +19,8 @@ def test_submit_urls_to_various_search_engines(endpoint: SearchEngineEndpoint, c
         pytest.skip(f"Endpoint is temporarily skipped: {endpoint}")
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
-    assert len(INDEX_NOW_FOR_PYTHON_SITEMAP_LOCATIONS) > 10
-    status_code = submit_urls_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON_SITEMAP_LOCATIONS, endpoint=endpoint)
+    assert len(INDEX_NOW_FOR_PYTHON_SITEMAP_URLS) > 10
+    status_code = submit_urls_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON_SITEMAP_URLS, endpoint=endpoint)
     assert status_code in [200, 202]
     terminal_output, _ = capfd.readouterr()
     assert f"URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}" in terminal_output

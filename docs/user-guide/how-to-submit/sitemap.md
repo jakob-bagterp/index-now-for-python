@@ -53,12 +53,12 @@ submit_sitemaps_to_index_now(authentication, sitemap_locations)
 ```
 
 ## How to Filter the URLs
-Sometimes you want to submit only a subset of the URLs in a sitemap. You can use the `contains`, `skip`, and `take` parameters to filter the URLs before submitting them to the IndexNow API.
+Sometimes, you may wish to submit only a subset of the URLs in a sitemap. This could be URLs that have changed recently, URLs that have changed within a given timeframe, URLs that contain a specific text or even just a subset of URLs. The [`SitemapFilter` configuration class](../../reference/sitemap-filter/sitemap-filter.md) gives you that flexibility.
 
 For example:
 
-```python linenums="1" hl_lines="9-10"
-from index_now import submit_sitemap_to_index_now, IndexNowAuthentication
+```python linenums="1" hl_lines="9"
+from index_now import submit_sitemap_to_index_now, IndexNowAuthentication, SitemapFilter
 
 authentication = IndexNowAuthentication(
     host="example.com",
@@ -66,66 +66,142 @@ authentication = IndexNowAuthentication(
     api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
-submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml",
-    contains="section1", skip=2, take=3)
+filter = SitemapFilter(contains="section1", skip=2, take=3)
+
+submit_sitemap_to_index_now(authentication,
+    "https://example.com/sitemap.xml", filter)
 ```
 
 The same applies to submitting multiple sitemaps:
 
-```python linenums="15" hl_lines="1-2"
-submit_sitemaps_to_index_now(authentication, sitemap_locations,
-    contains="section1", skip=2, take=3)
+```python linenums="1" hl_lines="15"
+from index_now import submit_sitemaps_to_index_now, IndexNowAuthentication
+
+authentication = IndexNowAuthentication(
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
+)
+
+sitemap_locations = [
+    "https://example.com/sitemap1.xml",
+    "https://example.com/sitemap2.xml",
+    "https://example.com/sitemap3.xml",
+]
+
+filter = SitemapFilter(contains="section1", skip=2, take=3)
+
+submit_sitemaps_to_index_now(authentication,
+    sitemap_locations, filter)
+```
+
+### By Change Frequency
+Before submitting the sitemap to IndexNow, you can also target URLs with a specific `<changefreq>` value using the `change_frequency` parameter. Either use the predefined [`ChangeFrequency`](../../reference/sitemap-filter/change-frequency.md) enumerations:
+
+```python linenums="1" hl_lines="3"
+from index_now import SitemapFilter, ChangeFrequency
+
+filter = SitemapFilter(change_frequency=ChangeFrequency.DAILY)
+```
+
+Or use a basic string input:
+
+```python linenums="1" hl_lines="9"
+from index_now import SitemapFilter
+
+filter = SitemapFilter(change_frequency="daily")
+```
+
+### By Date Range
+The `date_range` parameter filters the `<lastmod>` elements of the sitemap entries, enabling you to select URLs modified within a specific date range.
+
+The [`DateRange` and its many sibling classes](../../reference/sitemap-filter/date-range.md) make it easy to target URLs with a specific `<lastmod>` date. For example:
+
+```python linenums="1" hl_lines="4-7"
+from datetime import datetime
+from index_now import DateRange, SitemapFilter
+
+january_2025 = DateRange(
+    start=datetime(2025, 1, 1),
+    end=datetime(2025, 1, 31),
+)
+
+filter = SitemapFilter(date_range=january_2025)
+```
+
+Instead of using absolute dates, you can use relative ranges. For example, you can use the `DaysAgo` parameter to target URLs that have been modified recently:
+
+```python linenums="1" hl_lines="3"
+from index_now import DaysAgo, SitemapFilter
+
+two_days_ago = DaysAgo(2)
+
+filter = SitemapFilter(date_range=two_days_ago)
 ```
 
 ### By Text
-You can limit the sitemap URLs to only those containing a specific text using the `contains` parameter:
+You can limit the sitemap URLs to only those containing a specific text using the `contains` parameter of the [`SitemapFilter`](../../reference/sitemap-filter/sitemap-filter.md):
 
-```python linenums="9" hl_lines="1-2" title=""
-submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml",
-    contains="section1")
+```python linenums="1" hl_lines="3"
+from index_now import SitemapFilter
+
+filter = SitemapFilter(contains="section1")
 ```
 
-Example for multiple sitemaps:
+Or exclude URLs that contain a specific text using the `excludes` parameter:
 
-```python linenums="15" hl_lines="1-2"
-submit_sitemaps_to_index_now(authentication, sitemap_locations,
-    contains="section1")
+```python linenums="1" hl_lines="3"
+from index_now import SitemapFilter
+
+filter = SitemapFilter(excludes="page1")
 ```
 
-#### Use Pattern or Regular Expression
+#### Pattern or Regular Expression
 The `contains` parameter also accepts regular expressions for more advanced filtering. For example, if you want to match URLs that contain either `section1` or `section2`, you can use the regular expression `r"(section1)|(section2)"`:
 
-```python linenums="9" hl_lines="1-2" title=""
-submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml",
-    contains=r"(section1)|(section2)")
+```python linenums="1" hl_lines="3"
+from index_now import SitemapFilter
+
+filter = SitemapFilter(contains=r"(section1)|(section2)")
 ```
 
-Example for multiple sitemaps:
+Similarly, the `excludes` parameter can be used to exclude URLs that match a specific regular expression:
 
-```python linenums="15" hl_lines="1-2"
-submit_sitemaps_to_index_now(authentication, sitemap_locations,
-    contains=r"(section1)|(section2)")
+```python linenums="1" hl_lines="3"
+from index_now import SitemapFilter
+
+filter = SitemapFilter(excludes=r"(page1)|(page2)")
 ```
 
 ### By Amount: Skip and Take
 Let's imagine a sitemap with a 100 URLs. You don't want to submit everything, so you can use the `skip` and `take` parameters to skip the first 10 URLs and submit the next 20 URLs:
 
-```python linenums="9" hl_lines="1-2" title=""
-submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml",
-    skip=10, take=20)
-```
+```python linenums="1" hl_lines="3"
+from index_now import SitemapFilter
 
-Example for multiple sitemaps:
-
-```python linenums="15" hl_lines="1-2"
-submit_sitemaps_to_index_now(authentication, sitemap_locations,
-    skip=10, take=20)
+filter = SitemapFilter(skip=10, take=20)
 ```
 
 ### Order of Filtering Rules
 !!! tip
     When using multiple filtering options at the same time, be aware of the order of the filtering rules. You don't have to use every rule, but each rule can reduce the pool of URLs before passing them on to the next filter.
 
+All of these parameters can be combined in the same filter. But the order of the parameters in the [`SitemapFilter` configuration class](../../reference/sitemap-filter/sitemap-filter.md) is also the order in which the filtering rules will be applied:
+
+```python
+from index_now import SitemapFilter
+
+filter = SitemapFilter(
+    change_frequency="daily",
+    date_range=DaysAgo(2),
+    contains="section1",
+    excludes="search",
+    skip=1,
+    take=1
+)
+```
+
+#### Example
 Let's imagine a sitemap with 9 URLs, the order of the `contains`, `skip`, and `take` parameters will filter the URLs like this:
 
 | `sitemap.xml`   | `contains="section1"` | `skip=1`        | `take=1`        |

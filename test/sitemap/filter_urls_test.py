@@ -108,8 +108,8 @@ SITEMAP_INCONSISTENT_LOC = [url.loc for url in SITEMAP_WITH_ONLY_URLS]
     (SITEMAP_INCONSISTENT, SitemapFilter(date_range=DaysAgo((datetime.today() - datetime(2025, 3, 15)).days)), SITEMAP_INCONSISTENT_LOC),
     (SITEMAP_INCONSISTENT, SitemapFilter(date_range=LaterThan(datetime(2025, 3, 10))), SITEMAP_INCONSISTENT_LOC),
     (SITEMAP_INCONSISTENT, SitemapFilter(date_range=LaterThanAndIncluding(datetime(2025, 3, 10))), SITEMAP_INCONSISTENT_LOC),
-    (SITEMAP_INCONSISTENT, SitemapFilter(date_range=EarlierThan(datetime(2025, 1, 20))), [SITEMAP_INCONSISTENT_LOC[i] for i in [0, 1, 2, 5, 6, 8]]),
-    (SITEMAP_INCONSISTENT, SitemapFilter(date_range=EarlierThanAndIncluding(datetime(2025, 1, 20))), [SITEMAP_INCONSISTENT_LOC[i] for i in [0, 1, 2, 3, 5, 6, 8]]),
+    (SITEMAP_INCONSISTENT, SitemapFilter(date_range=EarlierThan(datetime(2025, 1, 20))), [SITEMAP_INCONSISTENT_LOC[i] for i in [0, 1, 4, 5, 7]]),
+    (SITEMAP_INCONSISTENT, SitemapFilter(date_range=EarlierThanAndIncluding(datetime(2025, 1, 20))), [SITEMAP_INCONSISTENT_LOC[i] for i in [0, 1, 2, 4, 5, 7]]),
 ])
 def test_filter_sitemap_urls(sitemap_urls: list[SitemapUrl], filter: SitemapFilter, expected: list[str]) -> None:
     filtered_urls = filter_sitemap_urls(sitemap_urls, filter)

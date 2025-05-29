@@ -39,6 +39,7 @@
         <loc>https://example.com/section1/subpage2</loc>
         <lastmod>2025-03-01</lastmod>
         <changefreq>never</changefreq>
+        <priority>0.8</priority>
     </url>
     <url>
         <loc>https://example.com/section2/subpage1</loc>

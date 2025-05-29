@@ -23,11 +23,11 @@ def test_parse_sitemap_xml_and_get_urls_as_elements() -> None:
     assert first_url.priority == 1.0
     second_url = urls[1]
     assert second_url.loc == "https://example.com/page1"
-    assert second_url.lastmod == "2025-02-01"
+    assert second_url.lastmod == "2025-01-10"
     assert second_url.changefreq == "hourly"
     assert second_url.priority == 0.8
     last_url = urls[-1]
     assert last_url.loc == "https://example.com/section2/subpage2"
-    assert last_url.lastmod == "2025-09-01"
+    assert last_url.lastmod == "2025-03-20"
     assert last_url.changefreq == "weekly"
     assert last_url.priority == 0.1

@@ -10,7 +10,7 @@ class DateRange(ABC):
         end (datetime): The end date of the range.
 
     Example:
-        ```python linenums="1"
+        ```python linenums="1" hl_lines="4-7"
         from datetime import datetime
         from index_now import DateRange, SitemapFilter
 
@@ -46,7 +46,7 @@ class Between(DateRange):
         end (datetime): The end date of the range (not included in evaluation).
 
     Example:
-        ```python linenums="1"
+        ```python linenums="1" hl_lines="4-7"
         from datetime import datetime
         from index_now import Between, SitemapFilter
 
@@ -78,7 +78,7 @@ class Today(DateRange):
     """Today as range for filtering sitemap URLs.
 
     Example:
-        ```python linenums="1"
+        ```python linenums="1" hl_lines="3"
         from index_now import Today, SitemapFilter
 
         filter = SitemapFilter(date_range=Today())
@@ -99,7 +99,7 @@ class Yesterday(DateRange):
     """Yesterday as range for filtering sitemap URLs.
 
     Example:
-        ```python linenums="1"
+        ```python linenums="1" hl_lines="3"
         from index_now import Yesterday, SitemapFilter
 
         filter = SitemapFilter(date_range=Yesterday())
@@ -123,7 +123,7 @@ class Day(DateRange):
         day (datetime): The specific day to filter sitemap URLs.
 
     Example:
-        ```python linenums="1"
+        ```python linenums="1" hl_lines="4"
         from datetime import datetime
         from index_now import Day, SitemapFilter
 
@@ -150,7 +150,7 @@ class DaysAgo(DateRange):
         days_ago (int): The number of days ago to filter sitemap URLs.
 
     Example:
-        ```python linenums="1"
+        ```python linenums="1" hl_lines="3"
         from index_now import DaysAgo, SitemapFilter
 
         days_ago = DaysAgo(days_ago=1)
@@ -179,7 +179,7 @@ class LaterThan(DateRange):
         date (datetime): The specific date to filter sitemap URLs.
 
     Example:
-        ```python linenums="1"
+        ```python linenums="1" hl_lines="4"
         from datetime import datetime
         from index_now import LaterThan, SitemapFilter
 
@@ -214,9 +214,8 @@ class LaterThanAndIncluding(DateRange):
         date (datetime): The specific date to filter sitemap URLs.
 
     Example:
-        ```python linenums="1"
+        ```python linenums="1" hl_lines="4"
         from datetime import datetime
-
         from index_now import LaterThanAndIncluding, SitemapFilter
 
         later_than_including = LaterThanAndIncluding(date=datetime(2025, 1, 1))
@@ -250,7 +249,7 @@ class EarlierThan(DateRange):
         date (datetime): The specific date to filter sitemap URLs.
 
     Example:
-        ```python linenums="1"
+        ```python linenums="1" hl_lines="4"
         from datetime import datetime
         from index_now import EarlierThan, SitemapFilter
 
@@ -285,7 +284,7 @@ class EarlierThanAndIncluding(DateRange):
         date (datetime): The specific date to filter sitemap URLs.
 
     Example:
-        ```python linenums="1"
+        ```python linenums="1" hl_lines="4"
         from datetime import datetime
         from index_now import EarlierThanAndIncluding, SitemapFilter
 

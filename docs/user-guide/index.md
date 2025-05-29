@@ -29,6 +29,7 @@ How to use automated workflows:
 Tips and tricks:
 
 * [Generate custom API keys](tips-and-tricks/generate-api-keys.md)
+* [Extract URLs from a sitemap](tips-and-tricks/extract-urls-from-sitemap.md)
 
 ## Support the Project
 

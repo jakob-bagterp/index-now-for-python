@@ -105,32 +105,16 @@ def filter_sitemap_urls(urls: list[SitemapUrl], filter: SitemapFilter) -> list[s
     """
 
     def filter_by_change_frequency(urls: list[SitemapUrl], change_frequency: ChangeFrequency | str) -> list[SitemapUrl]:
-        if not any(url.changefreq for url in urls):  # Bypass if no <changefreq> elements in sitemap.
-            return urls
-
-        # TODO: Can this be refactored?
-        urls_filtered: list[SitemapUrl] = []
-        for url in urls:
-            if not url.changefreq:
-                urls_filtered.append(url)
-                continue
-            elif url.changefreq.lower() == str(change_frequency).lower():
-                urls_filtered.append(url)
-        return urls_filtered
+        return [
+            url for url in urls
+            if not url.changefreq or url.changefreq.lower() == str(change_frequency).lower()
+        ]
 
     def filter_by_date_range(urls: list[SitemapUrl], date_range: DateRange) -> list[SitemapUrl]:
-        if not any(url.changefreq for url in urls):  # Bypass if no <changefreq> elements in sitemap.
-            return urls
-
-        # TODO: Can this be refactored?
-        urls_filtered: list[SitemapUrl] = []
-        for url in urls:
-            if not url.lastmod:
-                urls_filtered.append(url)
-                continue
-            elif date_range.is_within_range(datetime.fromisoformat(url.lastmod)):
-                urls_filtered.append(url)
-        return urls_filtered
+        return [
+            url for url in urls
+            if not url.lastmod or date_range.is_within_range(datetime.fromisoformat(url.lastmod))
+        ]
 
     if not urls:
         print(f"{Color.YELLOW}No URLs given before filtering.{Color.OFF}")

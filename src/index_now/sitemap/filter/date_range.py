@@ -81,7 +81,9 @@ class Today(DateRange):
         ```python linenums="1" hl_lines="3"
         from index_now import Today, SitemapFilter
 
-        filter = SitemapFilter(date_range=Today())
+        today = Today()
+
+        filter = SitemapFilter(date_range=today)
         ```
     """
 
@@ -102,7 +104,9 @@ class Yesterday(DateRange):
         ```python linenums="1" hl_lines="3"
         from index_now import Yesterday, SitemapFilter
 
-        filter = SitemapFilter(date_range=Yesterday())
+        yesterday = Yesterday()
+
+        filter = SitemapFilter(date_range=yesterday)
         ```
     """
 

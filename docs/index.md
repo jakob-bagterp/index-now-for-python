@@ -119,6 +119,9 @@ submit_urls_to_index_now(authentication, urls, endpoint)
 submit_sitemap_to_index_now(authentication, sitemap_location, endpoint)
 ```
 
+!!! warning
+    It is not recommended to submit the same URLs to multiple endpoints. Once you have successfully submitted to one [IndexNow](https://www.indexnow.org) endpoint, the IndexNow service is designed to propagate your URLs to other search engines, so you do not need to submit to multiple endpoints.
+
 ## Next Steps
 Ready to try? [Let's get started](getting-started/index.md).
 

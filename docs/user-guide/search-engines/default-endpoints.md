@@ -55,7 +55,7 @@ for endpoint in SearchEngineEndpoint:
 ```
 
 !!! warning
-    Submitting the samel URLs to multiple endpoints is not recommended. The IndexNow service is designed to propagate URLs to other search engines once you've submitted successfully to one IndexNow endpoint.
+    It is not recommended to submit the same URLs to multiple endpoints. Once you have successfully submitted to one [IndexNow](https://www.indexnow.org) endpoint, the IndexNow service is designed to propagate your URLs to other search engines, so you do not need to submit to multiple endpoints.
 
 ## List of Default Endpoints
 The following endpoints are provided by default with the IndexNow for Python package:

@@ -51,6 +51,12 @@ submit_sitemap_to_index_now(
     authentication, "https://example.com/sitemap.xml", filter)
 ```
 
+Instead of the `ChangeFrequency` enumeration, you can also use basic string input:
+
+```python linenums="11" hl_lines="1" title=""
+filter = SitemapFilter(change_frequency="daily")
+```
+
 ## Documentation
 ### `ChangeFrequency`
 ::: index_now.sitemap.filter.change_frequency.ChangeFrequency

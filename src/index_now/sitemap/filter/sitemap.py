@@ -14,7 +14,7 @@ class SitemapFilter:
     """Configuration class for filtering sitemap URLs based on text, change frequency, date ranges and other criteria.
 
     Attributes:
-        change_frequency (ChangeFrequency | None): Optional filter for URLs based on change frequency. Ignored by default or if set to `None`.
+        change_frequency (ChangeFrequency | str | None): Optional filter for URLs based on change frequency, e.g. `daily`, `weekly`, `monthly`, etc.. Ignored by default or if set to `None`.
         date_range (DateRange | None): Optional filter for URLs based on a date range, e.g. `Today`, `Day`, `DaysAgo`, `LaterThan`, `EarlierThan`, etc. Ignored by default or if set to `None`.
         contains (str | None): Optional filter for URLs. Can be simple string (e.g. `"section1"`) or regular expression (e.g. `r"(section1)|(section2)"`). Ignored by default or if set to `None`.
         excludes (str | None): Optional filter for URLs. Can be simple string (e.g. `"not-include-this"`) or regular expression (e.g. `r"(not-include-this)|(not-include-that)"`). Ignored by default or if set to `None`.
@@ -85,7 +85,7 @@ class SitemapFilter:
         ```
     """
 
-    change_frequency: ChangeFrequency | None = None
+    change_frequency: ChangeFrequency | str | None = None
     date_range: DateRange | None = None
     contains: str | None = None
     excludes: str | None = None
@@ -109,7 +109,7 @@ def filter_sitemap_urls(urls: list[SitemapUrl], filter: SitemapFilter) -> list[s
         return []
 
     if filter.change_frequency is not None:
-        urls = [url for url in urls if url.changefreq and url.changefreq.lower() == filter.change_frequency.value.lower()]
+        urls = [url for url in urls if url.changefreq and url.changefreq.lower() == str(filter.change_frequency).lower()]
 
     if filter.date_range is not None:
         urls = [url for url in urls if url.lastmod and filter.date_range.is_within_range(datetime.fromisoformat(url.lastmod))]

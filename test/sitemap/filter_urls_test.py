@@ -2,7 +2,8 @@ import pytest
 from _helper.sitemap import get_mock_sitemap_content
 
 from index_now import SitemapFilter
-from index_now.sitemap.filter.sitemap import SitemapUrl, filter_sitemap_urls
+from index_now.sitemap.filter.sitemap import (ChangeFrequency, SitemapUrl,
+                                              filter_sitemap_urls)
 from index_now.sitemap.parse import parse_sitemap_xml_and_get_urls_as_elements
 
 SITEMAP_URLS = parse_sitemap_xml_and_get_urls_as_elements(get_mock_sitemap_content())
@@ -21,6 +22,8 @@ SITEMAP_URLS_LOC = [url.loc for url in SITEMAP_URLS]
     (SITEMAP_URLS, SitemapFilter(contains=r"(page1)|(section1)"), [SITEMAP_URLS_LOC[i] for i in [1, 5, 6, 7]]),
     (SITEMAP_URLS, SitemapFilter(contains=r"(page1)|(section1)", skip=1, take=2), [SITEMAP_URLS_LOC[i] for i in [5, 6]]),
     (SITEMAP_URLS, SitemapFilter(contains="no-matches-at-all"), []),
+    (SITEMAP_URLS, SitemapFilter(change_frequency=ChangeFrequency.DAILY), [SITEMAP_URLS_LOC[i] for i in [2, 7]]),
+    (SITEMAP_URLS, SitemapFilter(change_frequency="daily"), [SITEMAP_URLS_LOC[i] for i in [2, 7]]),
     ([], SitemapFilter(), []),
 ])
 def test_filter_sitemap_urls(sitemap_urls: list[SitemapUrl], filter: SitemapFilter, expected: list[str]) -> None:

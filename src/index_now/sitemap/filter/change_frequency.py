@@ -17,10 +17,16 @@ class ChangeFrequency(Enum):
     Example:
         Get all URLs with a change frequency set to `daily`:
 
-        ```python linenums="1"
+        ```python linenums="1" hl_lines="3"
         from index_now import SitemapFilter, ChangeFrequency
 
         filter = SitemapFilter(change_frequency=ChangeFrequency.DAILY)
+        ```
+
+        Instead of the `ChangeFrequency` enumeration, you can also use basic string input:
+
+        ```python linenums="3" hl_lines="1" title=""
+        filter = SitemapFilter(change_frequency="daily")
         ```
     """
 

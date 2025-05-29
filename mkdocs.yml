@@ -33,6 +33,7 @@ nav:
       - Automated Workflows: user-guide/github-actions/automated-workflows.md
     - Tips and Tricks:
       - Generate API Keys: user-guide/tips-and-tricks/generate-api-keys.md
+      - Extract URLs from a Sitemap: user-guide/tips-and-tricks/extract-urls-from-sitemap.md
   - Reference:
     - reference/index.md
     - Methods:

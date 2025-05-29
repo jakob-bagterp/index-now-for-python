@@ -45,10 +45,10 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
             endpoint="https://www.bing.com/indexnow")
         ```
 
-        If you want to only upload a portion of the sitemap URLs, alternatively use the `skip` and `take` parameters:
+        If you want to only upload a portion of the sitemap URLs, apply the `skip` and `take` parameters in the [`SitemapFilter`](../sitemap-filter/sitemap-filter.md) class:
 
-        ```python linenums="1" hl_lines="11-12"
-        from index_now import submit_sitemap_to_index_now, IndexNowAuthentication
+        ```python linenums="1" hl_lines="11"
+        from index_now import submit_sitemap_to_index_now, IndexNowAuthentication, SitemapFilter
 
         authentication = IndexNowAuthentication(
             host="example.com",
@@ -58,30 +58,38 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
 
         sitemap_location = "https://example.com/sitemap.xml"
 
-        submit_sitemap_to_index_now(authentication, sitemap_location,
-            skip=100, take=50)
+        filter = SitemapFilter(skip=100, take=50)
+
+        submit_sitemap_to_index_now(authentication, sitemap_location, filter)
         ```
 
-        How to target URLs with a specific pattern by using the `contains` parameter:
+        Instead of filtering by amount, you can target URLs with a specific pattern using the `contains` parameter:
 
-        ```python linenums="11" hl_lines="1-2" title=""
-        submit_sitemap_to_index_now(authentication, sitemap_location,
-            contains="section1")
+        ```python linenums="11" hl_lines="1" title=""
+        filter = SitemapFilter(contains="section1")
         ```
 
         The `contains` parameter also accepts regular expressions for more advanced filtering:
 
-        ```python linenums="11" hl_lines="1-2" title=""
-        submit_sitemap_to_index_now(authentication, sitemap_location,
-            contains=r"(section1)|(section2)")
+        ```python linenums="11" hl_lines="1" title=""
+        filter = SitemapFilter(contains=r"(section1)|(section2)")
         ```
 
-        Or combine the `contains`, `skip`, and `take` parameters to filter the URLs even further:
+        Or use the `excludes` parameter to exclude URLs that match a specific pattern:
 
-        ```python linenums="11" hl_lines="1-3" title=""
-        submit_sitemap_to_index_now(authentication, sitemap_location,
+        ```python linenums="11" hl_lines="1" title=""
+        filter = SitemapFilter(excludes="page1")
+        ```
+
+        Or combine all the `contains` and `excludes`, `skip` and `take` parameters to filter the URLs even further:
+
+        ```python linenums="11" hl_lines="1-7" title=""
+        filter = SitemapFilter(
             contains=r"(section1)|(section2)",
-            skip=100, take=50)
+            excludes="page1",
+            skip=100,
+            take=50
+        )
         ```
     """
 
@@ -142,10 +150,10 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
             endpoint="https://www.bing.com/indexnow")
         ```
 
-        If you want to only upload a portion of the sitemap URLs, alternatively use the `skip` and `take` parameters:
+        If you want to only upload a portion of the sitemap URLs, apply the `skip` and `take` parameters in the [`SitemapFilter`](../sitemap-filter/sitemap-filter.md) class:
 
-        ```python linenums="1" hl_lines="15-16"
-        from index_now import submit_sitemaps_to_index_now, IndexNowAuthentication
+        ```python linenums="1" hl_lines="15"
+        from index_now import submit_sitemaps_to_index_now, IndexNowAuthentication, SitemapFilter
 
         authentication = IndexNowAuthentication(
             host="example.com",
@@ -159,30 +167,38 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
             "https://example.com/sitemap3.xml",
         ]
 
-        submit_sitemaps_to_index_now(authentication, sitemap_location,
-            skip=100, take=50)
+        filter = SitemapFilter(skip=100, take=50)
+
+        submit_sitemaps_to_index_now(authentication, sitemap_location, filter)
         ```
 
-        How to target URLs with a specific pattern by using the `contains` parameter:
+        Instead of filtering by amount, you can target URLs with a specific pattern using the `contains` parameter:
 
-        ```python linenums="15" hl_lines="1-2" title=""
-        submit_sitemaps_to_index_now(authentication, sitemap_location,
-            contains="section1")
+        ```python linenums="11" hl_lines="1" title=""
+        filter = SitemapFilter(contains="section1")
         ```
 
         The `contains` parameter also accepts regular expressions for more advanced filtering:
 
-        ```python linenums="15" hl_lines="1-2" title=""
-        submit_sitemaps_to_index_now(authentication, sitemap_location,
-            contains=r"(section1)|(section2)")
+        ```python linenums="11" hl_lines="1" title=""
+        filter = SitemapFilter(contains=r"(section1)|(section2)")
         ```
 
-        Or combine the `contains`, `skip`, and `take` parameters to filter the URLs even further:
+        Or use the `excludes` parameter to exclude URLs that match a specific pattern:
 
-        ```python linenums="15" hl_lines="1-3" title=""
-        submit_sitemaps_to_index_now(authentication, sitemap_location,
+        ```python linenums="11" hl_lines="1" title=""
+        filter = SitemapFilter(excludes="page1")
+        ```
+
+        Or combine all the `contains` and `excludes`, `skip` and `take` parameters to filter the URLs even further:
+
+        ```python linenums="11" hl_lines="1-7" title=""
+        filter = SitemapFilter(
             contains=r"(section1)|(section2)",
-            skip=100, take=50)
+            excludes="page1",
+            skip=100,
+            take=50
+        )
         ```
     """
 

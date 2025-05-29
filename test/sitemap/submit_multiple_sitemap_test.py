@@ -4,7 +4,8 @@ from _mock_data.website import (BROWSERIST, COLORIST_FOR_PYTHON,
                                 INDEX_NOW_FOR_PYTHON, TIMER_FOR_PYTHON)
 from colorist import Color
 
-from index_now import SearchEngineEndpoint, submit_sitemaps_to_index_now
+from index_now import (SearchEngineEndpoint, SitemapFilter,
+                       submit_sitemaps_to_index_now)
 
 SITEMAP_LOCATIONS = [
     TIMER_FOR_PYTHON.sitemap_location,
@@ -42,4 +43,5 @@ def test_submit_multiple_sitemaps_error_handling_of_no_matches() -> None:
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     with pytest.raises(ValueError):
-        submit_sitemaps_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, SITEMAP_LOCATIONS, contains="no-matches-at-all", endpoint=endpoint)
+        sitemap_filter = SitemapFilter(contains="no-matches-at-all")
+        submit_sitemaps_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, SITEMAP_LOCATIONS, sitemap_filter, endpoint=endpoint)

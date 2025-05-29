@@ -32,6 +32,16 @@ class DateRange(ABC):
     def __repr__(self) -> str:
         return f"DateRange(start={self.start.date()}, end={self.end.date()})"
 
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, self.__class__):
+            return False
+        return all([
+            self.__slots__ == other.__slots__,
+            self.__str__() == other.__str__(),
+            self.start.date() == other.start.date(),
+            self.end.date() == other.end.date(),
+        ])
+
     def is_within_range(self, date: datetime) -> bool:
         """Check if a given date is within the date range."""
 
@@ -59,11 +69,11 @@ class Between(DateRange):
         ```
     """
 
-    __slots__ = ["start", "end"]
-
     def __init__(self, start: datetime, end: datetime) -> None:
-        self.start: datetime = start
-        self.end: datetime = end
+        super().__init__(
+            start=start,
+            end=end,
+        )
 
     def __repr__(self) -> str:
         return f"Between(start={self.start.date()}, end={self.end.date()})"
@@ -117,7 +127,7 @@ class Yesterday(DateRange):
         )
 
     def __repr__(self) -> str:
-        return f"Yesterday({self.start.date()})"
+        return f"Yesterday(start={self.start.date()}, end={self.end.date()})"
 
 
 class Day(DateRange):

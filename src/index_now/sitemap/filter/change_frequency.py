@@ -23,7 +23,7 @@ class ChangeFrequency(Enum):
         filter = SitemapFilter(change_frequency=ChangeFrequency.DAILY)
         ```
 
-        Instead of the `ChangeFrequency` enumeration, you can also use basic string input:
+        Instead of the predefined `ChangeFrequency` enumerations, you can also use basic string input:
 
         ```python linenums="3" hl_lines="1" title=""
         filter = SitemapFilter(change_frequency="daily")

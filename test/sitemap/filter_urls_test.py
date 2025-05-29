@@ -1,9 +1,8 @@
 import pytest
 from _helper.sitemap import get_mock_sitemap_content
 
-from index_now import SitemapFilter
-from index_now.sitemap.filter.sitemap import (ChangeFrequency, SitemapUrl,
-                                              filter_sitemap_urls)
+from index_now import ChangeFrequency, SitemapFilter
+from index_now.sitemap.filter.sitemap import SitemapUrl, filter_sitemap_urls
 from index_now.sitemap.parse import parse_sitemap_xml_and_get_urls_as_elements
 
 SITEMAP_URLS = parse_sitemap_xml_and_get_urls_as_elements(get_mock_sitemap_content())

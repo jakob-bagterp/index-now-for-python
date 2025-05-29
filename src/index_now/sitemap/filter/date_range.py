@@ -64,11 +64,11 @@ class Between(DateRange):
         ```
     """
 
-    __slots__ = ["start", "end"]
-
     def __init__(self, start: datetime, end: datetime) -> None:
-        self.start: datetime = start
-        self.end: datetime = end
+        super().__init__(
+            start=start,
+            end=end,
+        )
 
     def __repr__(self) -> str:
         return f"Between(start={self.start.date()}, end={self.end.date()})"

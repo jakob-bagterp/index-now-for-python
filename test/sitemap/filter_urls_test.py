@@ -18,7 +18,7 @@ SITEMAP_URLS_LOC = [url.loc for url in SITEMAP_URLS]
     (SITEMAP_URLS, SitemapFilter(skip=0), SITEMAP_URLS_LOC),
     (SITEMAP_URLS, SitemapFilter(take=0), []),
     (SITEMAP_URLS, SitemapFilter(skip=1), SITEMAP_URLS_LOC[1:]),
-    (SITEMAP_URLS, SitemapFilter(skip=len(SITEMAP_URLS_LOC)), []),
+    (SITEMAP_URLS, SitemapFilter(skip=len(SITEMAP_URLS)), []),
     (SITEMAP_URLS, SitemapFilter(skip=0, take=1), SITEMAP_URLS_LOC[0:1]),
     (SITEMAP_URLS, SitemapFilter(contains="page1"), [SITEMAP_URLS_LOC[i] for i in [1, 5, 7]]),
     (SITEMAP_URLS, SitemapFilter(contains="page1", take=1), [SITEMAP_URLS_LOC[1]]),

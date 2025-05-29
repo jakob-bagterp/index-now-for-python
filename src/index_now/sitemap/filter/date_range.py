@@ -32,6 +32,11 @@ class DateRange(ABC):
     def __repr__(self) -> str:
         return f"DateRange(start={self.start.date()}, end={self.end.date()})"
 
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__dict__ == other.__dict__
+
     def is_within_range(self, date: datetime) -> bool:
         """Check if a given date is within the date range."""
 

@@ -23,7 +23,7 @@ def test_submit_multiple_sitemaps_to_index_now(capfd: object) -> None:
     assert status_code in [200, 202]
     terminal_output, _ = capfd.readouterr()
     assert f"URL(s) were submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}" in terminal_output
-    assert f"Status code: {Color.GREEN}200{Color.OFF}" or f"Status code: {Color.GREEN}202{Color.OFF}" in terminal_output
+    assert f"Status code: {Color.GREEN}200 OK{Color.OFF}" or f"Status code: {Color.GREEN}202 Accepted{Color.OFF}" in terminal_output
 
 
 def test_submit_multiple_sitemaps_error_handling_of_invalid_sitemap() -> None:

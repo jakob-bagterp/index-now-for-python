@@ -27,7 +27,7 @@ To verify ownership of your domain, you need to create an API key. This key is h
 For more information about the API key, see the [official IndexNow documentation](https://www.indexnow.org/api-key) or the [getting started guide from Microsoft Bing](https://www.bing.com/indexnow/getstarted#implementation). Or learn [how to generate your own API key](../user-guide/tips-and-tricks/generate-api-keys.md).
 
 ## 3. First Script
-You're now ready to submit your first URL to the IndexNow API:
+You're now ready to submit your first URL to the IndexNow API. Simply adjust the code below to match your website's domain and API key, then run it:
 
 ```python linenums="1"
 from index_now import submit_url_to_index_now, IndexNowAuthentication

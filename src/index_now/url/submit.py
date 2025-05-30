@@ -46,11 +46,12 @@ def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, en
     response = requests.get(url=str(endpoint), params={"url": url, "key": authentication.api_key, "keyLocation": authentication.api_key_location})
 
     if response.status_code in ACCEPTED_STATUS_CODES:
-        print(f"{Color.GREEN}URL submitted successfully to the IndexNow API:{Color.OFF} {endpoint}")
+        print(f"{Color.GREEN}1 URL was submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}")
         print(f"Status code: {Color.GREEN}{response.status_code}{Color.OFF}")
     else:
-        print("Failed to submit URL.")
-        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}. Response: {response.text}")
+        print(f"{Color.YELLOW}Failure. No URL was submitted to this IndexNow API endpoint:{Color.OFF} {endpoint}")
+        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
+        print(f"Response: {response.text}")
     return response.status_code
 
 
@@ -103,9 +104,10 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
     )
 
     if response.status_code in ACCEPTED_STATUS_CODES:
-        print(f"{Color.GREEN}{len(urls):,} URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}")
+        print(f"{Color.GREEN}{len(urls):,} URL(s) were submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}")
         print(f"Status code: {Color.GREEN}{response.status_code}{Color.OFF}")
     else:
-        print("Failed to submit URL(s).")
-        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}. Response: {response.text}")
+        print(f"{Color.YELLOW}Failure. No URL(s) were submitted to this IndexNow API endpoint:{Color.OFF} {endpoint}")
+        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
+        print(f"Response: {response.text}")
     return response.status_code

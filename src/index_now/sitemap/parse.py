@@ -52,7 +52,7 @@ def parse_sitemap_xml_and_get_urls_as_elements(sitemap_content: str | bytes | An
             urls.append(url)
         return urls
     except Exception:
-        print(f"{Color.YELLOW}Invalid sitemap.xml format during parsing. Please check the sitemap location.{Color.OFF}")
+        print(f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}")
         return []
 
 
@@ -71,5 +71,5 @@ def parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any) -> list[s
         sitemap_urls = sitemap_tree.xpath("//ns:url/ns:loc/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)
         return [str(url).strip() for url in sitemap_urls] if isinstance(sitemap_urls, list) and sitemap_urls else []
     except Exception:
-        print(f"{Color.YELLOW}Invalid sitemap.xml format during parsing. Please check the sitemap location.{Color.OFF}")
+        print(f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}")
         return []

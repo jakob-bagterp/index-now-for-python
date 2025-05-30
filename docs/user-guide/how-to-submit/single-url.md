@@ -18,7 +18,7 @@ authentication = IndexNowAuthentication(
     api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
-submit_url_to_index_now(authentication, "https://example.com/page1")¨
+submit_url_to_index_now(authentication, "https://example.com/page1")
 
 submit_url_to_index_now(authentication, "https://example.com/page2")
 

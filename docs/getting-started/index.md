@@ -1,5 +1,5 @@
 ---
-title: Get Started with IndexNow in 2 Easy Steps
+title: Get Started with IndexNow in 3 Easy Steps
 description: Quick guide to installing and using IndexNow for Python, so you can submit your first URLs within minutes. Includes code examples for beginners and advanced users.
 tags:
     - Tutorial

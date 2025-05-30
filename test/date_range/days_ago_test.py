@@ -6,6 +6,8 @@ from index_now import DaysAgo
 
 
 @pytest.mark.parametrize("days_ago, date_to_check, expected", [
+    (0, datetime.today(), True),
+    (0, datetime.now(), True),
     (1, datetime.today(), True),
     (1, datetime.now(), True),
     (1, datetime.today() + timedelta(days=1), False),  # Tomorrow.

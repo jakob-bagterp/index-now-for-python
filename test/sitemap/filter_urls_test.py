@@ -4,6 +4,7 @@ import pytest
 from _helper.sitemap import (get_mock_sitemap_content,
                              get_mock_sitemap_inconsistent_content,
                              get_mock_sitemap_only_urls_content)
+from colorist import Color
 
 from index_now import (Between, ChangeFrequency, DateRange, DaysAgo,
                        EarlierThan, EarlierThanAndIncluding, LaterThan,
@@ -20,6 +21,10 @@ SITEMAP_WITH_ONLY_URLS_LOC = [url.loc for url in SITEMAP_WITH_ONLY_URLS]
 SITEMAP_INCONSISTENT = parse_sitemap_xml_and_get_urls_as_elements(get_mock_sitemap_inconsistent_content())
 SITEMAP_INCONSISTENT_LOC = [url.loc for url in SITEMAP_WITH_ONLY_URLS]
 
+NO_MATCHES_AT_ALL = "no-matches-at-all"
+
+MATCHES_ALL_URLS = "example.com"
+
 
 @pytest.mark.parametrize("sitemap_urls, filter, expected", [
     ([], SitemapFilter(), []),
@@ -35,7 +40,7 @@ SITEMAP_INCONSISTENT_LOC = [url.loc for url in SITEMAP_WITH_ONLY_URLS]
     (SITEMAP, SitemapFilter(contains="page1", take=1), [SITEMAP_LOC[1]]),
     (SITEMAP, SitemapFilter(contains=r"(page1)|(section1)"), [SITEMAP_LOC[i] for i in [1, 5, 6, 7]]),
     (SITEMAP, SitemapFilter(contains=r"(page1)|(section1)", skip=1, take=2), [SITEMAP_LOC[i] for i in [5, 6]]),
-    (SITEMAP, SitemapFilter(contains="no-matches-at-all"), []),
+    (SITEMAP, SitemapFilter(contains=NO_MATCHES_AT_ALL), []),
     (SITEMAP, SitemapFilter(excludes="page"), SITEMAP_LOC[0:1]),
     (SITEMAP, SitemapFilter(excludes="/page"), [SITEMAP_LOC[i] for i in [0, 5, 6, 7, 8]]),
     (SITEMAP, SitemapFilter(excludes=r"(page1)|(section?\d)"), [SITEMAP_LOC[i] for i in [0, 2, 3, 4]]),
@@ -64,7 +69,7 @@ SITEMAP_INCONSISTENT_LOC = [url.loc for url in SITEMAP_WITH_ONLY_URLS]
     (SITEMAP_WITH_ONLY_URLS, SitemapFilter(contains="page1", take=1), [SITEMAP_WITH_ONLY_URLS_LOC[1]]),
     (SITEMAP_WITH_ONLY_URLS, SitemapFilter(contains=r"(page1)|(section1)"), [SITEMAP_WITH_ONLY_URLS_LOC[i] for i in [1, 5, 6, 7]]),
     (SITEMAP_WITH_ONLY_URLS, SitemapFilter(contains=r"(page1)|(section1)", skip=1, take=2), [SITEMAP_WITH_ONLY_URLS_LOC[i] for i in [5, 6]]),
-    (SITEMAP_WITH_ONLY_URLS, SitemapFilter(contains="no-matches-at-all"), []),
+    (SITEMAP_WITH_ONLY_URLS, SitemapFilter(contains=NO_MATCHES_AT_ALL), []),
     (SITEMAP_WITH_ONLY_URLS, SitemapFilter(excludes="page"), SITEMAP_WITH_ONLY_URLS_LOC[0:1]),
     (SITEMAP_WITH_ONLY_URLS, SitemapFilter(excludes="/page"), [SITEMAP_WITH_ONLY_URLS_LOC[i] for i in [0, 5, 6, 7, 8]]),
     (SITEMAP_WITH_ONLY_URLS, SitemapFilter(excludes=r"(page1)|(section?\d)"), [SITEMAP_WITH_ONLY_URLS_LOC[i] for i in [0, 2, 3, 4]]),
@@ -93,7 +98,7 @@ SITEMAP_INCONSISTENT_LOC = [url.loc for url in SITEMAP_WITH_ONLY_URLS]
     (SITEMAP_INCONSISTENT, SitemapFilter(contains="page1", take=1), [SITEMAP_INCONSISTENT_LOC[1]]),
     (SITEMAP_INCONSISTENT, SitemapFilter(contains=r"(page1)|(section1)"), [SITEMAP_INCONSISTENT_LOC[i] for i in [1, 5, 6, 7]]),
     (SITEMAP_INCONSISTENT, SitemapFilter(contains=r"(page1)|(section1)", skip=1, take=2), [SITEMAP_INCONSISTENT_LOC[i] for i in [5, 6]]),
-    (SITEMAP_INCONSISTENT, SitemapFilter(contains="no-matches-at-all"), []),
+    (SITEMAP_INCONSISTENT, SitemapFilter(contains=NO_MATCHES_AT_ALL), []),
     (SITEMAP_INCONSISTENT, SitemapFilter(excludes="page"), SITEMAP_INCONSISTENT_LOC[0:1]),
     (SITEMAP_INCONSISTENT, SitemapFilter(excludes="/page"), [SITEMAP_INCONSISTENT_LOC[i] for i in [0, 5, 6, 7, 8]]),
     (SITEMAP_INCONSISTENT, SitemapFilter(excludes=r"(page1)|(section?\d)"), [SITEMAP_INCONSISTENT_LOC[i] for i in [0, 2, 3, 4]]),
@@ -114,3 +119,15 @@ SITEMAP_INCONSISTENT_LOC = [url.loc for url in SITEMAP_WITH_ONLY_URLS]
 def test_filter_sitemap_urls(sitemap_urls: list[SitemapUrl], filter: SitemapFilter, expected: list[str]) -> None:
     filtered_urls = filter_sitemap_urls(sitemap_urls, filter)
     assert filtered_urls == expected
+
+
+@pytest.mark.parametrize("sitemap_urls, filter, expected_terminal_output", [
+    (SITEMAP, SitemapFilter(contains=NO_MATCHES_AT_ALL), f"{Color.YELLOW}No URLs contained the pattern \"{NO_MATCHES_AT_ALL}\".{Color.OFF}\n"),
+    (SITEMAP, SitemapFilter(excludes=MATCHES_ALL_URLS), f"{Color.YELLOW}No URLs left after excluding the pattern \"{MATCHES_ALL_URLS}\".{Color.OFF}\n"),
+    (SITEMAP, SitemapFilter(skip=100), f"{Color.YELLOW}No URLs left after skipping 100 URL(s) from sitemap.{Color.OFF}\n"),
+    (SITEMAP, SitemapFilter(take=0), f"{Color.YELLOW}No URLs left. The value for take should be greater than 0.{Color.OFF}\n"),
+])
+def test_error_handling_of_filtering_sitemap_with_no_matches(sitemap_urls: list[SitemapUrl], filter: SitemapFilter, expected_terminal_output: str, capfd: object) -> None:
+    filter_sitemap_urls(sitemap_urls, filter)
+    terminal_output, _ = capfd.readouterr()
+    assert expected_terminal_output == terminal_output

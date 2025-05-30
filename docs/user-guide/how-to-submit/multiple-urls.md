@@ -21,7 +21,7 @@ authentication = IndexNowAuthentication(
 urls = [
     "https://example.com/page1",
     "https://example.com/page2",
-    "https://example.com/page3"
+    "https://example.com/page3",
 ]
 
 submit_urls_to_index_now(authentication, urls)

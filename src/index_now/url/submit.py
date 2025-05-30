@@ -103,7 +103,7 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
     )
 
     if response.status_code in ACCEPTED_STATUS_CODES:
-        print(f"{Color.GREEN}{len(urls)} URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}")
+        print(f"{Color.GREEN}{len(urls):,} URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}")
         print(f"Status code: {Color.GREEN}{response.status_code}{Color.OFF}")
     else:
         print("Failed to submit URL(s).")

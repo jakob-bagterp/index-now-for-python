@@ -4,7 +4,9 @@ from colorist import Color
 from ..authentication import IndexNowAuthentication
 from ..endpoint import SearchEngineEndpoint
 
-ACCEPTED_STATUS_CODES = [200, 202]
+SUCCESS_STATUS_CODES_DICT = {200: "OK", 202: "Accepted"}
+
+SUCCESS_STATUS_CODES = [status_code for status_code in SUCCESS_STATUS_CODES_DICT.keys()]
 
 
 def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
@@ -16,7 +18,7 @@ def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, en
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 
     Returns:
-        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc.
+        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit a single URL to the IndexNow API:
@@ -45,12 +47,13 @@ def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, en
 
     response = requests.get(url=str(endpoint), params={"url": url, "key": authentication.api_key, "keyLocation": authentication.api_key_location})
 
-    if response.status_code in ACCEPTED_STATUS_CODES:
-        print(f"{Color.GREEN}URL submitted successfully to the IndexNow API:{Color.OFF} {endpoint}")
-        print(f"Status code: {Color.GREEN}{response.status_code}{Color.OFF}")
+    if response.status_code in SUCCESS_STATUS_CODES:
+        print(f"{Color.GREEN}1 URL was submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}")
+        print(f"Status code: {Color.GREEN}{response.status_code} {SUCCESS_STATUS_CODES_DICT[response.status_code]}{Color.OFF}")
     else:
-        print("Failed to submit URL.")
-        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}. Response: {response.text}")
+        print(f"{Color.YELLOW}Failure. No URL was submitted to this IndexNow API endpoint:{Color.OFF} {endpoint}")
+        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
+        print(f"Response: {response.text}")
     return response.status_code
 
 
@@ -63,7 +66,7 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 
     Returns:
-        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc.
+        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit multiple URLs to the IndexNow API:
@@ -102,10 +105,11 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
         headers={"Content-Type": "application/json; charset=utf-8"}
     )
 
-    if response.status_code in ACCEPTED_STATUS_CODES:
-        print(f"{Color.GREEN}{len(urls)} URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}")
-        print(f"Status code: {Color.GREEN}{response.status_code}{Color.OFF}")
+    if response.status_code in SUCCESS_STATUS_CODES:
+        print(f"{Color.GREEN}{len(urls):,} URL(s) were submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}")
+        print(f"Status code: {Color.GREEN}{response.status_code} {SUCCESS_STATUS_CODES_DICT[response.status_code]}{Color.OFF}")
     else:
-        print("Failed to submit URL(s).")
-        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}. Response: {response.text}")
+        print(f"{Color.YELLOW}Failure. No URL(s) were submitted to this IndexNow API endpoint:{Color.OFF} {endpoint}")
+        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
+        print(f"Response: {response.text}")
     return response.status_code

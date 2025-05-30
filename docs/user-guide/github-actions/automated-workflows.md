@@ -15,7 +15,9 @@ Find a simplified version of IndexNow for Python on GitHub Actions and begin aut
 [View on GitHub Marketplace](https://github.com/marketplace/actions/index-now-submit-sitemap-urls-action){ .md-button .md-button--primary }
 
 ## Workflow Automation with GitHub Actions
-Regardless of whether your codebase is highly or less active, it is recommended that you do _not_ submit your sitemap to IndexNow each time your site is deployed to production. This could overwhelm IndexNow and reduce the website's ranking. Instead, you should automate sitemap submissions to IndexNow using GitHub Actions at regular intervals, allowing the changes to accumulate over time and allowing the search engines crawlers time to index the latest content.
+Regardless of whether your codebase is highly or less active, it is recommended that you do _not_ submit your sitemap to IndexNow each time your site is deployed to production. This could overwhelm IndexNow and reduce the website's ranking.
+
+Instead, you should automate sitemap submissions to IndexNow using GitHub Actions at regular intervals, allowing the changes to accumulate over time and allowing the search engines crawlers time to index the latest content.
 
 Example workflow with GitHub Actions:
 

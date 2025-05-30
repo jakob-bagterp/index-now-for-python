@@ -16,7 +16,7 @@ def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, en
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 
     Returns:
-        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc.
+        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit a single URL to the IndexNow API:
@@ -64,7 +64,7 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
         endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
 
     Returns:
-        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc.
+        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit multiple URLs to the IndexNow API:

@@ -4,6 +4,7 @@ description: Learn how to submit a single URL to the IndexNow API.
 tags:
     - Documentation
     - Tutorial
+    - Status Codes
 ---
 
 

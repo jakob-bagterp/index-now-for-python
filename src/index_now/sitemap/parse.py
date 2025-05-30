@@ -9,7 +9,7 @@ SITEMAP_SCHEMA_NAMESPACE = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
 @dataclass(slots=True, frozen=True)
 class SitemapUrl:
-    """Reprensents an `<url>...</url>` element in a sitemap XML file so it can be parsed in a data structure.
+    """Reprensents an `<url>...</url>` element in an XML sitemap file so it can be parsed in a data structure.
 
     Attributes:
         loc (str): The location of the URL.
@@ -25,13 +25,13 @@ class SitemapUrl:
 
 
 def parse_sitemap_xml_and_get_urls_as_elements(sitemap_content: str | bytes | Any) -> list[SitemapUrl]:
-    """Parse the contents of a sitemap.xml file, e.g. from a response, and retrieve all the URLs from it as `SitemapUrl` objects.
+    """Parse the contents of an XML sitemap file, e.g. from a response, and retrieve all the URLs from it as `SitemapUrl` elements.
 
     Args:
-        content (str | bytes | Any): The content from the sitemap.xml file.
+        content (str | bytes | Any): The content of the XML sitemap file.
 
     Returns:
-        list[SitemapUrl]: List of SitemapUrl objects found in the sitemap.xml file, or empty list if no URLs are found.
+        list[SitemapUrl]: List of SitemapUrl objects found in the XML sitemap file, or empty list if no URLs are found.
     """
 
     try:
@@ -52,18 +52,18 @@ def parse_sitemap_xml_and_get_urls_as_elements(sitemap_content: str | bytes | An
             urls.append(url)
         return urls
     except Exception:
-        print(f"{Color.YELLOW}Invalid sitemap.xml format during parsing. Please check the sitemap location.{Color.OFF}")
+        print(f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}")
         return []
 
 
 def parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any) -> list[str]:
-    """Fastest method to parse the contents of a sitemap.xml file, e.g. from a response, and retrieve all the URLs from it.
+    """Fastest method to parse the contents of an XML sitemap file, e.g. from a response, and retrieve all the URLs from it.
 
     Args:
-        content (str | bytes | Any): The content from the sitemap.xml file.
+        content (str | bytes | Any): The content of the XML sitemap file.
 
     Returns:
-        list[str]: List of URLs found in the sitemap.xml file, or empty list if no URLs are found.
+        list[str]: List of the URLs found in the XML sitemap file. If no URLs are found, the list will be empty.
     """
 
     try:
@@ -71,5 +71,5 @@ def parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any) -> list[s
         sitemap_urls = sitemap_tree.xpath("//ns:url/ns:loc/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)
         return [str(url).strip() for url in sitemap_urls] if isinstance(sitemap_urls, list) and sitemap_urls else []
     except Exception:
-        print(f"{Color.YELLOW}Invalid sitemap.xml format during parsing. Please check the sitemap location.{Color.OFF}")
+        print(f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}")
         return []

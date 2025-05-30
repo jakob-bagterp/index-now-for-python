@@ -55,7 +55,7 @@ for endpoint in SearchEngineEndpoint:
 ```
 
 !!! warning
-    It is not recommended to submit the same URLs to multiple endpoints. Once you have successfully submitted to one [IndexNow](https://www.indexnow.org) endpoint, the IndexNow service is designed to propagate your URLs to other search engines, so you do not need to submit to multiple endpoints.
+    It is not recommended to submit the same URLs to multiple endpoints. Once you have successfully submitted to one [IndexNow](https://www.indexnow.org) endpoint, the IndexNow service is designed to propagate your URLs to other search engines, so you do not need to submit to multiple times.
 
 ## List of Default Endpoints
 The following endpoints are provided by default with the IndexNow for Python package:

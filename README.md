@@ -9,7 +9,7 @@
 # 🔍 Submit URLs to the IndexNow API of Various Search Enginges 🔎
 Are you concerned about search engine optimization (SEO)? Do you want to make sure your website is indexed frequently by [Bing](https://www.bing.com/indexnow), [Yandex](https://yandex.com/indexnow), [DuckDuckGo](https://duckduckgo.com/), and other search engines?
 
-IndexNow for Python is a lightweight Python package that makes it easy to submit URLs or entire sitemaps to the IndexNow API of various search engines, so your pages can be indexed faster.
+IndexNow for Python is a lightweight, yet powerful Python package that makes it easy to submit URLs or entire sitemaps to the IndexNow API of various search engines, so your pages can be indexed faster.
 
 Ready to try? Learn [how to install](https://jakob-bagterp.github.io/index-now-for-python/getting-started/installation/) and find tutorials in the [user guide](https://jakob-bagterp.github.io/index-now-for-python/user-guide/).
 

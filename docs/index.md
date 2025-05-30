@@ -17,7 +17,7 @@ tags:
 ## Why Use IndexNow for Python?
 If you are concerned about search engine optimization (SEO) and want to make sure your website is indexed frequently by [Bing](https://www.bing.com/indexnow), [Yandex](https://yandex.com/indexnow), [DuckDuckGo](https://duckduckgo.com/), and other search engines, then IndexNow for Python may be the right choice for you.
 
-IndexNow for Python is a lightweight Python package that makes it easy to submit URLs or entire sitemaps to the IndexNow API of various search engines, so your pages can be indexed faster.
+IndexNow for Python is a lightweight, yet powerful Python package that makes it easy to submit URLs or entire sitemaps to the IndexNow API of various search engines, so your pages can be indexed faster.
 
 !!! note "What is IndexNow?"
     [IndexNow](https://www.indexnow.org/) is an open source protocol that allows website owners to notify search engines when their content has changed, so that search engines can quickly crawl and index the new content. This is particularly useful for sites that update frequently or have dynamic content, and it is useful for search engines to know which pages to crawl and index since the last visit.
@@ -61,7 +61,7 @@ authentication = IndexNowAuthentication(
 urls = [
     "https://example.com/page1",
     "https://example.com/page2",
-    "https://example.com/page3"
+    "https://example.com/page3",
 ]
 
 submit_urls_to_index_now(authentication, urls)
@@ -105,7 +105,7 @@ for endpoint in [endpoint_bing, endpoint_custom]:
 ```
 
 !!! warning
-    It is not recommended to submit the same URLs to multiple endpoints. Once you have successfully submitted to one [IndexNow](https://www.indexnow.org) endpoint, the IndexNow service is designed to propagate your URLs to other search engines, so you do not need to submit to multiple endpoints.
+    It is not recommended to submit the same URLs to multiple endpoints. Once you have successfully submitted to one [IndexNow](https://www.indexnow.org) endpoint, the IndexNow service is designed to propagate your URLs to other search engines, so you do not need to submit to multiple times.
 
 ## Next Steps
 Ready to try? [Let's get started](getting-started/index.md).

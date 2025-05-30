@@ -106,7 +106,7 @@ filter = SitemapFilter(change_frequency=ChangeFrequency.DAILY)
 
 Or use a basic string input:
 
-```python linenums="1" hl_lines="9"
+```python linenums="1" hl_lines="3"
 from index_now import SitemapFilter
 
 filter = SitemapFilter(change_frequency="daily")

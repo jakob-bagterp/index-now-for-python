@@ -4,6 +4,7 @@ description: Learn how to submit multiple URLs in bulk to the IndexNow API.
 tags:
     - Documentation
     - Tutorial
+    - Status Codes
 ---
 
 

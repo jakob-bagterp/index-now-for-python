@@ -37,10 +37,10 @@ submit_url_to_index_now(authentication, "https://example.com/page2",
     SearchEngineEndpoint.YANDEX)
 ```
 
-### Submit to Multiple Search Engines
-If you want to submit to multiple search engine endpoints, here's how:
+### Attempt to Submit to Multiple Search Engines as Failover Strategy
+To check that the search engine endpoints are operational and to ensure the successful submission of URLs, use the [returned status code](../how-to-submit/status-codes.md) as a condition:
 
-```python linenums="1" hl_lines="9-11"
+```python linenums="1" hl_lines="9 12"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
 
 authentication = IndexNowAuthentication(
@@ -50,12 +50,15 @@ authentication = IndexNowAuthentication(
 )
 
 for endpoint in SearchEngineEndpoint:
-    submit_url_to_index_now(authentication, "https://example.com/page1",
+    status_code = submit_url_to_index_now(authentication, "https://example.com/page1",
         endpoint)
+    if status_code in [200, 202]:
+        print("URL was submitted successfully to IndexNow.")
+        break
 ```
 
 !!! warning
-    It is not recommended to submit the same URLs to multiple endpoints. Once you have successfully submitted to one [IndexNow](https://www.indexnow.org) endpoint, the IndexNow service is designed to propagate your URLs to other search engines, so you do not need to submit to multiple endpoints.
+    It is not recommended to submit the same URLs to multiple endpoints. Once you have successfully submitted to one [IndexNow](https://www.indexnow.org) endpoint, the IndexNow service is designed to propagate your URLs to other search engines, so you do not need to submit to multiple times.
 
 ## List of Default Endpoints
 The following endpoints are provided by default with the IndexNow for Python package:

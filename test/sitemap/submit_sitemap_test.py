@@ -22,7 +22,7 @@ def test_submit_sitemap_to_index_now(website_data: IndexNowWebsiteData, capfd: o
     status_code = submit_sitemap_to_index_now(website_data.authentication, website_data.sitemap_location, endpoint=endpoint)
     assert status_code in [200, 202]
     terminal_output, _ = capfd.readouterr()
-    assert f"URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}" in terminal_output
+    assert f"URL(s) were submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}" in terminal_output
     assert f"Status code: {Color.GREEN}200{Color.OFF}" or f"Status code: {Color.GREEN}202{Color.OFF}" in terminal_output
 
 
@@ -37,7 +37,7 @@ def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint
     status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON.sitemap_location, endpoint=endpoint)
     assert status_code in [200, 202]
     terminal_output, _ = capfd.readouterr()
-    assert f"URL(s) submitted successfully to the IndexNow API:{Color.OFF} {endpoint}" in terminal_output
+    assert f"URL(s) were submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}" in terminal_output
     assert f"Status code: {Color.GREEN}200{Color.OFF}" or f"Status code: {Color.GREEN}202{Color.OFF}" in terminal_output
 
 

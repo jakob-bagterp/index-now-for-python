@@ -4,6 +4,8 @@ description: Learn how to use change frequency options to filter URLs from a sit
 tags:
     - Documentation
     - Tutorial
+    - Sitemap
+    - Filtering
 ---
 
 # Change Frequency Filter Options

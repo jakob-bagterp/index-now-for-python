@@ -4,6 +4,8 @@ description: Learn how to use date range options to filter URLs from a sitemap b
 tags:
     - Documentation
     - Tutorial
+    - Sitemap
+    - Filtering
 ---
 
 # Date Range Filter Options

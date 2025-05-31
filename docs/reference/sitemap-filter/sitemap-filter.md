@@ -4,6 +4,8 @@ description: Learn how to filter URLs from a sitemap before submitting them in b
 tags:
     - Documentation
     - Tutorial
+    - Sitemap
+    - Filtering
 ---
 
 # Sitemap Filter Settings

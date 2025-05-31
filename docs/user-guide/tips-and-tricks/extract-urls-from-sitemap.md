@@ -3,6 +3,7 @@ title: How to Extract URLs from a Sitemap
 description: Learn how to get URLs from an XML sitemap. Includes code examples for beginners and advanced users.
 tags:
     - Tutorial
+    - Sitemap
 ---
 
 # How to Extract URLs from a Sitemap

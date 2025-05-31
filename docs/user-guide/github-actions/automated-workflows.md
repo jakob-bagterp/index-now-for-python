@@ -129,7 +129,6 @@ For users of [GitHub Pages](https://pages.github.com), you can still use the aut
 
 All you need to do is adjust the `on` condition and adapt the example below to your needs:
 
-
 ```yaml linenums="3" title=".github/workflows/submit_sitemap_to_index_now.yml"
 on:
   workflow_run:

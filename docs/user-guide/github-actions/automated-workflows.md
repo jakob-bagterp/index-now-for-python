@@ -54,7 +54,7 @@ jobs:
 The example above can be adjusted to run at different intervals. Simply adjust the [`cron` job](https://en.wikipedia.org/wiki/Cron) definition to your needs.
 
 !!! warning
-    Too many submissions to any of the [IndexNow API endpoints](../search-engines/default-endpoints.md) could result in your site being ranked lower by search engines, maybe even blacklisted. It's highly recommended to only submit sitemaps to the IndexNow API once a day or less, ideally only the latest.
+    Too many submissions to any of the [IndexNow API endpoints](../search-engines/default-endpoints.md) could result in your site being ranked lower by search engines, maybe even blacklisted. It's highly recommended to only submit sitemaps to the IndexNow API once a day or less, ideally only the latest updated URLs.
 
 ### Monthly Schedule
 Run the workflow at midnight UTC on the first day of each month:

@@ -87,7 +87,7 @@ name: Submit Sitemap to IndexNow
 
 on:
   schedule:
-    - cron: 0 0 * * *  # Run daily at midnight UTC
+    - cron: 0 0 * * *  # Run daily at midnight UTC.
 
 jobs:
   submit-sitemap:

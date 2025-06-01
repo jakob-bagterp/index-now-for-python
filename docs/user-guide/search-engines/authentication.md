@@ -1,5 +1,5 @@
 ---
-title: How to Authenticate Your Site with IndexNow
+title: How to Authenticate Your Site
 description: Learn how to use the API key and its location to securely submit URLs from your domain to the IndexNow API. Includes code examples for beginners and advanced users.
 tags:
     - Tutorial

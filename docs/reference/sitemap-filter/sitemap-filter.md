@@ -1,5 +1,5 @@
 ---
-title: Documentation for Sitemap Filter Settings
+title: Documentation of Sitemap Filter Settings
 description: Learn how to filter URLs from a sitemap before submitting them in bulk to IndexNow. Includes code examples for both beginners and advanced users.
 tags:
     - Documentation

@@ -1,5 +1,5 @@
 ---
-title: How to Submit Multiple URLs to IndexNow
+title: How to Submit Multiple URLs
 description: Learn how to submit multiple URLs in bulk to the IndexNow API to get your website indexed faster by search engines. Includes code examples for beginners and advanced users.
 tags:
     - Tutorial

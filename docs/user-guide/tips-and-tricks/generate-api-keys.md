@@ -1,6 +1,6 @@
 ---
-title: How to Generate API Keys for IndexNow
-description: Learn how to generate API keys to verify your website and submit URLs to IndexNow. Includes code examples for beginners and advanced users.
+title: How to Generate API Keys
+description: Learn how to generate API keys to verify your website and start submitting URLs to IndexNow. Includes code examples for both beginners and advanced users.
 tags:
     - Tutorial
     - Settings

@@ -1,5 +1,5 @@
 ---
-title: Documentation for Submitting Sitemap to IndexNow
+title: Documentation of Submitting Sitemap
 description: Learn how to submit an entire sitemap of multiple URLs in bulk to the IndexNow API.
 tags:
     - Documentation

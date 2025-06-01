@@ -1,5 +1,5 @@
 ---
-title: Documentation for Submitting Single URL to IndexNow
+title: Documentation of Submitting Single URL
 description: Learn how to submit a single URL to the IndexNow API.
 tags:
     - Documentation

@@ -1,5 +1,5 @@
 ---
-title: How to Automate Sitemap Submission to IndexNow using GitHub Actions
+title: How to Automate Sitemap Submission with GitHub Actions
 description: If you're using GitHub Actions to deploy your website and want to improve SEO, you can automate the submission of your sitemap to the IndexNow API. Includes code examples for beginners and advanced users.
 tags:
     - Tutorial

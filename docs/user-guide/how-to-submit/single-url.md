@@ -1,5 +1,5 @@
 ---
-title: How to Submit a URL to IndexNow
+title: How to Submit a URL
 description: Learn how to submit a single URL to the IndexNow API to get your page indexed faster by search engines. Includes code examples for beginners and advanced users.
 tags:
     - Tutorial

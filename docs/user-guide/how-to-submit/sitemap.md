@@ -1,5 +1,5 @@
 ---
-title: How to Submit an Entire Sitemap or Multiple Sitemaps to IndexNow
+title: How to Submit a Sitemap or Multiple Sitemaps
 description: Learn how to submit an entire sitemap of multiple URLs to the IndexNow API to get your website indexed faster by search engines. Includes code examples for beginners and advanced users.
 tags:
     - Tutorial

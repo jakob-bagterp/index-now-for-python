@@ -1,5 +1,5 @@
 ---
-title: Documentation for Submitting Multiple URLs to IndexNow
+title: Documentation of Submitting Multiple URLs
 description: Learn how to submit multiple URLs in bulk to the IndexNow API.
 tags:
     - Documentation

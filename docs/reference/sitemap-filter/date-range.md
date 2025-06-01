@@ -1,5 +1,5 @@
 ---
-title: Documentation for Sitemap Filter Settings
+title: Documentation of Date Range Filter Settings
 description: Learn how to use date range options to filter URLs from a sitemap before submitting them in bulk to IndexNow. Includes code examples for both beginners and advanced users.
 tags:
     - Documentation

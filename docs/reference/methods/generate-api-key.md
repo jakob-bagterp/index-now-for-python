@@ -1,5 +1,5 @@
 ---
-title: Documentation on Generating API Keys for IndexNow
+title: Documentation on Generating API Keys
 description: Learn how to generate API keys to verify your website so you can submit URLs to IndexNow.
 tags:
     - Documentation

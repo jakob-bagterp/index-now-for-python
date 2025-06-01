@@ -1,6 +1,6 @@
 ---
-title: The Easy Way to Submit URLs to the IndexNow API
-description: Improve your SEO. IndexNow for Python is a lightweight Python package that makes it easy to submit URLs or entire sitemaps to the IndexNow API of various search engines, so your pages can be indexed faster
+title: The Easy Way to Submit URLs to IndexNow
+description: Improve your SEO. IndexNow for Python is a lightweight Python package that makes it easy to submit URLs or entire sitemaps to the IndexNow API of various search engines, so your pages can be indexed faster.
 tags:
     - Tutorial
 ---

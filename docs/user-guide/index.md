@@ -1,5 +1,5 @@
 ---
-atitle: User Guide to Submit URLs to the IndexNow API
+atitle: User Guide to Submitting URLs to the IndexNow API
 description: Get the most out of IndexNow for Python's few, yet powerful features with comprehensive tutorials, tips, and tricks. Includes guides and code examples for both beginners and advanced users.
 tags:
     - Features

@@ -78,7 +78,7 @@ Run the workflow at midnight UTC on a daily basis:
 ```
 
 #### Only Submit Latest Changes
-Rather than submitting all the URLs in the sitemap as one large payload to IndexNow, you can also submit only the latest changes by targeting the latest modification date of each URL in the sitemap using the `<lastmod>...</lastmod>` tag. This is particularly useful if you have a large number of pages on your site that you want to submit all at once when deploying your site.
+Rather than submitting all the URLs in the sitemap as one large payload to IndexNow, you can also submit only the latest changes by targeting the latest modification date of each URL in the sitemap using the `<lastmod>` tag. This is particularly useful if you have a large number of pages on your site that you want to submit all at once when deploying your site.
 
 Simply adjust the `sitemap_days_ago` parameter to the desired number of days, as highlighted below:
 

@@ -1,6 +1,6 @@
 ---
-title: Documentation of Change Frequency Filter Options
-description: Learn how to use change frequency options to filter URLs from a sitemap before submitting them in bulk to IndexNow. Includes code examples for both beginners and advanced users.
+title: Documentation of Change Frequency Options
+description: Learn how to use change frequency options to filter URLs from a sitemap before submitting them in bulk to IndexNow. Includes code examples for beginners and advanced users.
 tags:
     - Documentation
     - Tutorial

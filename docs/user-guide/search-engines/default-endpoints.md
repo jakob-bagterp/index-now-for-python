@@ -63,14 +63,14 @@ for endpoint in SearchEngineEndpoint:
 ## List of Default Endpoints
 The following endpoints are provided by default with the IndexNow for Python package:
 
-| Endpoint Enum                         | Name                                           | Endpoint URL                                                                         |
-| ------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `SearchEngineEndpoint.INDEXNOW`       | [IndexNow](https://www.indexnow.org) (default) | [https://api.indexnow.org/indexnow](https://api.indexnow.org/indexnow)               |
-| `SearchEngineEndpoint.BING`           | [Microsoft Bing](https://www.bing.com)         | [https://www.bing.com/indexnow](https://www.bing.com/indexnow)                       |
-| `SearchEngineEndpoint.NAVER`          | [Naver](https://www.naver.com)                 | [https://searchadvisor.naver.com/indexnow](https://searchadvisor.naver.com/indexnow) |
-| `SearchEngineEndpoint.SEZNAM`         | [Seznam.cz](https://www.seznam.cz)             | [https://search.seznam.cz/indexnow](https://search.seznam.cz/indexnow)               |
-| `SearchEngineEndpoint.YANDEX`         | [Yandex](https://yandex.com)                   | [https://yandex.com/indexnow](https://yandex.com/indexnow)                           |
-| `SearchEngineEndpoint.YEP`            | [Yep](https://yep.com)                         | [https://indexnow.yep.com/indexnow](https://indexnow.yep.com/indexnow)               |
+| Endpoint Enum                         | Name                                           | Endpoint URL                               |
+| ------------------------------------- | ---------------------------------------------- | ------------------------------------------ |
+| `SearchEngineEndpoint.INDEXNOW`       | [IndexNow](https://www.indexnow.org) (default) | `https://api.indexnow.org/indexnow`        |
+| `SearchEngineEndpoint.BING`           | [Microsoft Bing](https://www.bing.com)         | `https://www.bing.com/indexnow`            |
+| `SearchEngineEndpoint.NAVER`          | [Naver](https://www.naver.com)                 | `https://searchadvisor.naver.com/indexnow` |
+| `SearchEngineEndpoint.SEZNAM`         | [Seznam.cz](https://www.seznam.cz)             | `https://search.seznam.cz/indexnow`        |
+| `SearchEngineEndpoint.YANDEX`         | [Yandex](https://yandex.com)                   | `https://yandex.com/indexnow`              |
+| `SearchEngineEndpoint.YEP`            | [Yep](https://yep.com)                         | `https://indexnow.yep.com/indexnow`        |
 
 If you can't find the endpoint you are looking for, you can also use a [custom endpoint](custom-endpoint.md).
 

@@ -5,6 +5,9 @@ tags:
     - Tutorial
     - Sitemap
     - Filtering
+    - Last Modified
+    - Date Range
+    - Change Frequency
 ---
 
 # How to Submit All Sitemap URLs in Bulk to IndexNow

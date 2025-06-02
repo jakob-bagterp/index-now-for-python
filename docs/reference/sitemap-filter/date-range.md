@@ -6,6 +6,8 @@ tags:
     - Tutorial
     - Sitemap
     - Filtering
+    - Date Range
+    - Last Modified
 ---
 
 # Date Range Filter Options

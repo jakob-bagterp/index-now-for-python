@@ -6,6 +6,9 @@ tags:
     - Tutorial
     - Sitemap
     - Filtering
+    - Last Modified
+    - Date Range
+    - Change Frequency
 ---
 
 # Sitemap Filter Settings

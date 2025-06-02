@@ -6,6 +6,7 @@ tags:
     - Tutorial
     - Sitemap
     - Filtering
+    - Change Frequency
 ---
 
 # Change Frequency Filter Options

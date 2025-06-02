@@ -4,6 +4,7 @@ description: Learn how to submit URLs to a customs endpoint for the IndexNow API
 tags:
     - Tutorial
     - Settings
+    - API Endpoint
 ---
 
 # Custom Search Engine Endpoints for IndexNow

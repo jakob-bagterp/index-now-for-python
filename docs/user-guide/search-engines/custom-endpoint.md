@@ -3,6 +3,7 @@ title: How to Submit URLs to a Custom Endpoint
 description: Learn how to submit URLs to a customs endpoint for the IndexNow API. Includes code examples for beginners and advanced users.
 tags:
     - Tutorial
+    - IndexNow
     - Settings
     - API Endpoint
 ---

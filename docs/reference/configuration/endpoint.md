@@ -4,6 +4,7 @@ description: Learn how to use different endpoints for the IndexNow API, so you c
 tags:
     - Documentation
     - Tutorial
+    - IndexNow
     - API Endpoint
     - Settings
     - Bing

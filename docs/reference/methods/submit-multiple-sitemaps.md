@@ -4,6 +4,7 @@ description: Learn how to submit multiple sitemaps of multiple URLs in bulk to t
 tags:
     - Documentation
     - Tutorial
+    - IndexNow
     - Status Codes
     - Sitemap
 ---

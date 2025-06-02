@@ -4,6 +4,7 @@ description: Get the most out of IndexNow for Python's few, yet powerful feature
 tags:
     - Features
     - Tutorial
+    - IndexNow
 ---
 
 # User Guide 👨‍🔧

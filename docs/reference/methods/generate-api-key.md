@@ -5,6 +5,7 @@ tags:
     - Documentation
     - Tutorial
     - API Key
+    - IndexNow
 ---
 
 

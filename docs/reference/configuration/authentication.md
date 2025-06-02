@@ -4,6 +4,7 @@ description: Learn how to use API key, location, and domain, so you can submit U
 tags:
     - Documentation
     - Tutorial
+    - IndexNow
     - Settings
     - Authentication
 ---

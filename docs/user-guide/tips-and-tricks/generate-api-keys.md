@@ -5,6 +5,7 @@ tags:
     - Tutorial
     - Settings
     - API Key
+    - IndexNow
 ---
 
 # How to Generate API Keys for IndexNow

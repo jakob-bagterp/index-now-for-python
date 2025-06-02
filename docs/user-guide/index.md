@@ -32,7 +32,7 @@ Tips and tricks:
 * [Extract URLs from a sitemap](tips-and-tricks/extract-urls-from-sitemap.md)
 
 ## Support the Project
-If you have already downloaded and tried the package, perhaps you would like to support its development?
+If you have already downloaded and tried the package – maybe even used it in a production environment – perhaps you would like to support its development?
 
 !!! tip "Become a Sponsor"
     If you find this project helpful, please consider supporting its development. Your donations will help keep it alive and growing. Every contribution, no matter the size, makes a difference.

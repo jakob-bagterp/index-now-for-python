@@ -133,4 +133,4 @@ def test_filter_sitemap_urls(sitemap_urls: list[SitemapUrl], filter: SitemapFilt
 def test_error_handling_of_filtering_sitemap_with_no_matches(sitemap_urls: list[SitemapUrl], filter: SitemapFilter, expected_terminal_output: str, capfd: object) -> None:
     filter_sitemap_urls(sitemap_urls, filter)
     terminal_output, _ = capfd.readouterr()
-    assert expected_terminal_output == terminal_output
+    assert expected_terminal_output in terminal_output

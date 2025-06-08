@@ -121,35 +121,47 @@ def filter_sitemap_urls(urls: list[SitemapUrl], filter: SitemapFilter) -> list[s
         return []
 
     if filter.change_frequency is not None:
+        print(f"Number of URLs before filtering by change frequency {filter.change_frequency}: {len(urls)}")
         urls = filter_by_change_frequency(urls, filter.change_frequency)
+        print(f"Number of URLs left after filtering by change frequency {filter.change_frequency}: {len(urls)}")
 
     if filter.date_range is not None:
+        print(f"Number of URLs before filtering by date range {filter.date_range}: {len(urls)}")
         urls = filter_by_date_range(urls, filter.date_range)
+        print(f"Number of URLs left after filtering by date range {filter.date_range}: {len(urls)}")
 
     if filter.contains is not None:
+        print(f"Number of URLs before filtering by contains \"{filter.contains}\": {len(urls)}")
         pattern = re.compile(filter.contains)
         urls = [url for url in urls if pattern.search(url.loc)]
         if not urls:
             print(f"{Color.YELLOW}No URLs contained the pattern \"{filter.contains}\".{Color.OFF}")
             return []
+        print(f"Number of URLs left after filtering by contains \"{filter.contains}\": {len(urls)}")
 
     if filter.excludes is not None:
+        print(f"Number of URLs before filtering by excludes \"{filter.excludes}\": {len(urls)}")
         pattern = re.compile(filter.excludes)
         urls = [url for url in urls if not pattern.search(url.loc)]
         if not urls:
             print(f"{Color.YELLOW}No URLs left after excluding the pattern \"{filter.excludes}\".{Color.OFF}")
             return []
+        print(f"Number of URLs left after filtering by excludes \"{filter.excludes}\": {len(urls)}")
 
     if filter.skip is not None:
         if filter.skip >= len(urls):
             print(f"{Color.YELLOW}No URLs left after skipping {filter.skip} URL(s) from sitemap.{Color.OFF}")
             return []
+        print(f"Number of URLs before skipping {filter.skip} URL(s) from sitemap: {len(urls)}")
         urls = urls[filter.skip:]
+        print(f"Number of URLs left after skipping {filter.skip} URL(s) from sitemap: {len(urls)}")
 
     if filter.take is not None:
         if filter.take <= 0:
             print(f"{Color.YELLOW}No URLs left. The value for take should be greater than 0.{Color.OFF}")
             return []
+        print(f"Number of URLs before taking {filter.take} URL(s) from sitemap: {len(urls)}")
         urls = urls[:filter.take]
+        print(f"Number of URLs left after taking {filter.take} URL(s) from sitemap: {len(urls)}")
 
     return [url.loc for url in urls]

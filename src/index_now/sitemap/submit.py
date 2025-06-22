@@ -8,6 +8,8 @@ from .get import get_sitemap_xml
 from .parse import (parse_sitemap_xml_and_get_urls,
                     parse_sitemap_xml_and_get_urls_as_elements)
 
+UNPROCESSABLE_CONTENT_STATUS_CODE = 422
+
 
 def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_location: str, filter: SitemapFilter | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
     """Submit a sitemap to the IndexNow API of a search engine.
@@ -111,16 +113,21 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
     if not filter:
         urls = parse_sitemap_xml_and_get_urls(sitemap_xml)
         if not urls:
-            raise ValueError(f"No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}")
+            print(f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}")
+            return UNPROCESSABLE_CONTENT_STATUS_CODE
     else:
         url_elements = parse_sitemap_xml_and_get_urls_as_elements(sitemap_xml)
         urls = filter_sitemap_urls(url_elements, filter)
         if not urls:
-            raise ValueError("No URLs left after filtering. Please check your filter parameters.")
-    print(f"Found {Color.GREEN}{len(urls):,} URL(s){Color.OFF} in total from this sitemap: {sitemap_location}")
-
-    status_code = submit_urls_to_index_now(authentication, urls, endpoint)
-    return status_code
+            print(f"{Color.YELLOW}No URLs left after filtering. Please check your filter parameters.{Color.OFF}")
+            return UNPROCESSABLE_CONTENT_STATUS_CODE
+    if not urls:
+        print(f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}")
+        return UNPROCESSABLE_CONTENT_STATUS_CODE
+    else:
+        print(f"Found {Color.GREEN}{len(urls):,} URL(s){Color.OFF} in total from this sitemap: {sitemap_location}")
+        status_code = submit_urls_to_index_now(authentication, urls, endpoint)
+        return status_code
 
 
 def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap_locations: list[str], filter: SitemapFilter | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
@@ -238,10 +245,12 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
             url_elements = parse_sitemap_xml_and_get_urls_as_elements(sitemap_xml)
             merged_urls.extend(filter_sitemap_urls(url_elements, filter))
             if not merged_urls:
-                raise ValueError("No URLs left after filtering. Please check your filter parameters.")
+                print(f"{Color.YELLOW}No URLs left after filtering. Please check your filter parameters.{Color.OFF}")
+                return UNPROCESSABLE_CONTENT_STATUS_CODE
     if not merged_urls:
-        raise ValueError(f"No URLs found in the sitemaps. Please check the sitemap locations: {', '.join(sitemap_locations)}")
-    print(f"Found {Color.GREEN}{len(merged_urls):,} URL(s){Color.OFF} in total from these sitemaps: {', '.join(sitemap_locations)}")
-
-    status_code = submit_urls_to_index_now(authentication, merged_urls, endpoint)
-    return status_code
+        print(f"{Color.YELLOW}No URLs found in the sitemaps. Please check the sitemap locations: {', '.join(sitemap_locations)}{Color.OFF}")
+        return UNPROCESSABLE_CONTENT_STATUS_CODE
+    else:
+        print(f"Found {Color.GREEN}{len(merged_urls):,} URL(s){Color.OFF} in total from these sitemaps: {', '.join(sitemap_locations)}")
+        status_code = submit_urls_to_index_now(authentication, merged_urls, endpoint)
+        return status_code

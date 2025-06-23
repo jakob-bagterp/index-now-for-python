@@ -1,14 +1,13 @@
 from colorist import Color
 
 from ..authentication import IndexNowAuthentication
+from ..constant.status_code import UNPROCESSABLE_CONTENT_STATUS_CODE
 from ..endpoint import SearchEngineEndpoint
 from ..url.submit import submit_urls_to_index_now
 from .filter.sitemap import SitemapFilter, filter_sitemap_urls
 from .get import get_sitemap_xml
 from .parse import (parse_sitemap_xml_and_get_urls,
                     parse_sitemap_xml_and_get_urls_as_elements)
-
-UNPROCESSABLE_CONTENT_STATUS_CODE = 422
 
 
 def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_location: str, filter: SitemapFilter | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:

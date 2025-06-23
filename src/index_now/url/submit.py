@@ -2,9 +2,8 @@ import requests
 from colorist import Color
 
 from ..authentication import IndexNowAuthentication
-from ..constant.status_code import (SUCCESS_STATUS_CODES,
-                                    SUCCESS_STATUS_CODES_DICT)
 from ..endpoint import SearchEngineEndpoint
+from ..status_code import SUCCESS_STATUS_CODES, SUCCESS_STATUS_CODES_DICT
 
 
 def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:

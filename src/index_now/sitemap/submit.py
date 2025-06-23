@@ -1,8 +1,8 @@
 from colorist import Color
 
 from ..authentication import IndexNowAuthentication
-from ..constant.status_code import UNPROCESSABLE_CONTENT_STATUS_CODE
 from ..endpoint import SearchEngineEndpoint
+from ..status_code import UNPROCESSABLE_CONTENT_STATUS_CODE
 from ..url.submit import submit_urls_to_index_now
 from .filter.sitemap import SitemapFilter, filter_sitemap_urls
 from .get import get_sitemap_xml

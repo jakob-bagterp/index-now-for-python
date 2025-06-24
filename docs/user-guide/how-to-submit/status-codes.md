@@ -39,13 +39,14 @@ else:
 ```
 
 ## Overview of Status Codes
-According to the [IndexNow API documentation](https://www.indexnow.org/documentation), the following status codes are returned:
+According to the [IndexNow API documentation](https://www.indexnow.org/documentation) and this package, the following status codes are typically returned:
 
 !!! info "Typical Status Codes"
     | Code  | Response             | Description                                                                                           |
     | ----- | -------------------- | ----------------------------------------------------------------------------------------------------- |
     | `200` | OK                   | URL submitted successfully.                                                                           |
     | `202` | Accepted             | URL received. IndexNow key validation pending.                                                        |
+    | `204` | No content           | No URLs found in sitemap or no URLs left after filtering.                                             |
     | `400` | Bad request          | The request was invalid.                                                                              |
     | `403` | Forbidden            | In case of key not valid (e.g. key not found, file found but key not in the file).                    |
     | `422` | Unprocessable entity | In case of URLs which don’t belong to the host or the key is not matching the schema in the protocol. |

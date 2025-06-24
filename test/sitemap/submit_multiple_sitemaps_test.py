@@ -1,5 +1,6 @@
 import pytest
 from _helper.endpoint import is_endpoint_up
+from _helper.sitemap import INVALID_SITEMAP_LOCATION
 from _mock_data.website import (BROWSERIST, COLORIST_FOR_PYTHON,
                                 INDEX_NOW_FOR_PYTHON, TIMER_FOR_PYTHON)
 from colorist import Color
@@ -49,8 +50,8 @@ def test_submit_multiple_sitemaps_error_handling_of_no_matches() -> None:
 
 def test_submit_multiple_sitemaps_error_handling_of_invalid_sitemaps() -> None:
     INVALID_SITEMAP_LOCATIONS = [
-        "https://jakob-bagterp.github.io/index-now-for-python/invalid-sitemap.xml",
-        "https://jakob-bagterp.github.io/index-now-for-python/invalid-sitemap.xml",
+        INVALID_SITEMAP_LOCATION,
+        INVALID_SITEMAP_LOCATION,
     ]
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):

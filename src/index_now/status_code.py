@@ -3,7 +3,7 @@ from enum import Enum, IntEnum, unique
 
 
 @dataclass(slots=True, frozen=True)
-class StatusCode:
+class StatusCodeSet:
     value: int
     response: str
 
@@ -22,10 +22,10 @@ class StatusCodes(IntEnum):
 
 @unique
 class StatusCodesCollection(Enum):
-    OK = StatusCode(value=StatusCodes.OK, response="OK")
-    ACCEPTED = StatusCode(value=StatusCodes.ACCEPTED, response="Accepted")
-    NO_CONTENT = StatusCode(value=StatusCodes.NO_CONTENT, response="No content")
-    UNPROCESSABLE_CONTENT = StatusCode(value=StatusCodes.UNPROCESSABLE_CONTENT, response="Unprocessable content")
+    OK = StatusCodeSet(value=StatusCodes.OK, response="OK")
+    ACCEPTED = StatusCodeSet(value=StatusCodes.ACCEPTED, response="Accepted")
+    NO_CONTENT = StatusCodeSet(value=StatusCodes.NO_CONTENT, response="No content")
+    UNPROCESSABLE_CONTENT = StatusCodeSet(value=StatusCodes.UNPROCESSABLE_CONTENT, response="Unprocessable content")
 
 
 SUCCESS_STATUS_CODES = [status_code for status_code in StatusCodes if str(status_code).startswith("2")]

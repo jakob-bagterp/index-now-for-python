@@ -6,7 +6,7 @@ from ..endpoint import SearchEngineEndpoint
 from ..status_code import StatusCodes
 from ..url.submit import submit_urls_to_index_now
 from .filter.sitemap import SitemapFilter, filter_sitemap_urls
-from .parse import (parse_sitemap_xml_and_get_urls,
+from .parse import (SitemapUrl, parse_sitemap_xml_and_get_urls,
                     parse_sitemap_xml_and_get_urls_as_elements)
 
 
@@ -257,10 +257,10 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
         responses.append(response)
 
     if filter:
-        merged_urls: list[str] = []
+        url_elements: list[SitemapUrl] = []
         for response in responses:
-            url_elements = parse_sitemap_xml_and_get_urls_as_elements(response.content)
-            merged_urls.extend(filter_sitemap_urls(url_elements, filter))
+            url_elements.extend(parse_sitemap_xml_and_get_urls_as_elements(response.content))
+        merged_urls = filter_sitemap_urls(url_elements, filter)
         if not merged_urls:
             print(f"{Color.YELLOW}No URLs left after filtering. Please check your filter parameters.{Color.OFF}")
             return StatusCodes.NO_CONTENT

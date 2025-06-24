@@ -34,7 +34,7 @@ class StatusCodes(IntEnum):
 
 
 @unique
-class StatusCodesDict(Enum):
+class StatusCodesCollection(Enum):
     OK = StatusCode(value=StatusCodes.OK, response="OK")
     ACCEPTED = StatusCode(value=StatusCodes.ACCEPTED, response="Accepted")
     UNPROCESSABLE_CONTENT = StatusCode(value=StatusCodes.UNPROCESSABLE_CONTENT, response="Unprocessable content")
@@ -50,6 +50,6 @@ SUCCESS_STATUS_CODES = [status_code for status_code in StatusCodes if str(status
 
 SUCCESS_STATUS_CODES_DICT = {
     status_code.value.code: status_code.value.response
-    for status_code in StatusCodesDict
+    for status_code in StatusCodesCollection
     if status_code in SUCCESS_STATUS_CODES
 }

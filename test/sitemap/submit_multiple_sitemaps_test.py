@@ -28,7 +28,7 @@ def test_submit_multiple_sitemaps_to_index_now(capfd: object) -> None:
     assert f"Status code: {Color.GREEN}200 OK{Color.OFF}" or f"Status code: {Color.GREEN}202 Accepted{Color.OFF}" in terminal_output
 
 
-def test_submit_multiple_sitemaps_error_handling_of_non_existent_sitemaps() -> None:
+def test_submit_multiple_sitemaps_error_handling_of_non_existing_sitemaps() -> None:
     NON_EXISTING_SITEMAP_LOCATIONS = [
         NON_EXISTING_SITEMAP_LOCATION,
         NON_EXISTING_SITEMAP_LOCATION,

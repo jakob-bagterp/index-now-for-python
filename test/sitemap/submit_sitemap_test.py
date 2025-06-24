@@ -43,7 +43,7 @@ def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint
     assert f"Status code: {Color.GREEN}200 OK{Color.OFF}" or f"Status code: {Color.GREEN}202 Accepted{Color.OFF}" in terminal_output
 
 
-def test_submit_sitemap_error_handling_of_non_existent_sitemap() -> None:
+def test_submit_sitemap_error_handling_of_non_existing_sitemap() -> None:
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover

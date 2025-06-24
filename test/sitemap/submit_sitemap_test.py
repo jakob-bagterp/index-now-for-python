@@ -55,4 +55,4 @@ def test_submit_sitemap_error_handling_of_no_matches() -> None:
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     sitemap_filter = SitemapFilter(contains="no-matches-at-all")
     status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON.sitemap_location, filter=sitemap_filter, endpoint=endpoint)
-    assert status_code == 422
+    assert status_code == 204

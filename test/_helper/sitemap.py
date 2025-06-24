@@ -31,3 +31,8 @@ INVALID_SITEMAP_LOCATIONS = [
 ]
 
 NON_EXISTING_SITEMAP_LOCATION = "https://jakob-bagterp.github.io/index-now-for-python/non-existing-sitemap.xml"
+
+NON_EXISTING_SITEMAP_LOCATIONS = [
+    NON_EXISTING_SITEMAP_LOCATION,
+    NON_EXISTING_SITEMAP_LOCATION,
+]

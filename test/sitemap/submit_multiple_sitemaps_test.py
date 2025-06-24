@@ -1,7 +1,7 @@
 import pytest
 from _helper.endpoint import is_endpoint_up
 from _helper.sitemap import (INVALID_SITEMAP_LOCATIONS,
-                             NON_EXISTING_SITEMAP_LOCATION)
+                             NON_EXISTING_SITEMAP_LOCATIONS)
 from _mock_data.website import (BROWSERIST, COLORIST_FOR_PYTHON,
                                 INDEX_NOW_FOR_PYTHON, TIMER_FOR_PYTHON)
 from colorist import Color
@@ -29,10 +29,6 @@ def test_submit_multiple_sitemaps_to_index_now(capfd: object) -> None:
 
 
 def test_submit_multiple_sitemaps_error_handling_of_non_existing_sitemaps() -> None:
-    NON_EXISTING_SITEMAP_LOCATIONS = [
-        NON_EXISTING_SITEMAP_LOCATION,
-        NON_EXISTING_SITEMAP_LOCATION,
-    ]
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover

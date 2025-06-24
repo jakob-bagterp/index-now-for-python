@@ -39,7 +39,7 @@ else:
 ```
 
 ## Overview of Status Codes
-According to the [IndexNow API documentation](https://www.indexnow.org/documentation) and this package, the following status codes are returned:
+According to the [IndexNow API documentation](https://www.indexnow.org/documentation) and this package, the following status codes are typically returned:
 
 !!! info "Typical Status Codes"
     | Code  | Response             | Description                                                                                           |

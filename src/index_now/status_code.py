@@ -49,7 +49,7 @@ class StatusCodesDict(Enum):
 SUCCESS_STATUS_CODES = [status_code for status_code in StatusCodes if str(status_code).startswith("2")]
 
 SUCCESS_STATUS_CODES_DICT = {
-    status_code: status_code.value.response
+    status_code.value.code: status_code.value.response
     for status_code in StatusCodesDict
     if status_code in SUCCESS_STATUS_CODES
 }

@@ -1,5 +1,7 @@
 import pytest
 from _helper.endpoint import TEMPORARILY_SKIPPED_ENDPOINTS, is_endpoint_up
+from _helper.sitemap import (INVALID_SITEMAP_LOCATION,
+                             NON_EXISTING_SITEMAP_LOCATION)
 from _mock_data.website import (BROWSERIST, COLORIST_FOR_PYTHON,
                                 INDEX_NOW_FOR_PYTHON, TIMER_FOR_PYTHON,
                                 IndexNowWebsiteData)
@@ -41,11 +43,11 @@ def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint
     assert f"Status code: {Color.GREEN}200 OK{Color.OFF}" or f"Status code: {Color.GREEN}202 Accepted{Color.OFF}" in terminal_output
 
 
-def test_submit_sitemap_error_handling_of_non_existent_sitemap() -> None:
+def test_submit_sitemap_error_handling_of_non_existing_sitemap() -> None:
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
-    status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, "https://jakob-bagterp.github.io/index-now-for-python/non-existent-sitemap.xml", endpoint=endpoint)
+    status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, NON_EXISTING_SITEMAP_LOCATION, endpoint=endpoint)
     assert status_code == 404
 
 
@@ -66,5 +68,5 @@ def test_submit_sitemap_error_handling_of_invalid_sitemap(sitemap_filter: Sitema
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
-    status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, "https://jakob-bagterp.github.io/index-now-for-python/invalid-sitemap.xml", filter=sitemap_filter, endpoint=endpoint)
+    status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INVALID_SITEMAP_LOCATION, filter=sitemap_filter, endpoint=endpoint)
     assert status_code == 422

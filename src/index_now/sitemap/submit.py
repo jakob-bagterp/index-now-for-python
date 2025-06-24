@@ -115,6 +115,7 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
         print(f"Response: {response.text}")
         return response.status_code
+
     if not filter:
         urls = parse_sitemap_xml_and_get_urls(response.content)
         if not urls:
@@ -129,6 +130,7 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         if not urls:
             print(f"{Color.YELLOW}No URLs left after filtering. Please check your filter parameters.{Color.OFF}")
             return StatusCodes.NO_CONTENT
+
     print(f"Found {Color.GREEN}{len(urls):,} URL(s){Color.OFF} in total from this sitemap: {sitemap_location}")
     status_code = submit_urls_to_index_now(authentication, urls, endpoint)
     return status_code

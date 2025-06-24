@@ -45,7 +45,7 @@ def test_submit_sitemap_error_handling_of_invalid_sitemap() -> None:
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
-    status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap.xml", endpoint=endpoint)
+    status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, "https://jakob-bagterp.github.io/index-now-for-python/non-existent-sitemap.xml", endpoint=endpoint)
     assert status_code == 404
 
 

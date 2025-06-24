@@ -28,8 +28,8 @@ def test_submit_multiple_sitemaps_to_index_now(capfd: object) -> None:
 
 def test_submit_multiple_sitemaps_error_handling_of_invalid_sitemap() -> None:
     INVALID_SITEMAP_LOCATIONS = [
-        "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap1.xml",
-        "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap2.xml"
+        "https://jakob-bagterp.github.io/index-now-for-python/non-existent-sitemap1.xml",
+        "https://jakob-bagterp.github.io/index-now-for-python/non-existent-sitemap2.xml"
     ]
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):

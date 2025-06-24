@@ -13,7 +13,7 @@ class StatusCodeSet:
 
 
 @unique
-class StatusCodes(IntEnum):
+class StatusCode(IntEnum):
     OK = 200
     ACCEPTED = 202
     NO_CONTENT = 204
@@ -21,17 +21,17 @@ class StatusCodes(IntEnum):
 
 
 @unique
-class StatusCodesCollection(Enum):
-    OK = StatusCodeSet(value=StatusCodes.OK, response="OK")
-    ACCEPTED = StatusCodeSet(value=StatusCodes.ACCEPTED, response="Accepted")
-    NO_CONTENT = StatusCodeSet(value=StatusCodes.NO_CONTENT, response="No content")
-    UNPROCESSABLE_CONTENT = StatusCodeSet(value=StatusCodes.UNPROCESSABLE_CONTENT, response="Unprocessable content")
+class StatusCodeCollection(Enum):
+    OK = StatusCodeSet(value=StatusCode.OK, response="OK")
+    ACCEPTED = StatusCodeSet(value=StatusCode.ACCEPTED, response="Accepted")
+    NO_CONTENT = StatusCodeSet(value=StatusCode.NO_CONTENT, response="No content")
+    UNPROCESSABLE_CONTENT = StatusCodeSet(value=StatusCode.UNPROCESSABLE_CONTENT, response="Unprocessable content")
 
 
-SUCCESS_STATUS_CODES = [status_code for status_code in StatusCodes if str(status_code).startswith("2")]
+SUCCESS_STATUS_CODES = [status_code for status_code in StatusCode if str(status_code).startswith("2")]
 
 SUCCESS_STATUS_CODES_DICT = {
     status_code.value.code: status_code.value.response
-    for status_code in StatusCodesCollection
+    for status_code in StatusCodeCollection
     if status_code.value.code in SUCCESS_STATUS_CODES
 }

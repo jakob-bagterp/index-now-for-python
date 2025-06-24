@@ -7,20 +7,6 @@ class StatusCode:
     value: int
     response: str
 
-    def __str__(self) -> str:
-        return f"{self.value} {self.response}"
-
-    def __repr__(self) -> str:
-        return f"{self.value} {self.response}"
-
-    def __eq__(self, other: object) -> bool:
-        if isinstance(other, int):
-            return self.value == other
-        elif isinstance(other, StatusCode):
-            return self.value == other.value
-        else:
-            return False
-
     @property
     def code(self) -> int:
         return self.value
@@ -40,12 +26,6 @@ class StatusCodesCollection(Enum):
     ACCEPTED = StatusCode(value=StatusCodes.ACCEPTED, response="Accepted")
     NO_CONTENT = StatusCode(value=StatusCodes.NO_CONTENT, response="No content")
     UNPROCESSABLE_CONTENT = StatusCode(value=StatusCodes.UNPROCESSABLE_CONTENT, response="Unprocessable content")
-
-    def __str__(self) -> str:
-        return str(self.value.code)
-
-    def __repr__(self) -> str:
-        return str(self.value)
 
 
 SUCCESS_STATUS_CODES = [status_code for status_code in StatusCodes if str(status_code).startswith("2")]

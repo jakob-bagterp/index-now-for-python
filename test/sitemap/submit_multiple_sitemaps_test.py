@@ -26,15 +26,15 @@ def test_submit_multiple_sitemaps_to_index_now(capfd: object) -> None:
     assert f"Status code: {Color.GREEN}200 OK{Color.OFF}" or f"Status code: {Color.GREEN}202 Accepted{Color.OFF}" in terminal_output
 
 
-def test_submit_multiple_sitemaps_error_handling_of_invalid_sitemap() -> None:
-    INVALID_SITEMAP_LOCATIONS = [
-        "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap1.xml",
-        "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap2.xml"
+def test_submit_multiple_sitemaps_error_handling_of_non_existent_sitemaps() -> None:
+    NON_EXISTENT_SITEMAP_LOCATIONS = [
+        "https://jakob-bagterp.github.io/index-now-for-python/non-existent-sitemap1.xml",
+        "https://jakob-bagterp.github.io/index-now-for-python/non-existent-sitemap2.xml",
     ]
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
-    status_code = submit_sitemaps_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INVALID_SITEMAP_LOCATIONS, endpoint=endpoint)
+    status_code = submit_sitemaps_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, NON_EXISTENT_SITEMAP_LOCATIONS, endpoint=endpoint)
     assert status_code == 404
 
 
@@ -45,3 +45,15 @@ def test_submit_multiple_sitemaps_error_handling_of_no_matches() -> None:
     sitemap_filter = SitemapFilter(contains="no-matches-at-all")
     status_code = submit_sitemaps_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, SITEMAP_LOCATIONS, filter=sitemap_filter, endpoint=endpoint)
     assert status_code == 204
+
+
+def test_submit_multiple_sitemaps_error_handling_of_invalid_sitemaps() -> None:
+    INVALID_SITEMAP_LOCATIONS = [
+        "https://jakob-bagterp.github.io/index-now-for-python/invalid-sitemap.xml",
+        "https://jakob-bagterp.github.io/index-now-for-python/invalid-sitemap.xml",
+    ]
+    endpoint = SearchEngineEndpoint.YANDEX
+    if not is_endpoint_up(endpoint):
+        pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
+    status_code = submit_sitemaps_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INVALID_SITEMAP_LOCATIONS, endpoint=endpoint)
+    assert status_code == 422

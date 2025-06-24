@@ -41,11 +41,11 @@ def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint
     assert f"Status code: {Color.GREEN}200 OK{Color.OFF}" or f"Status code: {Color.GREEN}202 Accepted{Color.OFF}" in terminal_output
 
 
-def test_submit_sitemap_error_handling_of_invalid_sitemap() -> None:
+def test_submit_sitemap_error_handling_of_non_existent_sitemap() -> None:
     endpoint = SearchEngineEndpoint.YANDEX
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
-    status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap.xml", endpoint=endpoint)
+    status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, "https://jakob-bagterp.github.io/index-now-for-python/non-existent-sitemap.xml", endpoint=endpoint)
     assert status_code == 404
 
 
@@ -56,3 +56,15 @@ def test_submit_sitemap_error_handling_of_no_matches() -> None:
     sitemap_filter = SitemapFilter(contains="no-matches-at-all")
     status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON.sitemap_location, filter=sitemap_filter, endpoint=endpoint)
     assert status_code == 204
+
+
+@pytest.mark.parametrize("sitemap_filter", [
+    None,
+    SitemapFilter(contains="no-matches-at-all"),
+])
+def test_submit_sitemap_error_handling_of_invalid_sitemap(sitemap_filter: SitemapFilter) -> None:
+    endpoint = SearchEngineEndpoint.YANDEX
+    if not is_endpoint_up(endpoint):
+        pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
+    status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, "https://jakob-bagterp.github.io/index-now-for-python/invalid-sitemap.xml", filter=sitemap_filter, endpoint=endpoint)
+    assert status_code == 422

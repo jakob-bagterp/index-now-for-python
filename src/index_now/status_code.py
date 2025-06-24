@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enum import Enum
+from enum import Enum, IntEnum, unique
 
 
 @dataclass(slots=True, frozen=True)
@@ -26,10 +26,18 @@ class StatusCode:
         return self.value
 
 
-class StatusCodes(Enum):
-    OK = StatusCode(value=200, response="OK")
-    ACCEPTED = StatusCode(value=202, response="Accepted")
-    UNPROCESSABLE_CONTENT = StatusCode(value=422, response="Unprocessable content")
+@unique
+class StatusCodes(IntEnum):
+    OK = 200
+    ACCEPTED = 202
+    UNPROCESSABLE_CONTENT = 422
+
+
+@unique
+class StatusCodesDict(Enum):
+    OK = StatusCode(value=StatusCodes.OK, response="OK")
+    ACCEPTED = StatusCode(value=StatusCodes.ACCEPTED, response="Accepted")
+    UNPROCESSABLE_CONTENT = StatusCode(value=StatusCodes.UNPROCESSABLE_CONTENT, response="Unprocessable content")
 
     def __str__(self) -> str:
         return str(self.value.code)
@@ -38,6 +46,10 @@ class StatusCodes(Enum):
         return str(self.value)
 
 
-SUCCESS_STATUS_CODES_DICT = {status_code.value.code: status_code.value.response for status_code in StatusCodes if str(status_code.value.code).startswith("2")}
+SUCCESS_STATUS_CODES = [status_code for status_code in StatusCodes if str(status_code).startswith("2")]
 
-SUCCESS_STATUS_CODES = list(SUCCESS_STATUS_CODES_DICT.keys())
+SUCCESS_STATUS_CODES_DICT = {
+    status_code: status_code.value.response
+    for status_code in StatusCodesDict
+    if status_code in SUCCESS_STATUS_CODES
+}

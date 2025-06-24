@@ -38,6 +38,7 @@ class StatusCodes(IntEnum):
 class StatusCodesCollection(Enum):
     OK = StatusCode(value=StatusCodes.OK, response="OK")
     ACCEPTED = StatusCode(value=StatusCodes.ACCEPTED, response="Accepted")
+    NO_CONTENT = StatusCode(value=StatusCodes.NO_CONTENT, response="No content")
     UNPROCESSABLE_CONTENT = StatusCode(value=StatusCodes.UNPROCESSABLE_CONTENT, response="Unprocessable content")
 
     def __str__(self) -> str:

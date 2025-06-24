@@ -45,3 +45,15 @@ def test_submit_multiple_sitemaps_error_handling_of_no_matches() -> None:
     sitemap_filter = SitemapFilter(contains="no-matches-at-all")
     status_code = submit_sitemaps_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, SITEMAP_LOCATIONS, filter=sitemap_filter, endpoint=endpoint)
     assert status_code == 204
+
+
+def test_submit_multiple_sitemaps_error_handling_of_invalid_sitemaps() -> None:
+    INVALID_SITEMAP_LOCATIONS = [
+        "https://jakob-bagterp.github.io/index-now-for-python/invalid-sitemap.xml",
+        "https://jakob-bagterp.github.io/index-now-for-python/invalid-sitemap.xml",
+    ]
+    endpoint = SearchEngineEndpoint.YANDEX
+    if not is_endpoint_up(endpoint):
+        pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
+    status_code = submit_sitemaps_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INVALID_SITEMAP_LOCATIONS, endpoint=endpoint)
+    assert status_code == 422

@@ -26,7 +26,7 @@ def test_submit_multiple_sitemaps_to_index_now(capfd: object) -> None:
     assert f"Status code: {Color.GREEN}200 OK{Color.OFF}" or f"Status code: {Color.GREEN}202 Accepted{Color.OFF}" in terminal_output
 
 
-def test_submit_multiple_sitemaps_error_handling_of_invalid_sitemap() -> None:
+def test_submit_multiple_sitemaps_error_handling_of_non_existent_sitemaps() -> None:
     INVALID_SITEMAP_LOCATIONS = [
         "https://jakob-bagterp.github.io/index-now-for-python/non-existent-sitemap1.xml",
         "https://jakob-bagterp.github.io/index-now-for-python/non-existent-sitemap2.xml"

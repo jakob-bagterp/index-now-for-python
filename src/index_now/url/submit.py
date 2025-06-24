@@ -3,10 +3,7 @@ from colorist import Color
 
 from ..authentication import IndexNowAuthentication
 from ..endpoint import SearchEngineEndpoint
-
-SUCCESS_STATUS_CODES_DICT = {200: "OK", 202: "Accepted"}
-
-SUCCESS_STATUS_CODES = [status_code for status_code in SUCCESS_STATUS_CODES_DICT.keys()]
+from ..status_code import SUCCESS_STATUS_CODES, SUCCESS_STATUS_CODES_DICT
 
 
 def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:

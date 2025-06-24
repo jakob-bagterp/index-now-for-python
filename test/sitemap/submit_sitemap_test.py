@@ -46,7 +46,7 @@ def test_submit_sitemap_error_handling_of_invalid_sitemap() -> None:
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, "https://jakob-bagterp.github.io/index-now-for-python/invalid_sitemap.xml", endpoint=endpoint)
-    assert status_code == 422
+    assert status_code == 404
 
 
 def test_submit_sitemap_error_handling_of_no_matches() -> None:
@@ -55,4 +55,4 @@ def test_submit_sitemap_error_handling_of_no_matches() -> None:
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     sitemap_filter = SitemapFilter(contains="no-matches-at-all")
     status_code = submit_sitemap_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON.sitemap_location, filter=sitemap_filter, endpoint=endpoint)
-    assert status_code == 422
+    assert status_code == 204

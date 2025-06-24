@@ -24,3 +24,5 @@ def get_mock_sitemap_inconsistent_content() -> str:
 
 
 INVALID_SITEMAP_LOCATION = "https://jakob-bagterp.github.io/index-now-for-python/invalid-sitemap.xml"
+
+NON_EXISTING_SITEMAP_LOCATION = "https://jakob-bagterp.github.io/index-now-for-python/non-existing-sitemap.xml"

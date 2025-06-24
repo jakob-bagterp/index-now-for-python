@@ -9,7 +9,7 @@ tags:
 
 # How to Install
 ## Prerequisites
-* [Python 3.10 or higher](https://www.python.org)
+* [Python 3.11 or higher](https://www.python.org)
 
 Assuming that Python is installed already, you can install IndexNow for Python with either of the following package managers: PyPI or Homebrew.
 

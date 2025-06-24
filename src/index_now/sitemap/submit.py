@@ -110,17 +110,18 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
 
     urls: list[str] = []
     response = requests.get(sitemap_location)
-    if response.status_code != 200:
-        print(f"{Color.YELLOW}Failure. No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}")
-        return StatusCodes.UNPROCESSABLE_CONTENT
-    sitemap_xml = get_sitemap_xml(sitemap_location)
+    if response.status_code != StatusCodes.OK:
+        print(f"{Color.YELLOW}Failure. Please check the sitemap location: {sitemap_location}{Color.OFF}")
+        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
+        print(f"Response: {response.text}")
+        return response.status_code
     if not filter:
-        urls = parse_sitemap_xml_and_get_urls(sitemap_xml)
+        urls = parse_sitemap_xml_and_get_urls(response.content)
         if not urls:
             print(f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}")
             return StatusCodes.UNPROCESSABLE_CONTENT
     else:
-        url_elements = parse_sitemap_xml_and_get_urls_as_elements(sitemap_xml)
+        url_elements = parse_sitemap_xml_and_get_urls_as_elements(response.content)
         urls = filter_sitemap_urls(url_elements, filter)
         if not urls:
             print(f"{Color.YELLOW}No URLs left after filtering. Please check your filter parameters.{Color.OFF}")

@@ -30,6 +30,7 @@ class StatusCode:
 class StatusCodes(IntEnum):
     OK = 200
     ACCEPTED = 202
+    NO_CONTENT = 204
     UNPROCESSABLE_CONTENT = 422
 
 

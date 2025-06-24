@@ -51,5 +51,5 @@ SUCCESS_STATUS_CODES = [status_code for status_code in StatusCodes if str(status
 SUCCESS_STATUS_CODES_DICT = {
     status_code.value.code: status_code.value.response
     for status_code in StatusCodesCollection
-    if status_code in SUCCESS_STATUS_CODES
+    if status_code.value.code in SUCCESS_STATUS_CODES
 }

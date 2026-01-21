@@ -1,0 +1,14 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://example.com/page1</loc>
+        <lastmod>2025-01-10</lastmod>
+        <changefreq>hourly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <sitemap>
+      <loc>https://jakob-bagterp.github.io/sitemap.xml</loc>
+    </sitemap>
+    <sitemap>
+      <loc>https://jakob-bagterp.github.io/colorist-for-python/sitemap.xml</loc>
+    </sitemap>
+</urlset>

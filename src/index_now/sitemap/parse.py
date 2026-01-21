@@ -5,6 +5,8 @@ from typing import Any
 import lxml.etree
 from colorist import Color
 
+from .get import get_sitemap_xml
+
 
 @dataclass(slots=True, frozen=True)
 class SitemapUrl:
@@ -118,3 +120,36 @@ def parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content: str | bytes 
     except Exception:
         print(f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}")
         return []
+
+
+def parse_sitemap_xml_controller(sitemap_content: str | bytes | Any, as_elements: bool) -> list[Any]:
+    """Parse the contents of an XML sitemap file and get the URLs from it, including any nested XML sitemaps.
+
+    Args:
+        content (str | bytes | Any): The content of the XML sitemap file.
+        as_elements (bool): If `True`, return the URLs as `SitemapUrl` elements instead of strings. If `False`, return the URLs as strings.
+
+    Returns:
+        list[str] | list[SitemapUrl]: List of the URLs or URL elements found in the XML sitemap file. If no URLs are found, the list will be empty.
+    """
+
+    def get_urls_controller(sitemap_content: str | bytes | Any, as_elements: bool) -> list[Any]:
+        if as_elements:
+            return parse_sitemap_xml_and_get_urls_as_elements(sitemap_content)
+        else:
+            return parse_sitemap_xml_and_get_urls(sitemap_content)
+
+    first_level_urls = get_urls_controller(sitemap_content, as_elements)
+    nested_sitemap_links = parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content)
+
+    if not first_level_urls and not nested_sitemap_links:
+        return []
+    if not nested_sitemap_links:
+        return first_level_urls
+
+    all_urls = first_level_urls  # We now need to merge URLs from multiple sitemaps.
+    for sitemap_link in nested_sitemap_links:  # Note that only level 2 sitemaps are supported, not level 3 or beyond, so no recursion is needed.
+        sitemap_content = get_sitemap_xml(sitemap_link)
+        sitemap_urls = get_urls_controller(sitemap_content, as_elements)
+        all_urls.extend(sitemap_urls)
+    return all_urls

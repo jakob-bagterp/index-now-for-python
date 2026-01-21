@@ -6,8 +6,7 @@ from ..endpoint import SearchEngineEndpoint
 from ..status_code import StatusCode
 from ..url.submit import submit_urls_to_index_now
 from .filter.sitemap import SitemapFilter, filter_sitemap_urls
-from .parse import (SitemapUrl, parse_sitemap_xml_and_get_urls,
-                    parse_sitemap_xml_and_get_urls_as_elements)
+from .parse import SitemapUrl, parse_sitemap_xml_controller
 
 
 def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_location: str, filter: SitemapFilter | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
@@ -116,12 +115,12 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
         return response.status_code
 
     if not filter:
-        urls = parse_sitemap_xml_and_get_urls(response.content)
+        urls = parse_sitemap_xml_controller(response.content, as_elements=False)
         if not urls:
             print(f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}")
             return StatusCode.UNPROCESSABLE_CONTENT
     else:
-        url_elements = parse_sitemap_xml_and_get_urls_as_elements(response.content)
+        url_elements = parse_sitemap_xml_controller(response.content, as_elements=True)
         if not url_elements:
             print(f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}")
             return StatusCode.UNPROCESSABLE_CONTENT
@@ -249,7 +248,7 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
             print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
             print(f"Response: {response.text}")
             return response.status_code
-        urls = parse_sitemap_xml_and_get_urls(response.content)
+        urls = parse_sitemap_xml_controller(response.content, as_elements=False)
         if not urls:
             print(f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}")
             return StatusCode.UNPROCESSABLE_CONTENT
@@ -259,7 +258,7 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
     if filter:
         url_elements: list[SitemapUrl] = []
         for response in responses:
-            url_elements.extend(parse_sitemap_xml_and_get_urls_as_elements(response.content))
+            url_elements.extend(parse_sitemap_xml_controller(response.content, as_elements=True))
         merged_urls = filter_sitemap_urls(url_elements, filter)
         if not merged_urls:
             print(f"{Color.YELLOW}No URLs left after filtering. Please check your filter parameters.{Color.OFF}")

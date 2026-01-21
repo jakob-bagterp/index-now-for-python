@@ -66,11 +66,11 @@ def parse_sitemap_xml_and_get_urls_as_elements(sitemap_content: str | bytes | An
     try:
         urls: list[SitemapUrl] = []
         sitemap_elements = parse_sitemap_xml_and_get_xpath_objects(sitemap_content, SitemapElementType.URL, loc_only=False)
-        for sitemap_element in sitemap_elements:  # type: ignore
-            loc = sitemap_element.xpath("ns:loc/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)[0].strip()  # type: ignore
-            lastmod = next(iter(sitemap_element.xpath("ns:lastmod/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)  # type: ignore
-            changefreq = next(iter(sitemap_element.xpath("ns:changefreq/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)  # type: ignore
-            priority = next(iter(sitemap_element.xpath("ns:priority/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)  # type: ignore
+        for sitemap_element in sitemap_elements:
+            loc = sitemap_element.xpath("ns:loc/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)[0].strip()
+            lastmod = next(iter(sitemap_element.xpath("ns:lastmod/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
+            changefreq = next(iter(sitemap_element.xpath("ns:changefreq/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
+            priority = next(iter(sitemap_element.xpath("ns:priority/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
             url = SitemapUrl(
                 loc=str(loc),
                 lastmod=str(lastmod) if lastmod else None,

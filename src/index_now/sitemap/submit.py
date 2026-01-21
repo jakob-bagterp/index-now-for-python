@@ -10,7 +10,7 @@ from .parse import SitemapUrl, parse_sitemap_xml_controller
 
 
 def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_location: str, filter: SitemapFilter | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
-    """Submit a sitemap to the IndexNow API of a search engine.
+    """Submit a sitemap to the IndexNow API of a search engine. Note that nested sitemaps up to level 2 of the index sitemap will be included.
 
     Args:
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
@@ -135,7 +135,7 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
 
 
 def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap_locations: list[str], filter: SitemapFilter | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
-    """Submit multiple sitemaps to the IndexNow API of a search engine.
+    """Submit multiple sitemaps to the IndexNow API of a search engine. Note that nested sitemaps up to level 2 of the index sitemaps will be included.
 
     Args:
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.

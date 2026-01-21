@@ -28,7 +28,7 @@ def test_controller_parse_sitemap_xml_and_get_urls_2() -> None:
     assert urls[0] == "https://jakob-bagterp.github.io/"
     assert urls[1].startswith("https://jakob-bagterp.github.io/colorist")
     assert not any(url.endswith(".xml") for url in urls)
-    assert not any(url.startswith("https://example.com") for url in urls)
+    assert all("example.com" not in url for url in urls)
 
     # Ensure that the same sitemap does not yield any URLs when parsing it:
     urls = parse_sitemap_xml_and_get_urls(sitemap_content)

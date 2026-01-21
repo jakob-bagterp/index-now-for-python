@@ -122,7 +122,7 @@ def parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content: str | bytes 
         return []
 
 
-def parse_sitemap_xml_controller(sitemap_content: str | bytes | Any, as_elements: bool) -> list[Any]:
+def controller_parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any, as_elements: bool) -> list[Any]:
     """Parse the contents of an XML sitemap file and get the URLs from it, including any nested XML sitemaps.
 
     Args:

@@ -14,8 +14,12 @@ def get_sitemap_xml(sitemap_location: str) -> str | bytes | Any:
         str | bytes | Any: The contents of the XML sitemp file or an empty string if the sitemap could not be retrieved.
     """
 
-    response = requests.get(sitemap_location)
-    return response.content
+    try:
+        response = requests.get(sitemap_location, timeout=10)
+        response.raise_for_status()
+        return response.content
+    except Exception:
+        return ""
 
 
 def get_multiple_sitemap_xml(sitemap_locations: list[str], max_workers: int | None = None) -> list[str | bytes | Any]:

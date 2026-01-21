@@ -39,4 +39,7 @@
         <lastmod>2025-03-20</lastmod>
         <priority>0.1</priority>
     </url>
+    <sitemap>
+        <loc>https://example.com/nested_sitemap.xml</loc>
+    </sitemap>
 </urlset>

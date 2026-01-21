@@ -5,12 +5,14 @@ import pytest
 from colorist import Color
 
 from index_now.sitemap.parse import (
+    parse_sitemap_xml_and_get_nested_sitemap_links,
     parse_sitemap_xml_and_get_urls, parse_sitemap_xml_and_get_urls_as_elements)
 
 
 @pytest.mark.parametrize("parser", [
     parse_sitemap_xml_and_get_urls,
     parse_sitemap_xml_and_get_urls_as_elements,
+    parse_sitemap_xml_and_get_nested_sitemap_links,
 ])
 def test_error_handling_of_parsing_invalid_sitemap(parser: Callable[[str | bytes | Any], list[str]], capfd: object) -> None:
     parser("invalid sitemap content")

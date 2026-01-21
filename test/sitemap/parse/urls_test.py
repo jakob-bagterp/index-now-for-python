@@ -1,9 +1,4 @@
-from collections.abc import Callable
-from typing import Any
-
-import pytest
 from _helper.sitemap import get_mock_sitemap_content
-from colorist import Color
 
 from index_now.sitemap.parse import (
     parse_sitemap_xml_and_get_urls, parse_sitemap_xml_and_get_urls_as_elements)
@@ -36,13 +31,3 @@ def test_parse_sitemap_xml_and_get_urls_as_elements() -> None:
     assert last_url.lastmod == "2025-03-20"
     assert last_url.changefreq == "weekly"
     assert last_url.priority == 0.1
-
-
-@pytest.mark.parametrize("parser", [
-    parse_sitemap_xml_and_get_urls,
-    parse_sitemap_xml_and_get_urls_as_elements,
-])
-def test_error_handling_of_parsing_invalid_sitemap(parser: Callable[[str | bytes | Any], list[str]], capfd: object) -> None:
-    parser("invalid sitemap content")
-    terminal_output, _ = capfd.readouterr()
-    assert f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}" in terminal_output

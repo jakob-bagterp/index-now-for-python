@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enum import StrEnum, unique, auto
+from enum import StrEnum, auto, unique
 from typing import Any
 
 import lxml.etree

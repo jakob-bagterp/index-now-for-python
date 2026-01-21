@@ -4,9 +4,9 @@ from index_now.sitemap.parse import \
     parse_sitemap_xml_and_get_nested_sitemap_links
 
 
-def test_parse_sitemap_xml_and_get_urls() -> None:
+def test_parse_sitemap_xml_and_get_sitemap_links() -> None:
     sitemap_content = get_mock_sitemap_content()
-    links = parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content)
-    assert len(links) == 2
-    assert links[0] == "https://example.com/nested_sitemap1.xml"
-    assert links[1] == "https://example.com/nested_sitemap2.xml"
+    sitemap_links = parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content)
+    assert len(sitemap_links) == 2
+    assert sitemap_links[0] == "https://example.com/nested_sitemap1.xml"
+    assert sitemap_links[1] == "https://example.com/nested_sitemap2.xml"

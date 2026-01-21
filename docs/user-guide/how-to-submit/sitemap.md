@@ -30,7 +30,7 @@ submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml")
     What happens when submitting a sitemap with IndexNow for Python:
 
     1. Downloads the specified sitemap(s)
-    2. Parses the sitemap(s) and extracts the URLs
+    2. Parses the sitemap(s), including any nested sitemaps, and extracts the URLs
     3. If any filters applied, filters the list of URLs to be submitted
     4. Submits the (filtered) URLs to the IndexNow API
 
@@ -56,6 +56,29 @@ sitemap_locations = [
 
 submit_sitemaps_to_index_now(authentication, sitemap_locations)
 ```
+
+## Nested Sitemaps
+Whether you submit one sitemap or multiple, IndexNow for Python will automatically detect any nested sitemaps and include their URLs in the submission.
+
+### Example
+If you have a sitemap index that links to two other sitemaps, for example, URLs from all three sitemaps will be included in the submission to the IndexNow API.
+
+```xml linenums="1" title="sitemap_index.xml" hl_lines="4 7"
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <sitemap>
+        <loc>https://example.com/sitemap1.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://example.com/sitemap2.xml</loc>
+    </sitemap>
+</urlset>
+```
+
+In this case, you only need to submit a [single sitemap](#single-sitemap) with a link to `sitemap_index.xml` as the location.
+
+!!! info
+    Only sitemaps on levels 1 and 2 are supported. Nested sitemaps on level 3 and beyond will be ignored.
 
 ## How to Filter the URLs
 Sometimes, you may wish to submit only a subset of the URLs in a sitemap. This could be URLs that have changed recently, URLs that have changed within a given timeframe, URLs that contain a specific text or even just a subset of URLs. The [`SitemapFilter` configuration class](../../reference/sitemap-filter/sitemap-filter.md) gives you that flexibility.

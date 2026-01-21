@@ -26,4 +26,10 @@
     <url>
         <loc>https://example.com/section2/subpage2</loc>
     </url>
+    <sitemap>
+      <loc>https://example.com/nested_sitemap1.xml</loc>
+    </sitemap>
+    <sitemap>
+      <loc>https://example.com/nested_sitemap2.xml</loc>
+    </sitemap>
 </urlset>

@@ -100,3 +100,21 @@ def parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any) -> list[s
     except Exception:
         print(f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}")
         return []
+
+
+def parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content: str | bytes | Any) -> list[str]:
+    """Parse the contents of an XML sitemap file, e.g. from a response, and retrieve all the nested sitemap links from it.
+
+    Args:
+        content (str | bytes | Any): The content of the XML sitemap file.
+
+    Returns:
+        list[str]: List of the nested sitemap links found in the XML sitemap file. If no links are found, the list will be empty.
+    """
+
+    try:
+        sitemap_links = parse_sitemap_xml_and_get_xpath_objects(sitemap_content, SitemapElementType.SITEMAP, loc_only=True)
+        return [str(link).strip() for link in sitemap_links] if isinstance(sitemap_links, list) and sitemap_links else []
+    except Exception:
+        print(f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}")
+        return []

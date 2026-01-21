@@ -5,7 +5,7 @@ from typing import Any
 import lxml.etree
 from colorist import Color
 
-from .get import get_sitemap_xml
+from .get import get_multiple_sitemap_xml
 
 
 @dataclass(slots=True, frozen=True)
@@ -140,7 +140,7 @@ def controller_parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any
             return parse_sitemap_xml_and_get_urls(sitemap_content)
 
     first_level_urls = get_urls_controller(sitemap_content, as_elements)
-    nested_sitemap_links = parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content)
+    nested_sitemap_links = parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content)  # Note that only level 2 sitemaps are supported, not level 3 or beyond, so no recursion is needed.
 
     if not first_level_urls and not nested_sitemap_links:
         return []
@@ -148,8 +148,8 @@ def controller_parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any
         return first_level_urls
 
     all_urls = first_level_urls  # We now need to merge URLs from multiple sitemaps.
-    for sitemap_link in nested_sitemap_links:  # Note that only level 2 sitemaps are supported, not level 3 or beyond, so no recursion is needed.
-        sitemap_content = get_sitemap_xml(sitemap_link)
+    all_sitemap_contents = get_multiple_sitemap_xml(nested_sitemap_links)
+    for sitemap_content in all_sitemap_contents:
         sitemap_urls = get_urls_controller(sitemap_content, as_elements)
         all_urls.extend(sitemap_urls)
     return all_urls

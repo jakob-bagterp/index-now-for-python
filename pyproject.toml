@@ -1,6 +1,6 @@
 [project]
 name = "index-now-for-python"
-version = "1.0.18"
+version = "1.0.19"
 description = "Lightweight package that makes it easy to submit URLs to the IndexNow API of various search engines"
 readme = "README.md"
 requires-python = ">=3.11"

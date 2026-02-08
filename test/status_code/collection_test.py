@@ -1,14 +1,16 @@
-from index_now.status_code import SUCCESS_STATUS_CODES_DICT, StatusCode
+from http import HTTPStatus
+
+from index_now.status_code import SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY
 
 
 def test_status_codes_int_enum() -> None:
-    assert StatusCode.OK == 200
-    assert StatusCode.ACCEPTED == 202
-    assert StatusCode.NO_CONTENT == 204
-    assert StatusCode.UNPROCESSABLE_CONTENT == 422
+    assert HTTPStatus.OK == 200
+    assert HTTPStatus.ACCEPTED == 202
+    assert HTTPStatus.NO_CONTENT == 204
+    assert HTTPStatus.UNPROCESSABLE_ENTITY == 422
 
 
 def test_status_codes_dict() -> None:
-    assert SUCCESS_STATUS_CODES_DICT[200] == "OK"
-    assert SUCCESS_STATUS_CODES_DICT[202] == "Accepted"
-    assert SUCCESS_STATUS_CODES_DICT[204] == "No content"
+    assert SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY[200] == "OK"
+    assert SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY[202] == "Accepted"
+    assert SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY[204] == "No Content"

@@ -1,7 +1,8 @@
+from http import HTTPStatus
+
 import requests
 
 from index_now import SearchEngineEndpoint
-from index_now.status_code import StatusCode
 
 TEMPORARILY_SKIPPED_ENDPOINTS = [
     SearchEngineEndpoint.BING,
@@ -13,6 +14,6 @@ def is_endpoint_up(endpoint: SearchEngineEndpoint | str) -> bool:
 
     try:
         response = requests.get(f"{endpoint}/meta.json")
-        return response.status_code == StatusCode.OK
+        return response.status_code == HTTPStatus.OK
     except Exception:  # pragma: no cover
         return False  # pragma: no cover

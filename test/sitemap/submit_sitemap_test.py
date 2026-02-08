@@ -1,14 +1,11 @@
 import pytest
 from _helper.endpoint import TEMPORARILY_SKIPPED_ENDPOINTS, is_endpoint_up
-from _helper.sitemap import (INVALID_SITEMAP_LOCATION,
-                             NON_EXISTING_SITEMAP_LOCATION)
-from _mock_data.website import (BROWSERIST, COLORIST_FOR_PYTHON,
-                                INDEX_NOW_FOR_PYTHON, TIMER_FOR_PYTHON,
+from _helper.sitemap import INVALID_SITEMAP_LOCATION, NON_EXISTING_SITEMAP_LOCATION
+from _mock_data.website import (BROWSERIST, COLORIST_FOR_PYTHON, INDEX_NOW_FOR_PYTHON, TIMER_FOR_PYTHON,
                                 IndexNowWebsiteData)
 from colorist import Color
 
-from index_now import (SearchEngineEndpoint, SitemapFilter,
-                       submit_sitemap_to_index_now)
+from index_now import SearchEngineEndpoint, SitemapFilter, submit_sitemap_to_index_now
 
 
 @pytest.mark.parametrize("website_data", [

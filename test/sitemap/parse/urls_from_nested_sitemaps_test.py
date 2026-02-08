@@ -1,9 +1,7 @@
-from _helper.sitemap import (
-    get_mock_sitemap_with_only_nested_sitemaps_content,
-    get_mock_sitemap_with_url_and_nested_sitemaps_content)
+from _helper.sitemap import (get_mock_sitemap_with_only_nested_sitemaps_content,
+                             get_mock_sitemap_with_url_and_nested_sitemaps_content)
 
-from index_now.sitemap.parse import (controller_parse_sitemap_xml_and_get_urls,
-                                     parse_sitemap_xml_and_get_urls)
+from index_now.sitemap.parse import controller_parse_sitemap_xml_and_get_urls, parse_sitemap_xml_and_get_urls
 
 
 def test_controller_parse_sitemap_xml_and_get_urls_1() -> None:

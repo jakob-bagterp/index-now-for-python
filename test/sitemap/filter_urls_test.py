@@ -1,13 +1,11 @@
 from datetime import datetime
 
 import pytest
-from _helper.sitemap import (get_mock_sitemap_content,
-                             get_mock_sitemap_inconsistent_content,
+from _helper.sitemap import (get_mock_sitemap_content, get_mock_sitemap_inconsistent_content,
                              get_mock_sitemap_only_urls_content)
 from colorist import Color
 
-from index_now import (Between, ChangeFrequency, DateRange, DaysAgo,
-                       EarlierThan, EarlierThanAndIncluding, LaterThan,
+from index_now import (Between, ChangeFrequency, DateRange, DaysAgo, EarlierThan, EarlierThanAndIncluding, LaterThan,
                        LaterThanAndIncluding, SitemapFilter, Today, Yesterday)
 from index_now.sitemap.filter.sitemap import SitemapUrl, filter_sitemap_urls
 from index_now.sitemap.parse import parse_sitemap_xml_and_get_urls_as_elements

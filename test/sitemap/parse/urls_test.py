@@ -1,7 +1,6 @@
 from _helper.sitemap import get_mock_sitemap_content
 
-from index_now.sitemap.parse import (
-    parse_sitemap_xml_and_get_urls, parse_sitemap_xml_and_get_urls_as_elements)
+from index_now.sitemap.parse import parse_sitemap_xml_and_get_urls, parse_sitemap_xml_and_get_urls_as_elements
 
 
 def test_parse_sitemap_xml_and_get_urls() -> None:

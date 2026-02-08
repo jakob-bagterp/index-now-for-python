@@ -1,7 +1,6 @@
 from _helper.sitemap import get_mock_sitemap_content
 
-from index_now.sitemap.parse import \
-    parse_sitemap_xml_and_get_nested_sitemap_links
+from index_now.sitemap.parse import parse_sitemap_xml_and_get_nested_sitemap_links
 
 
 def test_parse_sitemap_xml_and_get_sitemap_links() -> None:

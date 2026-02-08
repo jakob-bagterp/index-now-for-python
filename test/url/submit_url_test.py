@@ -1,7 +1,6 @@
 import pytest
 from _helper.endpoint import TEMPORARILY_SKIPPED_ENDPOINTS, is_endpoint_up
-from _mock_data.website import (INDEX_NOW_FOR_PYTHON,
-                                INDEX_NOW_FOR_PYTHON_INVALID_API_KEY)
+from _mock_data.website import INDEX_NOW_FOR_PYTHON, INDEX_NOW_FOR_PYTHON_INVALID_API_KEY
 from colorist import Color
 
 from index_now import SearchEngineEndpoint, submit_url_to_index_now

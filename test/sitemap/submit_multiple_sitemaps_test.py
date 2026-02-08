@@ -1,13 +1,10 @@
 import pytest
 from _helper.endpoint import is_endpoint_up
-from _helper.sitemap import (INVALID_SITEMAP_LOCATIONS,
-                             NON_EXISTING_SITEMAP_LOCATIONS)
-from _mock_data.website import (BROWSERIST, COLORIST_FOR_PYTHON,
-                                INDEX_NOW_FOR_PYTHON, TIMER_FOR_PYTHON)
+from _helper.sitemap import INVALID_SITEMAP_LOCATIONS, NON_EXISTING_SITEMAP_LOCATIONS
+from _mock_data.website import BROWSERIST, COLORIST_FOR_PYTHON, INDEX_NOW_FOR_PYTHON, TIMER_FOR_PYTHON
 from colorist import Color
 
-from index_now import (SearchEngineEndpoint, SitemapFilter,
-                       submit_sitemaps_to_index_now)
+from index_now import SearchEngineEndpoint, SitemapFilter, submit_sitemaps_to_index_now
 
 SITEMAP_LOCATIONS = [
     TIMER_FOR_PYTHON.sitemap_location,

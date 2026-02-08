@@ -2,8 +2,7 @@ from datetime import datetime
 
 import pytest
 
-from index_now import (Between, DateRange, Day, DaysAgo, EarlierThan,
-                       EarlierThanAndIncluding, LaterThan,
+from index_now import (Between, DateRange, Day, DaysAgo, EarlierThan, EarlierThanAndIncluding, LaterThan,
                        LaterThanAndIncluding, Today, Yesterday)
 
 

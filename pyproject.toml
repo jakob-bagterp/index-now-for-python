@@ -1,3 +1,22 @@
+[project]
+name = "index-now-for-python"
+version = "1.0.18"
+description = "Lightweight package that makes it easy to submit URLs to the IndexNow API of various search engines"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "colorist==1.8.11",
+    "coverage==7.13.1",
+    "flake8==7.3.0",
+    "lxml==6.0.2",
+    "mypy==1.19.1",
+    "pre-commit==4.5.1",
+    "pytest==9.0.2",
+    "pytest-cov==7.0.0",
+    "requests==2.32.5",
+    "tox==4.34.1",
+]
+
 [build-system]
 requires = [
     "setuptools==80.9.0",

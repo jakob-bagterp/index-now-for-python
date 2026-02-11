@@ -365,7 +365,7 @@ wheels = [
 
 [[package]]
 name = "index-now-for-python"
-version = "1.0.19"
+version = "1.0.20"
 source = { editable = "." }
 dependencies = [
     { name = "colorist" },

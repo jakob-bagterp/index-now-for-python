@@ -1,6 +1,6 @@
 [project]
 name = "index-now-for-python"
-version = "1.0.19"
+version = "1.0.20"
 description = "Lightweight package that makes it easy to submit URLs to the IndexNow API of various search engines"
 authors = [
   { name = "Jakob Bagterp", email = "jakob_bagterp@hotmail.com" }

@@ -4,9 +4,7 @@ import requests
 
 from index_now import SearchEngineEndpoint
 
-TEMPORARILY_SKIPPED_ENDPOINTS = [
-    SearchEngineEndpoint.BING,
-]
+TEMPORARILY_SKIPPED_ENDPOINTS = [SearchEngineEndpoint.BING]
 
 
 def is_endpoint_up(endpoint: SearchEngineEndpoint | str) -> bool:

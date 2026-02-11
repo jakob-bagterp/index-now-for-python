@@ -3,8 +3,12 @@ from pathlib import Path
 SITEMAP_FILE_PATH = Path(__file__).parent.parent / "_mock_data" / "sitemap.xml"
 SITEMAP_ONLY_URLS_FILE_PATH = Path(__file__).parent.parent / "_mock_data" / "sitemap_only_urls.xml"
 SITEMAP_INCONSISTENT_FILE_PATH = Path(__file__).parent.parent / "_mock_data" / "sitemap_inconsistent.xml"
-SITEMAP_WITH_ONLY_NESTED_SITEMAPS_FILE_PATH = Path(__file__).parent.parent / "_mock_data" / "sitemap_with_only_nested_sitemaps.xml"
-SITEMAP_WITH_URL_AND_NESTED_SITEMAPS_FILE_PATH = Path(__file__).parent.parent / "_mock_data" / "sitemap_with_url_and_nested_sitemaps.xml"
+SITEMAP_WITH_ONLY_NESTED_SITEMAPS_FILE_PATH = (
+    Path(__file__).parent.parent / "_mock_data" / "sitemap_with_only_nested_sitemaps.xml"
+)
+SITEMAP_WITH_URL_AND_NESTED_SITEMAPS_FILE_PATH = (
+    Path(__file__).parent.parent / "_mock_data" / "sitemap_with_url_and_nested_sitemaps.xml"
+)
 
 
 def get_mock_sitemap_content() -> str:
@@ -39,14 +43,8 @@ def get_mock_sitemap_with_url_and_nested_sitemaps_content() -> str:
 
 INVALID_SITEMAP_LOCATION = "https://jakob-bagterp.github.io/index-now-for-python/invalid-sitemap.xml"
 
-INVALID_SITEMAP_LOCATIONS = [
-    INVALID_SITEMAP_LOCATION,
-    INVALID_SITEMAP_LOCATION,
-]
+INVALID_SITEMAP_LOCATIONS = [INVALID_SITEMAP_LOCATION, INVALID_SITEMAP_LOCATION]
 
 NON_EXISTING_SITEMAP_LOCATION = "https://jakob-bagterp.github.io/index-now-for-python/non-existing-sitemap.xml"
 
-NON_EXISTING_SITEMAP_LOCATIONS = [
-    NON_EXISTING_SITEMAP_LOCATION,
-    NON_EXISTING_SITEMAP_LOCATION,
-]
+NON_EXISTING_SITEMAP_LOCATIONS = [NON_EXISTING_SITEMAP_LOCATION, NON_EXISTING_SITEMAP_LOCATION]

@@ -34,7 +34,9 @@ class SitemapEntryType(StrEnum):
 SITEMAP_SCHEMA_NAMESPACE = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
 
-def parse_sitemap_xml_and_get_xpath_objects(sitemap_content: str | bytes | Any, type: SitemapEntryType, loc_only: bool) -> Any:
+def parse_sitemap_xml_and_get_xpath_objects(
+    sitemap_content: str | bytes | Any, type: SitemapEntryType, loc_only: bool
+) -> Any:
     """Parse the contents of an XML sitemap file and get the URLs or nested XML sitemaps from it.
 
     Args:
@@ -67,22 +69,30 @@ def parse_sitemap_xml_and_get_urls_as_elements(sitemap_content: str | bytes | An
 
     try:
         urls: list[SitemapUrl] = []
-        sitemap_elements = parse_sitemap_xml_and_get_xpath_objects(sitemap_content, SitemapEntryType.URL, loc_only=False)
+        sitemap_elements = parse_sitemap_xml_and_get_xpath_objects(
+            sitemap_content, SitemapEntryType.URL, loc_only=False
+        )
         for sitemap_element in sitemap_elements:
             loc = sitemap_element.xpath("ns:loc/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)[0].strip()
             lastmod = next(iter(sitemap_element.xpath("ns:lastmod/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
-            changefreq = next(iter(sitemap_element.xpath("ns:changefreq/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
-            priority = next(iter(sitemap_element.xpath("ns:priority/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None)
+            changefreq = next(
+                iter(sitemap_element.xpath("ns:changefreq/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None
+            )
+            priority = next(
+                iter(sitemap_element.xpath("ns:priority/text()", namespaces=SITEMAP_SCHEMA_NAMESPACE)), None
+            )
             url = SitemapUrl(
                 loc=str(loc),
                 lastmod=str(lastmod) if lastmod else None,
                 changefreq=str(changefreq) if changefreq else None,
-                priority=float(priority) if priority is not None else None
+                priority=float(priority) if priority is not None else None,
             )
             urls.append(url)
         return urls
     except Exception:
-        print(f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}")
+        print(
+            f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}"
+        )
         return []
 
 
@@ -100,7 +110,9 @@ def parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any) -> list[s
         sitemap_urls = parse_sitemap_xml_and_get_xpath_objects(sitemap_content, SitemapEntryType.URL, loc_only=True)
         return [str(url).strip() for url in sitemap_urls] if isinstance(sitemap_urls, list) and sitemap_urls else []
     except Exception:
-        print(f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}")
+        print(
+            f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}"
+        )
         return []
 
 
@@ -115,10 +127,16 @@ def parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content: str | bytes 
     """
 
     try:
-        sitemap_links = parse_sitemap_xml_and_get_xpath_objects(sitemap_content, SitemapEntryType.SITEMAP, loc_only=True)
-        return [str(link).strip() for link in sitemap_links] if isinstance(sitemap_links, list) and sitemap_links else []
+        sitemap_links = parse_sitemap_xml_and_get_xpath_objects(
+            sitemap_content, SitemapEntryType.SITEMAP, loc_only=True
+        )
+        return (
+            [str(link).strip() for link in sitemap_links] if isinstance(sitemap_links, list) and sitemap_links else []
+        )
     except Exception:
-        print(f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}")
+        print(
+            f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}"
+        )
         return []
 
 
@@ -140,7 +158,9 @@ def controller_parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any
             return parse_sitemap_xml_and_get_urls(sitemap_content)
 
     first_level_urls = controller_get_urls(sitemap_content, as_elements)
-    nested_sitemap_links = parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content)  # Note that only level 2 sitemaps are supported, not level 3 or beyond, so no recursion is needed.
+    nested_sitemap_links = parse_sitemap_xml_and_get_nested_sitemap_links(
+        sitemap_content
+    )  # Note that only level 2 sitemaps are supported, not level 3 or beyond, so no recursion is needed.
 
     if not first_level_urls and not nested_sitemap_links:
         return []

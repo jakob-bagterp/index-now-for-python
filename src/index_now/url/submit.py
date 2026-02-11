@@ -6,7 +6,11 @@ from ..endpoint import SearchEngineEndpoint
 from ..status_code import SUCCESS_STATUS_CODES_COLLECTION, SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY
 
 
-def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
+def submit_url_to_index_now(
+    authentication: IndexNowAuthentication,
+    url: str,
+    endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW,
+) -> int:
     """Submit a list of URLs to the IndexNow API of a search engine.
 
     Args:
@@ -42,11 +46,16 @@ def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, en
         ```
     """
 
-    response = requests.get(url=str(endpoint), params={"url": url, "key": authentication.api_key, "keyLocation": authentication.api_key_location})
+    response = requests.get(
+        url=str(endpoint),
+        params={"url": url, "key": authentication.api_key, "keyLocation": authentication.api_key_location},
+    )
 
     if response.status_code in SUCCESS_STATUS_CODES_COLLECTION:
         print(f"{Color.GREEN}1 URL was submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}")
-        print(f"Status code: {Color.GREEN}{response.status_code} {SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY[response.status_code]}{Color.OFF}")
+        print(
+            f"Status code: {Color.GREEN}{response.status_code} {SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY[response.status_code]}{Color.OFF}"
+        )
     else:
         print(f"{Color.YELLOW}Failure. No URL was submitted to this IndexNow API endpoint:{Color.OFF} {endpoint}")
         print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
@@ -54,7 +63,11 @@ def submit_url_to_index_now(authentication: IndexNowAuthentication, url: str, en
     return response.status_code
 
 
-def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[str], endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
+def submit_urls_to_index_now(
+    authentication: IndexNowAuthentication,
+    urls: list[str],
+    endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW,
+) -> int:
     """Submit a list of URLs to the IndexNow API of a search engine.
 
     Args:
@@ -94,17 +107,19 @@ def submit_urls_to_index_now(authentication: IndexNowAuthentication, urls: list[
         "host": authentication.host,
         "key": authentication.api_key,
         "keyLocation": authentication.api_key_location,
-        "urlList": urls
+        "urlList": urls,
     }
     response = requests.post(
-        url=str(endpoint),
-        json=payload,
-        headers={"Content-Type": "application/json; charset=utf-8"}
+        url=str(endpoint), json=payload, headers={"Content-Type": "application/json; charset=utf-8"}
     )
 
     if response.status_code in SUCCESS_STATUS_CODES_COLLECTION:
-        print(f"{Color.GREEN}{len(urls):,} URL(s) were submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}")
-        print(f"Status code: {Color.GREEN}{response.status_code} {SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY[response.status_code]}{Color.OFF}")
+        print(
+            f"{Color.GREEN}{len(urls):,} URL(s) were submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}"
+        )
+        print(
+            f"Status code: {Color.GREEN}{response.status_code} {SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY[response.status_code]}{Color.OFF}"
+        )
     else:
         print(f"{Color.YELLOW}Failure. No URL(s) were submitted to this IndexNow API endpoint:{Color.OFF} {endpoint}")
         print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")

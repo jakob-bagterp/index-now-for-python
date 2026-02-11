@@ -10,7 +10,12 @@ from .filter.sitemap import SitemapFilter, filter_sitemap_urls
 from .parse import SitemapUrl, controller_parse_sitemap_xml_and_get_urls
 
 
-def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_location: str, filter: SitemapFilter | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
+def submit_sitemap_to_index_now(
+    authentication: IndexNowAuthentication,
+    sitemap_location: str,
+    filter: SitemapFilter | None = None,
+    endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW,
+) -> int:
     """Submit a sitemap to the IndexNow API of a search engine. Note that nested sitemaps up to level 2 of the index sitemap will be included.
 
     Args:
@@ -118,12 +123,16 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
     if not filter:
         urls = controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=False)
         if not urls:
-            print(f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}")
+            print(
+                f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}"
+            )
             return HTTPStatus.UNPROCESSABLE_ENTITY
     else:
         url_elements = controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=True)
         if not url_elements:
-            print(f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}")
+            print(
+                f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}"
+            )
             return HTTPStatus.UNPROCESSABLE_ENTITY
         urls = filter_sitemap_urls(url_elements, filter)
         if not urls:
@@ -135,7 +144,12 @@ def submit_sitemap_to_index_now(authentication: IndexNowAuthentication, sitemap_
     return status_code
 
 
-def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap_locations: list[str], filter: SitemapFilter | None = None, endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW) -> int:
+def submit_sitemaps_to_index_now(
+    authentication: IndexNowAuthentication,
+    sitemap_locations: list[str],
+    filter: SitemapFilter | None = None,
+    endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW,
+) -> int:
     """Submit multiple sitemaps to the IndexNow API of a search engine. Note that nested sitemaps up to level 2 of the index sitemaps will be included.
 
     Args:
@@ -251,7 +265,9 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
             return response.status_code
         urls = controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=False)
         if not urls:
-            print(f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}")
+            print(
+                f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}"
+            )
             return HTTPStatus.UNPROCESSABLE_ENTITY
         merged_urls.extend(urls)
         responses.append(response)
@@ -265,6 +281,8 @@ def submit_sitemaps_to_index_now(authentication: IndexNowAuthentication, sitemap
             print(f"{Color.YELLOW}No URLs left after filtering. Please check your filter parameters.{Color.OFF}")
             return HTTPStatus.NO_CONTENT
 
-    print(f"Found {Color.GREEN}{len(merged_urls):,} URL(s){Color.OFF} in total from these sitemaps: {', '.join(sitemap_locations)}")
+    print(
+        f"Found {Color.GREEN}{len(merged_urls):,} URL(s){Color.OFF} in total from these sitemaps: {', '.join(sitemap_locations)}"
+    )
     status_code = submit_urls_to_index_now(authentication, merged_urls, endpoint)
     return status_code

@@ -35,12 +35,14 @@ class DateRange(ABC):
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, self.__class__):
             return False
-        return all([
-            self.__slots__ == other.__slots__,
-            self.__str__() == other.__str__(),
-            self.start.date() == other.start.date(),
-            self.end.date() == other.end.date(),
-        ])
+        return all(
+            [
+                self.__slots__ == other.__slots__,
+                self.__str__() == other.__str__(),
+                self.start.date() == other.start.date(),
+                self.end.date() == other.end.date(),
+            ]
+        )
 
     def is_within_range(self, date: datetime) -> bool:
         """Check if a given date is within the date range."""
@@ -70,10 +72,7 @@ class Between(DateRange):
     """
 
     def __init__(self, start: datetime, end: datetime) -> None:
-        super().__init__(
-            start=start,
-            end=end,
-        )
+        super().__init__(start=start, end=end)
 
     def __repr__(self) -> str:
         return f"Between(start={self.start.date()}, end={self.end.date()})"
@@ -98,10 +97,7 @@ class Today(DateRange):
     """
 
     def __init__(self) -> None:
-        super().__init__(
-            start=datetime.today(),
-            end=datetime.today(),
-        )
+        super().__init__(start=datetime.today(), end=datetime.today())
 
     def __repr__(self) -> str:
         return f"Today({self.start.date()})"
@@ -121,10 +117,7 @@ class Yesterday(DateRange):
     """
 
     def __init__(self) -> None:
-        super().__init__(
-            start=datetime.today() - timedelta(days=1),
-            end=datetime.today() - timedelta(days=1),
-        )
+        super().__init__(start=datetime.today() - timedelta(days=1), end=datetime.today() - timedelta(days=1))
 
     def __repr__(self) -> str:
         return f"Yesterday(start={self.start.date()}, end={self.end.date()})"
@@ -148,10 +141,7 @@ class Day(DateRange):
     """
 
     def __init__(self, day: datetime) -> None:
-        super().__init__(
-            start=day,
-            end=day,
-        )
+        super().__init__(start=day, end=day)
 
     def __repr__(self) -> str:
         return f"Day(day={self.start.date()})"
@@ -176,10 +166,7 @@ class DaysAgo(DateRange):
     __slots__ = ["start", "end", "days_ago"]
 
     def __init__(self, days_ago: int) -> None:
-        super().__init__(
-            start=datetime.today() - timedelta(days=days_ago),
-            end=datetime.today(),
-        )
+        super().__init__(start=datetime.today() - timedelta(days=days_ago), end=datetime.today())
         self.days_ago = days_ago
 
     def __repr__(self) -> str:
@@ -206,10 +193,7 @@ class LaterThan(DateRange):
     __slots__ = ["start", "end", "date"]
 
     def __init__(self, date: datetime) -> None:
-        super().__init__(
-            start=date,
-            end=datetime.max,
-        )
+        super().__init__(start=date, end=datetime.max)
         self.date = date
 
     def __repr__(self) -> str:
@@ -241,10 +225,7 @@ class LaterThanAndIncluding(DateRange):
     __slots__ = ["start", "end", "date"]
 
     def __init__(self, date: datetime) -> None:
-        super().__init__(
-            start=date,
-            end=datetime.max,
-        )
+        super().__init__(start=date, end=datetime.max)
         self.date = date
 
     def __repr__(self) -> str:
@@ -276,10 +257,7 @@ class EarlierThan(DateRange):
     __slots__ = ["start", "end", "date"]
 
     def __init__(self, date: datetime) -> None:
-        super().__init__(
-            start=datetime.min,
-            end=date,
-        )
+        super().__init__(start=datetime.min, end=date)
         self.date = date
 
     def __repr__(self) -> str:
@@ -311,10 +289,7 @@ class EarlierThanAndIncluding(DateRange):
     __slots__ = ["start", "end", "date"]
 
     def __init__(self, date: datetime) -> None:
-        super().__init__(
-            start=datetime.min,
-            end=date,
-        )
+        super().__init__(start=datetime.min, end=date)
         self.date = date
 
     def __repr__(self) -> str:

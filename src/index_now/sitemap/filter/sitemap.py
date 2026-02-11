@@ -105,15 +105,11 @@ def filter_sitemap_urls(urls: list[SitemapUrl], filter: SitemapFilter) -> list[s
     """
 
     def filter_by_change_frequency(urls: list[SitemapUrl], change_frequency: ChangeFrequency | str) -> list[SitemapUrl]:
-        return [
-            url for url in urls
-            if not url.changefreq or url.changefreq.lower() == str(change_frequency).lower()
-        ]
+        return [url for url in urls if not url.changefreq or url.changefreq.lower() == str(change_frequency).lower()]
 
     def filter_by_date_range(urls: list[SitemapUrl], date_range: DateRange) -> list[SitemapUrl]:
         return [
-            url for url in urls
-            if not url.lastmod or date_range.is_within_range(datetime.fromisoformat(url.lastmod))
+            url for url in urls if not url.lastmod or date_range.is_within_range(datetime.fromisoformat(url.lastmod))
         ]
 
     if not urls:
@@ -131,29 +127,29 @@ def filter_sitemap_urls(urls: list[SitemapUrl], filter: SitemapFilter) -> list[s
         print(f"Number of URLs left after filtering by date range {filter.date_range}: {len(urls)}")
 
     if filter.contains is not None:
-        print(f"Number of URLs before filtering by contains \"{filter.contains}\": {len(urls)}")
+        print(f'Number of URLs before filtering by contains "{filter.contains}": {len(urls)}')
         pattern = re.compile(filter.contains)
         urls = [url for url in urls if pattern.search(url.loc)]
         if not urls:
-            print(f"{Color.YELLOW}No URLs contained the pattern \"{filter.contains}\".{Color.OFF}")
+            print(f'{Color.YELLOW}No URLs contained the pattern "{filter.contains}".{Color.OFF}')
             return []
-        print(f"Number of URLs left after filtering by contains \"{filter.contains}\": {len(urls)}")
+        print(f'Number of URLs left after filtering by contains "{filter.contains}": {len(urls)}')
 
     if filter.excludes is not None:
-        print(f"Number of URLs before filtering by excludes \"{filter.excludes}\": {len(urls)}")
+        print(f'Number of URLs before filtering by excludes "{filter.excludes}": {len(urls)}')
         pattern = re.compile(filter.excludes)
         urls = [url for url in urls if not pattern.search(url.loc)]
         if not urls:
-            print(f"{Color.YELLOW}No URLs left after excluding the pattern \"{filter.excludes}\".{Color.OFF}")
+            print(f'{Color.YELLOW}No URLs left after excluding the pattern "{filter.excludes}".{Color.OFF}')
             return []
-        print(f"Number of URLs left after filtering by excludes \"{filter.excludes}\": {len(urls)}")
+        print(f'Number of URLs left after filtering by excludes "{filter.excludes}": {len(urls)}')
 
     if filter.skip is not None:
         if filter.skip >= len(urls):
             print(f"{Color.YELLOW}No URLs left after skipping {filter.skip} URL(s) from sitemap.{Color.OFF}")
             return []
         print(f"Number of URLs before skipping {filter.skip} URL(s) from sitemap: {len(urls)}")
-        urls = urls[filter.skip:]
+        urls = urls[filter.skip :]
         print(f"Number of URLs left after skipping {filter.skip} URL(s) from sitemap: {len(urls)}")
 
     if filter.take is not None:
@@ -161,7 +157,7 @@ def filter_sitemap_urls(urls: list[SitemapUrl], filter: SitemapFilter) -> list[s
             print(f"{Color.YELLOW}No URLs left. The value for take should be greater than 0.{Color.OFF}")
             return []
         print(f"Number of URLs before taking {filter.take} URL(s) from sitemap: {len(urls)}")
-        urls = urls[:filter.take]
+        urls = urls[: filter.take]
         print(f"Number of URLs left after taking {filter.take} URL(s) from sitemap: {len(urls)}")
 
     return [url.loc for url in urls]

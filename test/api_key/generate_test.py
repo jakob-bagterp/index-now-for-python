@@ -27,17 +27,20 @@ def test_generate_random_api_key_with_custom_length(length: int) -> None:
     assert api_key_pattern.match(api_key)
 
 
-@pytest.mark.parametrize("length, expectation", [
-    (-1, pytest.raises(ValueError)),
-    (0, pytest.raises(ValueError)),
-    (7, pytest.raises(ValueError)),
-    (8, does_not_raise()),
-    (9, does_not_raise()),
-    (32, does_not_raise()),
-    (64, does_not_raise()),
-    (128, does_not_raise()),
-    (129, pytest.raises(ValueError)),
-])
+@pytest.mark.parametrize(
+    "length, expectation",
+    [
+        (-1, pytest.raises(ValueError)),
+        (0, pytest.raises(ValueError)),
+        (7, pytest.raises(ValueError)),
+        (8, does_not_raise()),
+        (9, does_not_raise()),
+        (32, does_not_raise()),
+        (64, does_not_raise()),
+        (128, does_not_raise()),
+        (129, pytest.raises(ValueError)),
+    ],
+)
 def test_generate_random_api_key_error_handling(length: int, expectation: Any) -> None:
     with expectation:
         _ = generate_api_key(length)

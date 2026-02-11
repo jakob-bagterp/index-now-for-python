@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: |
           uv sync --frozen --all-extras
-          uv tool install tox --with tox-gh-actions
+          uv tool install tox --with tox-uv --with tox-gh-actions
 
       - name: Run tests with Tox
         run: tox

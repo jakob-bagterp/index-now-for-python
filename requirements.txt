@@ -1,3 +1,0 @@
-colorist==1.8.11
-lxml==6.0.2
-requests==2.32.5

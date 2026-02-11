@@ -11,7 +11,7 @@ maintainers = [
 license = { text = "MIT License" }
 readme = "README.md"
 requires-python = ">=3.11"
-keywords = ["python", "index-now", "seo"]
+keywords = ["python", "index-now", "sitemap", "bing", "yandex", "duckduckgo", "seo"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",

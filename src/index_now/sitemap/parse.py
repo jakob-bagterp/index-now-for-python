@@ -1,11 +1,13 @@
+import logging
 from dataclasses import dataclass
 from enum import StrEnum, auto, unique
 from typing import Any
 
 import lxml.etree
-from colorist import Color
 
 from .get import get_multiple_sitemap_xml
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(slots=True, frozen=True)
@@ -90,9 +92,7 @@ def parse_sitemap_xml_and_get_urls_as_elements(sitemap_content: str | bytes | An
             urls.append(url)
         return urls
     except Exception:
-        print(
-            f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}"
-        )
+        logger.warning("Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.")
         return []
 
 
@@ -110,9 +110,7 @@ def parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any) -> list[s
         sitemap_urls = parse_sitemap_xml_and_get_xpath_objects(sitemap_content, SitemapEntryType.URL, loc_only=True)
         return [str(url).strip() for url in sitemap_urls] if isinstance(sitemap_urls, list) and sitemap_urls else []
     except Exception:
-        print(
-            f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}"
-        )
+        logger.warning("Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.")
         return []
 
 
@@ -134,9 +132,7 @@ def parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content: str | bytes 
             [str(link).strip() for link in sitemap_links] if isinstance(sitemap_links, list) and sitemap_links else []
         )
     except Exception:
-        print(
-            f"{Color.YELLOW}Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.{Color.OFF}"
-        )
+        logger.warning("Invalid sitemap format. The XML could not be parsed. Please check the location of the sitemap.")
         return []
 
 

@@ -1,9 +1,12 @@
+import logging
+
 import requests
-from colorist import Color
 
 from ..authentication import IndexNowAuthentication
 from ..endpoint import SearchEngineEndpoint
 from ..status_code import SUCCESS_STATUS_CODES_COLLECTION, SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY
+
+logger = logging.getLogger(__name__)
 
 
 def submit_url_to_index_now(
@@ -52,14 +55,14 @@ def submit_url_to_index_now(
     )
 
     if response.status_code in SUCCESS_STATUS_CODES_COLLECTION:
-        print(f"{Color.GREEN}1 URL was submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}")
-        print(
-            f"Status code: {Color.GREEN}{response.status_code} {SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY[response.status_code]}{Color.OFF}"
+        logger.info("1 URL was submitted successfully to this IndexNow API endpoint: %s", endpoint)
+        logger.info(
+            "Status code: %s %s", response.status_code, SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY[response.status_code]
         )
     else:
-        print(f"{Color.YELLOW}Failure. No URL was submitted to this IndexNow API endpoint:{Color.OFF} {endpoint}")
-        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
-        print(f"Response: {response.text}")
+        logger.warning("Failure. No URL was submitted to this IndexNow API endpoint: %s", endpoint)
+        logger.warning("Status code: %s", response.status_code)
+        logger.warning("Response: %s", response.text)
     return response.status_code
 
 
@@ -114,14 +117,14 @@ def submit_urls_to_index_now(
     )
 
     if response.status_code in SUCCESS_STATUS_CODES_COLLECTION:
-        print(
-            f"{Color.GREEN}{len(urls):,} URL(s) were submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}"
+        logger.info(
+            "%s URL(s) were submitted successfully to this IndexNow API endpoint: %s", f"{len(urls):,}", endpoint
         )
-        print(
-            f"Status code: {Color.GREEN}{response.status_code} {SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY[response.status_code]}{Color.OFF}"
+        logger.info(
+            "Status code: %s %s", response.status_code, SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY[response.status_code]
         )
     else:
-        print(f"{Color.YELLOW}Failure. No URL(s) were submitted to this IndexNow API endpoint:{Color.OFF} {endpoint}")
-        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
-        print(f"Response: {response.text}")
+        logger.warning("Failure. No URL(s) were submitted to this IndexNow API endpoint: %s", endpoint)
+        logger.warning("Status code: %s", response.status_code)
+        logger.warning("Response: %s", response.text)
     return response.status_code

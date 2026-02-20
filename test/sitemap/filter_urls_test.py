@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 import pytest
@@ -6,7 +7,6 @@ from _helper.sitemap import (
     get_mock_sitemap_inconsistent_content,
     get_mock_sitemap_only_urls_content,
 )
-from colorist import Color
 
 from index_now import (
     Between,
@@ -277,33 +277,21 @@ def test_filter_sitemap_urls(sitemap_urls: list[SitemapUrl], filter: SitemapFilt
 
 
 @pytest.mark.parametrize(
-    "sitemap_urls, filter, expected_terminal_output",
+    "sitemap_urls, filter, expected_log_message",
     [
-        (
-            SITEMAP,
-            SitemapFilter(contains=NO_MATCHES_AT_ALL),
-            f'{Color.YELLOW}No URLs contained the pattern "{NO_MATCHES_AT_ALL}".{Color.OFF}\n',
-        ),
+        (SITEMAP, SitemapFilter(contains=NO_MATCHES_AT_ALL), f'No URLs contained the pattern "{NO_MATCHES_AT_ALL}".'),
         (
             SITEMAP,
             SitemapFilter(excludes=MATCHES_ALL_URLS),
-            f'{Color.YELLOW}No URLs left after excluding the pattern "{MATCHES_ALL_URLS}".{Color.OFF}\n',
+            f'No URLs left after excluding the pattern "{MATCHES_ALL_URLS}".',
         ),
-        (
-            SITEMAP,
-            SitemapFilter(skip=100),
-            f"{Color.YELLOW}No URLs left after skipping 100 URL(s) from sitemap.{Color.OFF}\n",
-        ),
-        (
-            SITEMAP,
-            SitemapFilter(take=0),
-            f"{Color.YELLOW}No URLs left. The value for take should be greater than 0.{Color.OFF}\n",
-        ),
+        (SITEMAP, SitemapFilter(skip=100), "No URLs left after skipping 100 URL(s) from sitemap."),
+        (SITEMAP, SitemapFilter(take=0), "No URLs left. The value for take should be greater than 0."),
     ],
 )
 def test_error_handling_of_filtering_sitemap_with_no_matches(
-    sitemap_urls: list[SitemapUrl], filter: SitemapFilter, expected_terminal_output: str, capfd: object
+    sitemap_urls: list[SitemapUrl], filter: SitemapFilter, expected_log_message: str, caplog: pytest.LogCaptureFixture
 ) -> None:
-    filter_sitemap_urls(sitemap_urls, filter)
-    terminal_output, _ = capfd.readouterr()
-    assert expected_terminal_output in terminal_output
+    with caplog.at_level(logging.WARNING):
+        filter_sitemap_urls(sitemap_urls, filter)
+    assert expected_log_message in caplog.text

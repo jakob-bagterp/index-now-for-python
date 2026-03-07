@@ -158,9 +158,8 @@ def controller_parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any
             return parse_sitemap_xml_and_get_urls(sitemap_content)
 
     first_level_urls = controller_get_urls(sitemap_content, as_elements)
-    nested_sitemap_links = parse_sitemap_xml_and_get_nested_sitemap_links(
-        sitemap_content
-    )  # Note that only level 2 sitemaps are supported, not level 3 or beyond, so no recursion is needed.
+    # Note that only level 2 sitemaps are supported, not level 3 or beyond, so no recursion is needed:
+    nested_sitemap_links = parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content)
 
     if not first_level_urls and not nested_sitemap_links:
         return []

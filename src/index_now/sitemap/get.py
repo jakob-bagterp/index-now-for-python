@@ -14,6 +14,9 @@ def get_sitemap_xml(sitemap_location: str) -> str | bytes | Any:
         str | bytes | Any: The contents of the XML sitemp file or an empty string if the sitemap could not be retrieved.
     """
 
+    if not sitemap_location:
+        return ""
+
     try:
         response = requests.get(sitemap_location, timeout=10)
         response.raise_for_status()
@@ -32,6 +35,12 @@ def get_multiple_sitemap_xml(sitemap_locations: list[str], max_workers: int | No
     Returns:
         list[str | bytes | Any]: List of the contents of the XML sitemap files or an empty list if the sitemaps could not be retrieved.
     """
+
+    # Quick exits if there are no or only one sitemap location to process:
+    if not sitemap_locations:
+        return []
+    if len(sitemap_locations) == 1:
+        return [get_sitemap_xml(sitemap_locations[0])]
 
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         multiple_contents = list(executor.map(get_sitemap_xml, sitemap_locations))

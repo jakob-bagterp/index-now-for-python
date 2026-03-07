@@ -3,6 +3,8 @@ from typing import Any
 
 import requests
 
+from index_now.constant import NUMBER_OF_CPU_CORES
+
 
 def get_sitemap_xml(sitemap_location: str) -> str | bytes | Any:
     """Get the contents of an XML sitemap file.
@@ -25,12 +27,11 @@ def get_sitemap_xml(sitemap_location: str) -> str | bytes | Any:
         return ""
 
 
-def get_multiple_sitemap_xml(sitemap_locations: list[str], max_workers: int | None = None) -> list[str | bytes | Any]:
+def get_multiple_sitemap_xml(sitemap_locations: list[str]) -> list[str | bytes | Any]:
     """Get the contents of multiple XML sitemaps in parallel.
 
     Args:
         sitemap_locations (list[str]): List of sitemap locations to get the URLs from.
-        max_workers (int | None, optional): Maximum number of workers to use for parallel processing. If `None`, the number of available CPU cores will be used.
 
     Returns:
         list[str | bytes | Any]: List of the contents of the XML sitemap files or an empty list if the sitemaps could not be retrieved.
@@ -42,6 +43,7 @@ def get_multiple_sitemap_xml(sitemap_locations: list[str], max_workers: int | No
     if len(sitemap_locations) == 1:
         return [get_sitemap_xml(sitemap_locations[0])]
 
+    max_workers = min(NUMBER_OF_CPU_CORES - 1, len(sitemap_locations))
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         multiple_contents = list(executor.map(get_sitemap_xml, sitemap_locations))
 

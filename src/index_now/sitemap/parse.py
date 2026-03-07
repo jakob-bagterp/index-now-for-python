@@ -7,6 +7,8 @@ from typing import Any
 import lxml.etree
 from colorist import Color
 
+from index_now.constant import NUMBER_OF_CPU_CORES
+
 from .get import get_sitemap_xml
 
 
@@ -182,6 +184,7 @@ def controller_parse_sitemap_xml_and_get_urls(
     if len(nested_sitemap_links) == 1:
         multiple_nested_sitemap_urls = worker_get_urls_from_sitemap_xml(nested_sitemap_links[0], as_elements)
     else:
+        max_workers = min(NUMBER_OF_CPU_CORES - 1, len(nested_sitemap_links))
         with ProcessPoolExecutor(max_workers=max_workers) as executor:
             multiple_nested_sitemap_urls = list(
                 executor.map(worker_get_urls_from_sitemap_xml, nested_sitemap_links, repeat(as_elements))

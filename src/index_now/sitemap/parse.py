@@ -151,15 +151,12 @@ def worker_get_urls_from_sitemap_xml(sitemap_location: str, as_elements: bool) -
     return parse_sitemap_xml_and_get_urls(sitemap_content)
 
 
-def controller_parse_sitemap_xml_and_get_urls(
-    sitemap_content: str | bytes | Any, as_elements: bool, max_workers: int | None = None
-) -> list[Any]:
+def controller_parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any, as_elements: bool) -> list[Any]:
     """Parse the contents of an XML sitemap file and get the URLs from it, including any nested XML sitemaps.
 
     Args:
         content (str | bytes | Any): The content of the XML sitemap file.
         as_elements (bool): If `True`, return the URLs as `SitemapUrl` elements instead of strings. If `False`, return the URLs as strings.
-        max_workers (int | None, optional): Maximum number of workers to use for parallel processing. If `None`, the number of available CPU cores will be used.
 
     Returns:
         list[str] | list[SitemapUrl]: List of the URLs or URL elements found in the XML sitemap file. If no URLs are found, the list will be empty.

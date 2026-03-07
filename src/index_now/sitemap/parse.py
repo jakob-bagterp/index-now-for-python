@@ -1,11 +1,15 @@
+from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass
 from enum import StrEnum, auto, unique
+from itertools import repeat
 from typing import Any
 
 import lxml.etree
 from colorist import Color
 
-from .get import get_multiple_sitemap_xml
+from index_now.constant import NUMBER_OF_CPU_CORES
+
+from .get import get_sitemap_xml
 
 
 @dataclass(slots=True, frozen=True)
@@ -140,36 +144,53 @@ def parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content: str | bytes 
         return []
 
 
-def controller_parse_sitemap_xml_and_get_urls(sitemap_content: str | bytes | Any, as_elements: bool) -> list[Any]:
+def worker_get_urls_from_sitemap_xml(sitemap_location: str, as_elements: bool) -> list[Any]:
+    sitemap_content = get_sitemap_xml(sitemap_location)
+    if as_elements:
+        return parse_sitemap_xml_and_get_urls_as_elements(sitemap_content)
+    return parse_sitemap_xml_and_get_urls(sitemap_content)
+
+
+def controller_parse_sitemap_xml_and_get_urls(
+    sitemap_content: str | bytes | Any, as_elements: bool, max_workers: int | None = None
+) -> list[Any]:
     """Parse the contents of an XML sitemap file and get the URLs from it, including any nested XML sitemaps.
 
     Args:
         content (str | bytes | Any): The content of the XML sitemap file.
         as_elements (bool): If `True`, return the URLs as `SitemapUrl` elements instead of strings. If `False`, return the URLs as strings.
+        max_workers (int | None, optional): Maximum number of workers to use for parallel processing. If `None`, the number of available CPU cores will be used.
 
     Returns:
         list[str] | list[SitemapUrl]: List of the URLs or URL elements found in the XML sitemap file. If no URLs are found, the list will be empty.
     """
 
-    def controller_get_urls(sitemap_content: str | bytes | Any, as_elements: bool) -> list[Any]:
-        if as_elements:
-            return parse_sitemap_xml_and_get_urls_as_elements(sitemap_content)
-        else:
-            return parse_sitemap_xml_and_get_urls(sitemap_content)
+    first_level_urls = (
+        parse_sitemap_xml_and_get_urls_as_elements(sitemap_content)
+        if as_elements
+        else parse_sitemap_xml_and_get_urls(sitemap_content)
+    )
+    # Note that only level 2 sitemaps are supported, not level 3 or beyond, so no recursion is needed:
+    nested_sitemap_links = parse_sitemap_xml_and_get_nested_sitemap_links(sitemap_content)
 
-    first_level_urls = controller_get_urls(sitemap_content, as_elements)
-    nested_sitemap_links = parse_sitemap_xml_and_get_nested_sitemap_links(
-        sitemap_content
-    )  # Note that only level 2 sitemaps are supported, not level 3 or beyond, so no recursion is needed.
-
+    # Quick exits if there are no URLs or nested sitemap links to process:
     if not first_level_urls and not nested_sitemap_links:
         return []
     if not nested_sitemap_links:
         return first_level_urls
 
-    all_urls = first_level_urls  # We now need to merge URLs from multiple sitemaps.
-    all_sitemap_contents = get_multiple_sitemap_xml(nested_sitemap_links)
-    for sitemap_content in all_sitemap_contents:
-        sitemap_urls = controller_get_urls(sitemap_content, as_elements)
-        all_urls.extend(sitemap_urls)
+    # We now need to process and merge URLs from multiple sitemaps:
+    multiple_nested_sitemap_urls: list[list[Any]] = []
+    if len(nested_sitemap_links) == 1:
+        multiple_nested_sitemap_urls = worker_get_urls_from_sitemap_xml(nested_sitemap_links[0], as_elements)
+    else:
+        max_workers = min(NUMBER_OF_CPU_CORES - 1, len(nested_sitemap_links))
+        with ProcessPoolExecutor(max_workers=max_workers) as executor:
+            multiple_nested_sitemap_urls = list(
+                executor.map(worker_get_urls_from_sitemap_xml, nested_sitemap_links, repeat(as_elements))
+            )
+
+    all_urls = first_level_urls
+    for nested_sitemap_urls in multiple_nested_sitemap_urls:
+        all_urls.extend(nested_sitemap_urls)
     return all_urls

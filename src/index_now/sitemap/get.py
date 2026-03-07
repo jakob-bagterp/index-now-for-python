@@ -34,6 +34,6 @@ def get_multiple_sitemap_xml(sitemap_locations: list[str], max_workers: int | No
     """
 
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
-        results = list(executor.map(get_sitemap_xml, sitemap_locations))
+        multiple_contents = list(executor.map(get_sitemap_xml, sitemap_locations))
 
-    return results
+    return multiple_contents

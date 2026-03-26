@@ -26,7 +26,7 @@ dependencies = [
     "colorist==1.8.12",
     "lxml==6.0.2",
     "lxml-stubs==0.5.1",
-    "requests==2.32.5",
+    "requests==2.33.0",
     "types-requests==2.32.4.20260107",
 ]
 

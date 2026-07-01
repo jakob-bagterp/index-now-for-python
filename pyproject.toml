@@ -45,7 +45,7 @@ dev = [
     "pytest==9.0.3",
     "pytest-cov==7.1.0",
     "pytest-xdist==3.8.0",
-    "ruff==0.15.12",
+    "ruff==0.15.20",
     "tox==4.52.0",
 ]
 docs = [

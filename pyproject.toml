@@ -23,7 +23,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "colorist==1.8.14",
+    "colorist==1.8.15",
     "lxml==6.1.1",
     "lxml-stubs==0.5.1",
     "requests==2.34.2",

@@ -1,10 +1,10 @@
-[![Latest version](https://img.shields.io/static/v1?label=version&message=1.0.25&color=yellowgreen)](https://github.com/jakob-bagterp/index-now-for-python/releases/latest)
-[![Python 3.11 | 3.12 | 3.13 | 3.14+](https://img.shields.io/static/v1?label=python&message=3.11%20|%203.12%20|%203.13%20|%203.14%2B&color=blueviolet)](https://www.python.org)
-[![MIT license](https://img.shields.io/static/v1?label=license&message=MIT&color=blue)](https://github.com/jakob-bagterp/index-now-for-python/blob/master/LICENSE.md)
+[![Latest version](https://img.shields.io/static/v1?label=Version&message=1.0.25&color=yellowgreen)](https://github.com/jakob-bagterp/index-now-for-python/releases/latest)
+[![Python 3.11 | 3.12 | 3.13 | 3.14+](https://img.shields.io/static/v1?label=Python&message=3.11%20|%203.12%20|%203.13%20|%203.14%2B&color=blueviolet)](https://www.python.org)
+[![MIT license](https://img.shields.io/static/v1?label=License&message=MIT&color=blue)](https://github.com/jakob-bagterp/index-now-for-python/blob/master/LICENSE.md)
 [![Codecov](https://codecov.io/gh/jakob-bagterp/index-now-for-python/branch/master/graph/badge.svg?token=SGVMPJ1JWI)](https://codecov.io/gh/jakob-bagterp/index-now-for-python)
 [![CodeQL](https://github.com/jakob-bagterp/index-now-for-python/actions/workflows/codeql.yml/badge.svg)](https://github.com/jakob-bagterp/index-now-for-python/actions/workflows/codeql.yml)
 [![Test](https://github.com/jakob-bagterp/index-now-for-python/actions/workflows/test.yml/badge.svg)](https://github.com/jakob-bagterp/index-now-for-python/actions/workflows/test.yml)
-[![Downloads](https://static.pepy.tech/badge/index-now-for-python)](https://pepy.tech/project/index-now-for-python)
+[![Downloads](https://api.pepy.tech/personalized-badge/index-now-for-python?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads)](https://pepy.tech/project/index-now-for-python)
 
 # 🔍 Submit URLs to the IndexNow API of Various Search Engines 🔎
 Are you concerned about search engine optimization (SEO)? Do you want to make sure your website is indexed frequently by [Bing](https://www.bing.com/indexnow), [Yandex](https://yandex.com/indexnow), [DuckDuckGo](https://duckduckgo.com/), and other search engines?

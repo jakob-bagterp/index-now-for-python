@@ -7,7 +7,7 @@ description: If you find IndexNow for Python helpful, please consider supporting
 ## Open-Source and Community-Driven
 This project is a community-driven open-source initiative, developed without commercial interests and shared freely for anyone to use, improve, and build upon. What started as a simple idea to create a tool that didn't yet exist has grown beyond all expectations, with downloads far surpassing our initial goals:
 
-[![Downloads](https://static.pepy.tech/badge/index-now-for-python)](https://pepy.tech/project/index-now-for-python)
+[![Downloads](https://api.pepy.tech/personalized-badge/index-now-for-python?period=total&units=international_system&left_color=grey&right_color=blue&left_text=Downloads)](https://pepy.tech/project/index-now-for-python)
 
 ## How to Support
 Your support – whether through contributions, feedback, or simply spreading the word – is vital to help us maintain and continue enhancing the project for everyone.

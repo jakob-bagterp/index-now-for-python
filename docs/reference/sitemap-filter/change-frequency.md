@@ -43,15 +43,12 @@ With `ChangeFrequency.DAILY` in the [`SitemapFilter`](sitemap-filter.md) we can 
 from index_now import submit_sitemap_to_index_now, IndexNowAuthentication, SitemapFilter, ChangeFrequency
 
 authentication = IndexNowAuthentication(
-    host="example.com",
-    api_key="a1b2c3d4",
-    api_key_location="https://example.com/a1b2c3d4.txt",
+    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
 )
 
 filter = SitemapFilter(change_frequency=ChangeFrequency.DAILY)
 
-submit_sitemap_to_index_now(
-    authentication, "https://example.com/sitemap.xml", filter)
+submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml", filter)
 ```
 
 Instead of the predefined `ChangeFrequency` enumerations, you can also use basic string input:

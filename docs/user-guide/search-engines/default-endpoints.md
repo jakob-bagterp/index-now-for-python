@@ -27,16 +27,12 @@ The [`SearchEngineEndpoint`](../../reference/configuration/endpoint.md) class co
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
 
 authentication = IndexNowAuthentication(
-    host="example.com",
-    api_key="a1b2c3d4",
-    api_key_location="https://example.com/a1b2c3d4.txt",
+    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
 )
 
-submit_url_to_index_now(authentication, "https://example.com/page1",
-    SearchEngineEndpoint.BING)
+submit_url_to_index_now(authentication, "https://example.com/page1", SearchEngineEndpoint.BING)
 
-submit_url_to_index_now(authentication, "https://example.com/page2",
-    SearchEngineEndpoint.YANDEX)
+submit_url_to_index_now(authentication, "https://example.com/page2", SearchEngineEndpoint.YANDEX)
 ```
 
 ### Attempt to Submit to Multiple Search Engines as Failover Strategy
@@ -46,14 +42,11 @@ To check that the search engine endpoints are operational and to ensure the succ
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
 
 authentication = IndexNowAuthentication(
-    host="example.com",
-    api_key="a1b2c3d4",
-    api_key_location="https://example.com/a1b2c3d4.txt",
+    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
 )
 
 for endpoint in SearchEngineEndpoint:
-    status_code = submit_url_to_index_now(authentication, "https://example.com/page1",
-        endpoint)
+    status_code = submit_url_to_index_now(authentication, "https://example.com/page1", endpoint)
     if status_code in [200, 202]:
         print("URL was submitted successfully to IndexNow.")
         break

@@ -50,13 +50,10 @@ march_2025_or_later = LaterThanAndIncluding(datetime(2025, 3, 1))
 filter = SitemapFilter(date_range=march_2025_or_later)
 
 authentication = IndexNowAuthentication(
-    host="example.com",
-    api_key="a1b2c3d4",
-    api_key_location="https://example.com/a1b2c3d4.txt",
+    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
 )
 
-submit_sitemap_to_index_now(
-    authentication, "https://example.com/sitemap.xml", filter)
+submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml", filter)
 ```
 
 This will effectively filter out URLs outside of this date range, ensuring that only the URL  `https://example.com/page2` is submitted to IndexNow.

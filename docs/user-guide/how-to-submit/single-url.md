@@ -13,9 +13,7 @@ If one or more of your website pages have changed and you want each page to be r
 from index_now import submit_url_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
-    host="example.com",
-    api_key="a1b2c3d4",
-    api_key_location="https://example.com/a1b2c3d4.txt",
+    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
 )
 
 submit_url_to_index_now(authentication, "https://example.com/page1")

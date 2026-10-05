@@ -13,16 +13,10 @@ If several pages on your site have changed and you want them all to be reindexed
 from index_now import submit_urls_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
-    host="example.com",
-    api_key="a1b2c3d4",
-    api_key_location="https://example.com/a1b2c3d4.txt",
+    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
 )
 
-urls = [
-    "https://example.com/page1",
-    "https://example.com/page2",
-    "https://example.com/page3",
-]
+urls = ["https://example.com/page1", "https://example.com/page2", "https://example.com/page3"]
 
 submit_urls_to_index_now(authentication, urls)
 ```

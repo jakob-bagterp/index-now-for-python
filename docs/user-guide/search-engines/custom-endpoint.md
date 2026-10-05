@@ -16,15 +16,12 @@ If you're not covered by the [default endpoints](default-endpoints.md), you can 
 from index_now import submit_url_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
-    host="example.com",
-    api_key="a1b2c3d4",
-    api_key_location="https://example.com/a1b2c3d4.txt",
+    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
 )
 
 endpoint_custom = "https://example.com/indexnow"
 
-submit_url_to_index_now(authentication, "https://example.com/page1",
-    endpoint_custom)
+submit_url_to_index_now(authentication, "https://example.com/page1", endpoint_custom)
 ```
 
 ## More Information

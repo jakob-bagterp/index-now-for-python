@@ -39,7 +39,9 @@ Firstly, ensure that you have an [API key for IndexNow](https://www.indexnow.org
 from index_now import submit_url_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
-    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
 )
 ```
 
@@ -56,10 +58,16 @@ How to submit multiple URLs in bulk to the IndexNow API:
 from index_now import submit_urls_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
-    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
-urls = ["https://example.com/page1", "https://example.com/page2", "https://example.com/page3"]
+urls = [
+    "https://example.com/page1",
+    "https://example.com/page2",
+    "https://example.com/page3",
+]
 
 submit_urls_to_index_now(authentication, urls)
 ```
@@ -71,7 +79,9 @@ How to submit an entire sitemap to the IndexNow API:
 from index_now import submit_sitemap_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
-    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
 sitemap_location = "https://example.com/sitemap.xml"
@@ -86,14 +96,17 @@ How to use the default [`SearchEngineEndpoint`](reference/configuration/endpoint
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
 
 authentication = IndexNowAuthentication(
-    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
 endpoint_bing = SearchEngineEndpoint.BING
 endpoint_custom = "https://example.com/indexnow"
 
 for endpoint in [endpoint_bing, endpoint_custom]:
-    submit_url_to_index_now(authentication, "https://example.com/page1", endpoint)
+    submit_url_to_index_now(authentication, "https://example.com/page1",
+        endpoint)
 ```
 
 !!! warning

@@ -18,17 +18,22 @@ Before submitting all URLs, you can test if the first URL was submitted successf
 from index_now import submit_url_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
-    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
-status_code = submit_url_to_index_now(authentication, "https://example.com/page1")
+status_code = submit_url_to_index_now(authentication,
+    "https://example.com/page1")
 
 if status_code in [200, 202]:
     print("URL was submitted successfully to IndexNow.")
     print("Continuing with the rest of the URLs...")
 
-    submit_url_to_index_now(authentication, "https://example.com/page2")
-    submit_url_to_index_now(authentication, "https://example.com/page3")
+    submit_url_to_index_now(authentication,
+        "https://example.com/page2")
+    submit_url_to_index_now(authentication,
+        "https://example.com/page3")
 else:
     print(f"Failure. No URL was submitted to IndexNow. Status code: {status_code}")
 ```

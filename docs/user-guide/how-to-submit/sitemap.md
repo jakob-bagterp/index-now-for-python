@@ -18,7 +18,9 @@ If several pages on your site have changed and you want them all to be reindexed
 from index_now import submit_sitemap_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
-    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
 submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml")
@@ -41,7 +43,9 @@ If you have multiple sitemaps, you can submit them all at once using the [`submi
 from index_now import submit_sitemaps_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
-    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
 sitemap_locations = [
@@ -85,12 +89,15 @@ For example:
 from index_now import submit_sitemap_to_index_now, IndexNowAuthentication, SitemapFilter
 
 authentication = IndexNowAuthentication(
-    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
 filter = SitemapFilter(contains="section1", skip=2, take=3)
 
-submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml", filter)
+submit_sitemap_to_index_now(authentication,
+    "https://example.com/sitemap.xml", filter)
 ```
 
 The same applies to submitting multiple sitemaps:
@@ -99,7 +106,9 @@ The same applies to submitting multiple sitemaps:
 from index_now import submit_sitemaps_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(
-    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
 sitemap_locations = [
@@ -110,7 +119,8 @@ sitemap_locations = [
 
 filter = SitemapFilter(contains="section1", skip=2, take=3)
 
-submit_sitemaps_to_index_now(authentication, sitemap_locations, filter)
+submit_sitemaps_to_index_now(authentication,
+    sitemap_locations, filter)
 ```
 
 ### By Change Frequency
@@ -139,7 +149,10 @@ The [`DateRange` and its many sibling classes](../../reference/sitemap-filter/da
 from datetime import datetime
 from index_now import DateRange, SitemapFilter
 
-january_2025 = DateRange(start=datetime(2025, 1, 1), end=datetime(2025, 1, 31))
+january_2025 = DateRange(
+    start=datetime(2025, 1, 1),
+    end=datetime(2025, 1, 31),
+)
 
 filter = SitemapFilter(date_range=january_2025)
 ```
@@ -207,7 +220,12 @@ All of these parameters can be combined in the same filter. But the order of the
 from index_now import SitemapFilter
 
 filter = SitemapFilter(
-    change_frequency="daily", date_range=DaysAgo(2), contains="section1", excludes="search", skip=1, take=1
+    change_frequency="daily",
+    date_range=DaysAgo(2),
+    contains="section1",
+    excludes="search",
+    skip=1,
+    take=1
 )
 ```
 

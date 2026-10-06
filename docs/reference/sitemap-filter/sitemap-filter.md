@@ -44,15 +44,21 @@ The [date range filter options](date-range.md) can ensure that only URLs that ha
 ```python linenums="1" hl_lines="4-5"
 from index_now import DateRange, SitemapFilter, submit_sitemap_to_index_now, IndexNowAuthentication
 
-year_2025 = DateRange(start=datetime(2025, 1, 1), end=datetime(2025, 12, 31))
+year_2025 = DateRange(
+    start=datetime(2025, 1, 1),
+    end=datetime(2025, 12, 31),
+)
 
 filter = SitemapFilter(date_range=year_2025, excludes="page")
 
 authentication = IndexNowAuthentication(
-    host="example.com", api_key="a1b2c3d4", api_key_location="https://example.com/a1b2c3d4.txt"
+    host="example.com",
+    api_key="a1b2c3d4",
+    api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
-submit_sitemap_to_index_now(authentication, "https://example.com/sitemap.xml", filter)
+submit_sitemap_to_index_now(
+    authentication, "https://example.com/sitemap.xml", filter)
 ```
 
 ## Documentation

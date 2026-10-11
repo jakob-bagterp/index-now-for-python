@@ -46,13 +46,14 @@ def submit_url_to_index_now(
 
         Or provide a list of endpoints as fallback in case an endpoint is unavailable or rejects the submission. The endpoints are tried in order until one succeeds:
 
-        ```python linenums="11" hl_lines="1-6" title=""
-        submit_url_to_index_now(authentication, url,
-            endpoint=[
-                "https://yandex.com/indexnow",
-                "https://search.seznam.cz/indexnow",
-                "https://searchadvisor.naver.com/indexnow",
-            ])
+        ```python linenums="11" hl_lines="1-5" title=""
+        endpoint_with_fallback = [
+            "https://www.bing.com/indexnow".
+            "https://yandex.com/indexnow",
+            "https://search.seznam.cz/indexnow",
+        ]
+
+        submit_url_to_index_now(authentication, url, endpoint_with_fallback)
         ```
     """
 
@@ -108,13 +109,14 @@ def submit_urls_to_index_now(
 
         Or provide a list of endpoints as fallback in case an endpoint is unavailable or rejects the submission. The endpoints are tried in order until one succeeds:
 
-        ```python linenums="11" hl_lines="1-6" title=""
-        submit_urls_to_index_now(authentication, urls,
-            endpoint=[
-                "https://yandex.com/indexnow",
-                "https://search.seznam.cz/indexnow",
-                "https://searchadvisor.naver.com/indexnow",
-            ])
+        ```python linenums="11" hl_lines="1-5" title=""
+        endpoint_with_fallback = [
+            "https://www.bing.com/indexnow".
+            "https://yandex.com/indexnow",
+            "https://search.seznam.cz/indexnow",
+        ]
+
+        submit_urls_to_index_now(authentication, urls, endpoint_with_fallback)
         ```
     """
 

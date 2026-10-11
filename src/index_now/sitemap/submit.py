@@ -53,13 +53,14 @@ def submit_sitemap_to_index_now(
 
         Or provide a list of endpoints as fallback in case an endpoint is unavailable or rejects the submission. The endpoints are tried in order until one succeeds:
 
-        ```python linenums="11" hl_lines="1-6" title=""
-        submit_sitemap_to_index_now(authentication, sitemap_location,
-            endpoint=[
-                "https://yandex.com/indexnow",
-                "https://search.seznam.cz/indexnow",
-                "https://searchadvisor.naver.com/indexnow",
-            ])
+        ```python linenums="11" hl_lines="1-5" title=""
+        endpoint_with_fallback = [
+            "https://www.bing.com/indexnow".
+            "https://yandex.com/indexnow",
+            "https://search.seznam.cz/indexnow",
+        ]
+
+        submit_sitemap_to_index_now(authentication, sitemap_location, endpoint_with_fallback)
         ```
 
         If you want to only upload a portion of the sitemap URLs, apply the `skip` and `take` parameters in the [`SitemapFilter`](../sitemap-filter/sitemap-filter.md) class:
@@ -202,13 +203,14 @@ def submit_sitemaps_to_index_now(
 
         Or provide a list of endpoints as fallback in case an endpoint is unavailable or rejects the submission. The endpoints are tried in order until one succeeds:
 
-        ```python linenums="15" hl_lines="1-6" title=""
-        submit_sitemaps_to_index_now(authentication, sitemap_locations,
-            endpoint=[
-                "https://yandex.com/indexnow",
-                "https://search.seznam.cz/indexnow",
-                "https://searchadvisor.naver.com/indexnow",
-            ])
+        ```python linenums="15" hl_lines="1-5" title=""
+        endpoint_with_fallback = [
+            "https://www.bing.com/indexnow".
+            "https://yandex.com/indexnow",
+            "https://search.seznam.cz/indexnow",
+        ]
+
+        submit_sitemaps_to_index_now(authentication, sitemap_locations, endpoint_with_fallback)
         ```
 
         If you want to only upload a portion of the sitemap URLs, apply the `skip` and `take` parameters in the [`SitemapFilter`](../sitemap-filter/sitemap-filter.md) class:

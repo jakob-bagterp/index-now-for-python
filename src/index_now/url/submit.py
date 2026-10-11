@@ -1,3 +1,5 @@
+from collections.abc import Sequence
+
 import requests
 
 from ..authentication import IndexNowAuthentication
@@ -8,17 +10,17 @@ from ..fallback import submit_with_fallback
 def submit_url_to_index_now(
     authentication: IndexNowAuthentication,
     url: str,
-    endpoint: SearchEngineEndpoint | str | list[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
+    endpoint: SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
 ) -> int:
     """Submit a list of URLs to the IndexNow API of a search engine.
 
     Args:
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
         url (str): URL to submit, e.g. `"https://example.com/page1"`.
-        endpoint (SearchEngineEndpoint | str | list[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
+        endpoint (SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list or tuple of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
 
     Returns:
-        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc. If a list of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
+        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc. If a list or tuple of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit a single URL to the IndexNow API:
@@ -71,17 +73,17 @@ def submit_url_to_index_now(
 def submit_urls_to_index_now(
     authentication: IndexNowAuthentication,
     urls: list[str],
-    endpoint: SearchEngineEndpoint | str | list[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
+    endpoint: SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
 ) -> int:
     """Submit a list of URLs to the IndexNow API of a search engine.
 
     Args:
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
         urls (list[str]): List of URLs to submit. For example: `["https://example.com/page1", "https://example.com/page2", "https://example.com/page3"]`
-        endpoint (SearchEngineEndpoint | str | list[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
+        endpoint (SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list or tuple of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
 
     Returns:
-        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc. If a list of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
+        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc. If a list or tuple of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit multiple URLs to the IndexNow API:

@@ -161,3 +161,14 @@ def test_submit_urls_with_single_endpoint_in_list_does_not_fall_back(
 def test_submit_with_fallback_requires_at_least_one_endpoint() -> None:
     with pytest.raises(ValueError):
         submit_with_fallback([], send=requests.get, success_message="", failure_message="")
+
+
+@pytest.mark.parametrize("flaky_servers", [[FORBIDDEN, ACCEPTED]], indirect=True)
+def test_submit_urls_falls_back_with_tuple_of_endpoints(flaky_servers: list[FlakyEndpointServer]) -> None:
+    rejecting_server, accepting_server = flaky_servers
+    status_code = submit_urls_to_index_now(
+        INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint=(rejecting_server.endpoint, accepting_server.endpoint)
+    )
+    assert status_code == HTTPStatus.OK
+    assert rejecting_server.request_count == 1
+    assert accepting_server.request_count == 1

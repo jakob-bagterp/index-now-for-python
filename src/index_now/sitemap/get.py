@@ -1,8 +1,7 @@
 from concurrent.futures import ProcessPoolExecutor
 from typing import Any
 
-import requests
-
+from index_now import http_client
 from index_now.constant import NUMBER_OF_CPU_CORES
 
 
@@ -20,7 +19,7 @@ def get_sitemap_xml(sitemap_location: str) -> str | bytes | Any:
         return ""
 
     try:
-        response = requests.get(sitemap_location, timeout=10)
+        response = http_client.get(sitemap_location)
         response.raise_for_status()
         return response.content
     except Exception:

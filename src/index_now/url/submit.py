@@ -1,7 +1,6 @@
 from collections.abc import Sequence
 
-import requests
-
+from .. import http_client
 from ..authentication import IndexNowAuthentication
 from ..endpoint import SearchEngineEndpoint
 from ..fallback import submit_with_fallback
@@ -61,7 +60,7 @@ def submit_url_to_index_now(
 
     return submit_with_fallback(
         endpoint,
-        send=lambda endpoint_url: requests.get(
+        send=lambda endpoint_url: http_client.get(
             url=endpoint_url,
             params={"url": url, "key": authentication.api_key, "keyLocation": authentication.api_key_location},
         ),
@@ -130,7 +129,7 @@ def submit_urls_to_index_now(
     }
     return submit_with_fallback(
         endpoint,
-        send=lambda endpoint_url: requests.post(
+        send=lambda endpoint_url: http_client.post(
             url=endpoint_url, json=payload, headers={"Content-Type": "application/json; charset=utf-8"}
         ),
         success_message=f"{len(urls):,} URL(s) were submitted successfully to this IndexNow API endpoint:",

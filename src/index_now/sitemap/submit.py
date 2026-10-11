@@ -4,6 +4,7 @@ from http import HTTPStatus
 import requests
 from colorist import Color
 
+from .. import http_client
 from ..authentication import IndexNowAuthentication
 from ..endpoint import SearchEngineEndpoint
 from ..url.submit import submit_urls_to_index_now
@@ -126,7 +127,7 @@ def submit_sitemap_to_index_now(
     """
 
     urls: list[str] = []
-    response = requests.get(sitemap_location)
+    response = http_client.get(sitemap_location)
     if response.status_code != HTTPStatus.OK:
         print(f"{Color.YELLOW}Failure. Please check the sitemap location: {sitemap_location}{Color.OFF}")
         print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
@@ -282,7 +283,7 @@ def submit_sitemaps_to_index_now(
     merged_urls: list[str] = []
     responses: list[requests.Response] = []
     for sitemap_location in sitemap_locations:
-        response = requests.get(sitemap_location)
+        response = http_client.get(sitemap_location)
         if response.status_code != HTTPStatus.OK:
             print(f"{Color.YELLOW}Failure. Please check the sitemap location: {sitemap_location}{Color.OFF}")
             print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")

@@ -63,7 +63,10 @@ submit_url_to_index_now(authentication, "https://example.com/page1",
 
 The same applies to `submit_urls_to_index_now`, `submit_sitemap_to_index_now` and `submit_sitemaps_to_index_now`, and the list can also contain [custom endpoints](custom-endpoint.md).
 
-The submission falls back to the next endpoint when:
+#### Fallback Strategy and Submission Sequence
+If a submission fails, the next endpoint in the list is tried. The submission stops at the first endpoint that accepts it, and the remaining endpoints are not used.
+
+If all endpoints fail, the [status code](../how-to-submit/status-codes.md) of the last response is returned: For example:
 
 * The endpoint can't be reached, e.g. if the connection is dropped or times out.
 * The endpoint responds with a server error, e.g. `500 Internal Server Error` or `503 Service Unavailable`.

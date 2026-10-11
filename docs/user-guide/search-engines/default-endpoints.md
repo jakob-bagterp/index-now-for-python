@@ -42,7 +42,7 @@ submit_url_to_index_now(authentication, "https://example.com/page2",
 ### Fall Back to Other Search Engines if an Endpoint Fails
 Sometimes a search engine endpoint is temporarily unavailable or rejects submissions for a specific site. Instead of a single endpoint, provide a list of endpoints as failover strategy. The endpoints are tried in order, and the submission stops at the first endpoint that accepts it:
 
-```python linenums="1" hl_lines="9-14"
+```python linenums="1" hl_lines="9-13"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
 
 authentication = IndexNowAuthentication(
@@ -51,12 +51,14 @@ authentication = IndexNowAuthentication(
     api_key_location="https://example.com/a1b2c3d4.txt",
 )
 
+endpoint_with_fallback = [
+    SearchEngineEndpoint.BING,
+    SearchEngineEndpoint.YANDEX,
+    SearchEngineEndpoint.SEZNAM,
+]
+
 submit_url_to_index_now(authentication, "https://example.com/page1",
-    endpoint=[
-        SearchEngineEndpoint.YANDEX,
-        SearchEngineEndpoint.SEZNAM,
-        SearchEngineEndpoint.NAVER,
-    ])
+    endpoint_with_fallback)
 ```
 
 The same applies to `submit_urls_to_index_now`, `submit_sitemap_to_index_now` and `submit_sitemaps_to_index_now`, and the list can also contain [custom endpoints](custom-endpoint.md).

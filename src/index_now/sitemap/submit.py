@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from http import HTTPStatus
 
 import requests
@@ -14,7 +15,7 @@ def submit_sitemap_to_index_now(
     authentication: IndexNowAuthentication,
     sitemap_location: str,
     filter: SitemapFilter | None = None,
-    endpoint: SearchEngineEndpoint | str | list[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
+    endpoint: SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
 ) -> int:
     """Submit a sitemap to the IndexNow API of a search engine. Note that nested sitemaps up to level 2 of the index sitemap will be included.
 
@@ -22,10 +23,10 @@ def submit_sitemap_to_index_now(
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
         sitemap_location (str): The URL of the sitemap to submit, e.g. `https://example.com/sitemap.xml`.
         filter (SitemapFilter | None): Optional filter for URLs. Ignored by default or if set to `None`.
-        endpoint (SearchEngineEndpoint | str | list[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
+        endpoint (SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list or tuple of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
 
     Returns:
-        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
+        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list or tuple of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit an entire sitemap to the IndexNow API:
@@ -160,7 +161,7 @@ def submit_sitemaps_to_index_now(
     authentication: IndexNowAuthentication,
     sitemap_locations: list[str],
     filter: SitemapFilter | None = None,
-    endpoint: SearchEngineEndpoint | str | list[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
+    endpoint: SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
 ) -> int:
     """Submit multiple sitemaps to the IndexNow API of a search engine. Note that nested sitemaps up to level 2 of the index sitemaps will be included.
 
@@ -168,10 +169,10 @@ def submit_sitemaps_to_index_now(
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
         sitemap_locations (list[str]): List of sitemap locations to submit, e.g. `["https://example.com/sitemap1.xml", "https://example.com/sitemap2.xml, "https://example.com/sitemap3.xml"]`.
         filter (SitemapFilter | None): Optional filter for URLs. Ignored by default or if set to `None`.
-        endpoint (SearchEngineEndpoint | str | list[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
+        endpoint (SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list or tuple of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
 
     Returns:
-        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
+        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list or tuple of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit multiple sitemaps to the IndexNow API:

@@ -1,4 +1,4 @@
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from http import HTTPStatus
 
 import requests
@@ -26,17 +26,17 @@ def is_fallback_status_code(status_code: int) -> bool:
 
 
 def submit_with_fallback(
-    endpoint: SearchEngineEndpoint | str | list[SearchEngineEndpoint | str],
+    endpoint: SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str],
     send: Callable[[str], requests.Response],
     success_message: str,
     failure_message: str,
 ) -> int:
     """Submit to one or more endpoints in order and stop at the first success.
 
-    If a list of endpoints is given, the submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`.
+    If a list or tuple of endpoints is given, the submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`.
 
     Args:
-        endpoint (SearchEngineEndpoint | str | list[SearchEngineEndpoint | str]): Endpoint or list of endpoints to try in order.
+        endpoint (SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str]): Endpoint or list of endpoints to try in order.
         send (Callable[[str], requests.Response]): Function that sends the submission to the given endpoint URL.
         success_message (str): Message printed with the endpoint that accepted the submission.
         failure_message (str): Message printed with the endpoint that rejected the submission.
@@ -45,10 +45,13 @@ def submit_with_fallback(
         int: Status code of the first successful response, or of the last response if all endpoints fail.
 
     Raises:
+        ValueError: If an empty list of endpoints is given.
         requests.exceptions.ConnectionError | requests.exceptions.Timeout: If no endpoint produced a response.
     """
 
-    endpoints = [str(item) for item in endpoint] if isinstance(endpoint, list) else [str(endpoint)]
+    endpoints = (
+        [str(endpoint)] if isinstance(endpoint, (str, SearchEngineEndpoint)) else [str(item) for item in endpoint]
+    )
     if not endpoints:
         raise ValueError("At least one endpoint is required.")
     has_fallback = len(endpoints) > 1
@@ -83,7 +86,9 @@ def submit_with_fallback(
         if not is_last_endpoint:
             print(f"Falling back to the next IndexNow API endpoint: {endpoints[index + 1]}")
 
-    assert last_response is not None
+    # Unreachable, as the last connection error is re-raised above if no endpoint responded:
+    if last_response is None:  # pragma: no cover
+        raise RuntimeError("No response from any IndexNow API endpoint.")
     if has_fallback:
         print(
             f"{Color.YELLOW}Failure. None of the {len(endpoints)} IndexNow API endpoints accepted the submission.{Color.OFF}"

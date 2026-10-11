@@ -13,7 +13,7 @@ tags:
 If you're not covered by the [default endpoints](default-endpoints.md), you can submit to a custom endpoint. This is useful if you want to submit to a specific search engine or if you have a custom IndexNow endpoint.
 
 ```python linenums="1" hl_lines="9-13"
-from index_now import submit_url_to_index_now, IndexNowAuthentication
+from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
 
 authentication = IndexNowAuthentication(
     host="example.com",
@@ -25,6 +25,13 @@ endpoint_custom = "https://example.com/indexnow"
 
 submit_url_to_index_now(authentication, "https://example.com/page1",
     endpoint_custom)
+```
+
+Custom endpoints can also be combined with default endpoints in a list, so the submission [falls back to the next endpoint](default-endpoints.md#fall-back-to-other-search-engines-if-an-endpoint-fails) if one fails:
+
+```python linenums="11" hl_lines="1-2" title=""
+submit_url_to_index_now(authentication, "https://example.com/page1",
+    [endpoint_custom, SearchEngineEndpoint.INDEXNOW])
 ```
 
 ## More Information

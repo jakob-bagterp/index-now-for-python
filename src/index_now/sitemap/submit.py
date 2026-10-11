@@ -14,7 +14,7 @@ def submit_sitemap_to_index_now(
     authentication: IndexNowAuthentication,
     sitemap_location: str,
     filter: SitemapFilter | None = None,
-    endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW,
+    endpoint: SearchEngineEndpoint | str | list[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
 ) -> int:
     """Submit a sitemap to the IndexNow API of a search engine. Note that nested sitemaps up to level 2 of the index sitemap will be included.
 
@@ -22,10 +22,10 @@ def submit_sitemap_to_index_now(
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
         sitemap_location (str): The URL of the sitemap to submit, e.g. `https://example.com/sitemap.xml`.
         filter (SitemapFilter | None): Optional filter for URLs. Ignored by default or if set to `None`.
-        endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
+        endpoint (SearchEngineEndpoint | str | list[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
 
     Returns:
-        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc.
+        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list of endpoints is given and all of them fail, the status code of the last response is returned.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit an entire sitemap to the IndexNow API:
@@ -49,6 +49,17 @@ def submit_sitemap_to_index_now(
         ```python linenums="11" hl_lines="1-2" title=""
         submit_sitemap_to_index_now(authentication, sitemap_location,
             endpoint="https://www.bing.com/indexnow")
+        ```
+
+        Or provide a list of endpoints as fallback in case an endpoint is unavailable or rejects the submission. The endpoints are tried in order until one succeeds:
+
+        ```python linenums="11" hl_lines="1-6" title=""
+        submit_sitemap_to_index_now(authentication, sitemap_location,
+            endpoint=[
+                "https://yandex.com/indexnow",
+                "https://search.seznam.cz/indexnow",
+                "https://searchadvisor.naver.com/indexnow",
+            ])
         ```
 
         If you want to only upload a portion of the sitemap URLs, apply the `skip` and `take` parameters in the [`SitemapFilter`](../sitemap-filter/sitemap-filter.md) class:
@@ -148,7 +159,7 @@ def submit_sitemaps_to_index_now(
     authentication: IndexNowAuthentication,
     sitemap_locations: list[str],
     filter: SitemapFilter | None = None,
-    endpoint: SearchEngineEndpoint | str = SearchEngineEndpoint.INDEXNOW,
+    endpoint: SearchEngineEndpoint | str | list[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
 ) -> int:
     """Submit multiple sitemaps to the IndexNow API of a search engine. Note that nested sitemaps up to level 2 of the index sitemaps will be included.
 
@@ -156,10 +167,10 @@ def submit_sitemaps_to_index_now(
         authentication (IndexNowAuthentication): Authentication credentials for the IndexNow API.
         sitemap_locations (list[str]): List of sitemap locations to submit, e.g. `["https://example.com/sitemap1.xml", "https://example.com/sitemap2.xml, "https://example.com/sitemap3.xml"]`.
         filter (SitemapFilter | None): Optional filter for URLs. Ignored by default or if set to `None`.
-        endpoint (SearchEngineEndpoint | str, optional): Select the search engine you want to submit to or use a custom URL as endpoint.
+        endpoint (SearchEngineEndpoint | str | list[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
 
     Returns:
-        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc.
+        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list of endpoints is given and all of them fail, the status code of the last response is returned.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit multiple sitemaps to the IndexNow API:
@@ -185,8 +196,19 @@ def submit_sitemaps_to_index_now(
         If you want to submit to a specific search engine, alternatively customize the endpoint:
 
         ```python linenums="15" hl_lines="1-2" title=""
-        submit_sitemaps_to_index_now(authentication, sitemap_location,
+        submit_sitemaps_to_index_now(authentication, sitemap_locations,
             endpoint="https://www.bing.com/indexnow")
+        ```
+
+        Or provide a list of endpoints as fallback in case an endpoint is unavailable or rejects the submission. The endpoints are tried in order until one succeeds:
+
+        ```python linenums="15" hl_lines="1-6" title=""
+        submit_sitemaps_to_index_now(authentication, sitemap_locations,
+            endpoint=[
+                "https://yandex.com/indexnow",
+                "https://search.seznam.cz/indexnow",
+                "https://searchadvisor.naver.com/indexnow",
+            ])
         ```
 
         If you want to only upload a portion of the sitemap URLs, apply the `skip` and `take` parameters in the [`SitemapFilter`](../sitemap-filter/sitemap-filter.md) class:

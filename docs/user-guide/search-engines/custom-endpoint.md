@@ -12,7 +12,7 @@ tags:
 ## How to Submit URLs to a Specific Endpoint
 If you're not covered by the [default endpoints](default-endpoints.md), you can submit to a custom endpoint. This is useful if you want to submit to a specific search engine or if you have a custom IndexNow endpoint.
 
-```python linenums="1" hl_lines="9-13"
+```python linenums="1" hl_lines="9 11-13"
 from index_now import submit_url_to_index_now, IndexNowAuthentication, SearchEngineEndpoint
 
 authentication = IndexNowAuthentication(

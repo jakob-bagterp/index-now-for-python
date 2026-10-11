@@ -18,7 +18,7 @@ def submit_url_to_index_now(
         endpoint (SearchEngineEndpoint | str | list[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
 
     Returns:
-        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc. If a list of endpoints is given and all of them fail, the status code of the last response is returned.
+        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc. If a list of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit a single URL to the IndexNow API:
@@ -46,14 +46,14 @@ def submit_url_to_index_now(
 
         Or provide a list of endpoints as fallback in case an endpoint is unavailable or rejects the submission. The endpoints are tried in order until one succeeds:
 
-        ```python linenums="11" hl_lines="1-5" title=""
-        endpoint_with_fallback = [
-            "https://www.bing.com/indexnow".
+        ```python linenums="11" hl_lines="1-5 7" title=""
+        endpoints_with_fallback = [
+            "https://www.bing.com/indexnow",
             "https://yandex.com/indexnow",
             "https://search.seznam.cz/indexnow",
         ]
 
-        submit_url_to_index_now(authentication, url, endpoint_with_fallback)
+        submit_url_to_index_now(authentication, url, endpoint=endpoints_with_fallback)
         ```
     """
 
@@ -81,7 +81,7 @@ def submit_urls_to_index_now(
         endpoint (SearchEngineEndpoint | str | list[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
 
     Returns:
-        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc. If a list of endpoints is given and all of them fail, the status code of the last response is returned.
+        int: The status code of the response, e.g. `200` for success, `202` for accepted, `400` for bad request, etc. If a list of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit multiple URLs to the IndexNow API:
@@ -109,14 +109,14 @@ def submit_urls_to_index_now(
 
         Or provide a list of endpoints as fallback in case an endpoint is unavailable or rejects the submission. The endpoints are tried in order until one succeeds:
 
-        ```python linenums="11" hl_lines="1-5" title=""
-        endpoint_with_fallback = [
-            "https://www.bing.com/indexnow".
+        ```python linenums="11" hl_lines="1-5 7" title=""
+        endpoints_with_fallback = [
+            "https://www.bing.com/indexnow",
             "https://yandex.com/indexnow",
             "https://search.seznam.cz/indexnow",
         ]
 
-        submit_urls_to_index_now(authentication, urls, endpoint_with_fallback)
+        submit_urls_to_index_now(authentication, urls, endpoint=endpoints_with_fallback)
         ```
     """
 

@@ -25,7 +25,7 @@ def submit_sitemap_to_index_now(
         endpoint (SearchEngineEndpoint | str | list[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
 
     Returns:
-        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list of endpoints is given and all of them fail, the status code of the last response is returned.
+        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit an entire sitemap to the IndexNow API:
@@ -53,14 +53,14 @@ def submit_sitemap_to_index_now(
 
         Or provide a list of endpoints as fallback in case an endpoint is unavailable or rejects the submission. The endpoints are tried in order until one succeeds:
 
-        ```python linenums="11" hl_lines="1-5" title=""
-        endpoint_with_fallback = [
-            "https://www.bing.com/indexnow".
+        ```python linenums="11" hl_lines="1-5 7" title=""
+        endpoints_with_fallback = [
+            "https://www.bing.com/indexnow",
             "https://yandex.com/indexnow",
             "https://search.seznam.cz/indexnow",
         ]
 
-        submit_sitemap_to_index_now(authentication, sitemap_location, endpoint_with_fallback)
+        submit_sitemap_to_index_now(authentication, sitemap_location, endpoint=endpoints_with_fallback)
         ```
 
         If you want to only upload a portion of the sitemap URLs, apply the `skip` and `take` parameters in the [`SitemapFilter`](../sitemap-filter/sitemap-filter.md) class:
@@ -152,7 +152,7 @@ def submit_sitemap_to_index_now(
             return HTTPStatus.NO_CONTENT
 
     print(f"Found {Color.GREEN}{len(urls):,} URL(s){Color.OFF} in total from this sitemap: {sitemap_location}")
-    status_code = submit_urls_to_index_now(authentication, urls, endpoint)
+    status_code = submit_urls_to_index_now(authentication, urls, endpoint=endpoint)
     return status_code
 
 
@@ -171,7 +171,7 @@ def submit_sitemaps_to_index_now(
         endpoint (SearchEngineEndpoint | str | list[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
 
     Returns:
-        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list of endpoints is given and all of them fail, the status code of the last response is returned.
+        int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
 
     Example:
         After adding your authentication credentials to the [`IndexNowAuthentication`](../configuration/authentication.md) class, you can now submit multiple sitemaps to the IndexNow API:
@@ -203,14 +203,14 @@ def submit_sitemaps_to_index_now(
 
         Or provide a list of endpoints as fallback in case an endpoint is unavailable or rejects the submission. The endpoints are tried in order until one succeeds:
 
-        ```python linenums="15" hl_lines="1-5" title=""
-        endpoint_with_fallback = [
-            "https://www.bing.com/indexnow".
+        ```python linenums="15" hl_lines="1-5 7" title=""
+        endpoints_with_fallback = [
+            "https://www.bing.com/indexnow",
             "https://yandex.com/indexnow",
             "https://search.seznam.cz/indexnow",
         ]
 
-        submit_sitemaps_to_index_now(authentication, sitemap_locations, endpoint_with_fallback)
+        submit_sitemaps_to_index_now(authentication, sitemap_locations, endpoint=endpoints_with_fallback)
         ```
 
         If you want to only upload a portion of the sitemap URLs, apply the `skip` and `take` parameters in the [`SitemapFilter`](../sitemap-filter/sitemap-filter.md) class:
@@ -308,5 +308,5 @@ def submit_sitemaps_to_index_now(
     print(
         f"Found {Color.GREEN}{len(merged_urls):,} URL(s){Color.OFF} in total from these sitemaps: {', '.join(sitemap_locations)}"
     )
-    status_code = submit_urls_to_index_now(authentication, merged_urls, endpoint)
+    status_code = submit_urls_to_index_now(authentication, merged_urls, endpoint=endpoint)
     return status_code

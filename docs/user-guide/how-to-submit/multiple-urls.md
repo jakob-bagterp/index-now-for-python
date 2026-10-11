@@ -9,7 +9,7 @@ tags:
 ## How to Submit URLs in Bulk
 If several pages on your site have changed and you want them all to be reindexed, you can submit a list of URLs in bulk to the IndexNow API using the [`submit_urls_to_index_now()`](../../reference/methods/submit-multiple-urls.md) method:
 
-```python linenums="1" hl_lines="9-15"
+```python linenums="1" hl_lines="9-13 15"
 from index_now import submit_urls_to_index_now, IndexNowAuthentication
 
 authentication = IndexNowAuthentication(

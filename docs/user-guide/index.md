@@ -1,5 +1,5 @@
 ---
-atitle: User Guide to Submitting URLs to the IndexNow API
+title: User Guide to Submitting URLs to the IndexNow API
 description: Get the most out of IndexNow for Python's few, yet powerful features with comprehensive tutorials, tips, and tricks. Includes guides and code examples for both beginners and advanced users.
 tags:
     - Features
@@ -22,6 +22,12 @@ How to use submit URLs to different search engines:
 * [Default endpoint options](search-engines/default-endpoints.md)
 * [Custom endpoint](search-engines/custom-endpoint.md)
 * [Authentication](search-engines/authentication.md)
+
+How to handle errors:
+
+* [Retries and timeouts](error-handling/retries-and-timeouts.md)
+* [Fallback strategy](error-handling/fallback-strategy.md)
+* [Status codes](error-handling/status-codes.md)
 
 How to use automated workflows:
 

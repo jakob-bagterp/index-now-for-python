@@ -4,6 +4,7 @@ from http import HTTPStatus
 import requests
 from colorist import Color
 
+from .. import http_client
 from ..authentication import IndexNowAuthentication
 from ..endpoint import SearchEngineEndpoint
 from ..url.submit import submit_urls_to_index_now
@@ -16,6 +17,7 @@ def submit_sitemap_to_index_now(
     sitemap_location: str,
     filter: SitemapFilter | None = None,
     endpoint: SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
+    retries: int = 0,
 ) -> int:
     """Submit a sitemap to the IndexNow API of a search engine. Note that nested sitemaps up to level 2 of the index sitemap will be included.
 
@@ -24,6 +26,7 @@ def submit_sitemap_to_index_now(
         sitemap_location (str): The URL of the sitemap to submit, e.g. `https://example.com/sitemap.xml`.
         filter (SitemapFilter | None): Optional filter for URLs. Ignored by default or if set to `None`.
         endpoint (SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list or tuple of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
+        retries (int, optional): Number of times to retry a request on connection errors, timeouts, `429 Too Many Requests` and server errors, with exponential backoff. Defaults to `0`, i.e. no retries. If a list or tuple of endpoints is given, each endpoint is retried before falling back to the next one.
 
     Returns:
         int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list or tuple of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
@@ -126,7 +129,7 @@ def submit_sitemap_to_index_now(
     """
 
     urls: list[str] = []
-    response = requests.get(sitemap_location)
+    response = http_client.get(sitemap_location, retries=retries)
     if response.status_code != HTTPStatus.OK:
         print(f"{Color.YELLOW}Failure. Please check the sitemap location: {sitemap_location}{Color.OFF}")
         print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
@@ -153,7 +156,7 @@ def submit_sitemap_to_index_now(
             return HTTPStatus.NO_CONTENT
 
     print(f"Found {Color.GREEN}{len(urls):,} URL(s){Color.OFF} in total from this sitemap: {sitemap_location}")
-    status_code = submit_urls_to_index_now(authentication, urls, endpoint=endpoint)
+    status_code = submit_urls_to_index_now(authentication, urls, endpoint=endpoint, retries=retries)
     return status_code
 
 
@@ -162,6 +165,7 @@ def submit_sitemaps_to_index_now(
     sitemap_locations: list[str],
     filter: SitemapFilter | None = None,
     endpoint: SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str] = SearchEngineEndpoint.INDEXNOW,
+    retries: int = 0,
 ) -> int:
     """Submit multiple sitemaps to the IndexNow API of a search engine. Note that nested sitemaps up to level 2 of the index sitemaps will be included.
 
@@ -170,6 +174,7 @@ def submit_sitemaps_to_index_now(
         sitemap_locations (list[str]): List of sitemap locations to submit, e.g. `["https://example.com/sitemap1.xml", "https://example.com/sitemap2.xml, "https://example.com/sitemap3.xml"]`.
         filter (SitemapFilter | None): Optional filter for URLs. Ignored by default or if set to `None`.
         endpoint (SearchEngineEndpoint | str | Sequence[SearchEngineEndpoint | str], optional): Select the search engine you want to submit to or use a custom URL as endpoint. If a list or tuple of endpoints is given, they are tried in order until one accepts the submission. The submission falls back to the next endpoint on connection errors, server errors, `429 Too Many Requests` and `403 Forbidden`, but not on other client errors such as `400 Bad Request`.
+        retries (int, optional): Number of times to retry a request on connection errors, timeouts, `429 Too Many Requests` and server errors, with exponential backoff. Defaults to `0`, i.e. no retries. If a list or tuple of endpoints is given, each endpoint is retried before falling back to the next one.
 
     Returns:
         int: Status code of the response, e.g. `200` or `202` for, respectively, success or accepted, or `400` for bad request, etc. If a list or tuple of endpoints is given and all of them fail, the last response status is returned if any endpoint responded; otherwise, the final connection error or timeout is raised.
@@ -282,7 +287,7 @@ def submit_sitemaps_to_index_now(
     merged_urls: list[str] = []
     responses: list[requests.Response] = []
     for sitemap_location in sitemap_locations:
-        response = requests.get(sitemap_location)
+        response = http_client.get(sitemap_location, retries=retries)
         if response.status_code != HTTPStatus.OK:
             print(f"{Color.YELLOW}Failure. Please check the sitemap location: {sitemap_location}{Color.OFF}")
             print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
@@ -309,5 +314,5 @@ def submit_sitemaps_to_index_now(
     print(
         f"Found {Color.GREEN}{len(merged_urls):,} URL(s){Color.OFF} in total from these sitemaps: {', '.join(sitemap_locations)}"
     )
-    status_code = submit_urls_to_index_now(authentication, merged_urls, endpoint=endpoint)
+    status_code = submit_urls_to_index_now(authentication, merged_urls, endpoint=endpoint, retries=retries)
     return status_code

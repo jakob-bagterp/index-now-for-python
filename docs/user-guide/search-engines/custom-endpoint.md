@@ -27,7 +27,7 @@ submit_url_to_index_now(authentication, "https://example.com/page1",
     endpoint_custom)
 ```
 
-Custom endpoints can also be combined with default endpoints in a list, so the submission [falls back to the next endpoint](default-endpoints.md#fall-back-to-other-search-engines-if-an-endpoint-fails) if one fails:
+Custom endpoints can also be combined with default endpoints in a list, so the submission [falls back to the next endpoint](../error-handling/fallback-strategy.md) if one fails:
 
 ```python linenums="11" hl_lines="1-2" title=""
 submit_url_to_index_now(authentication, "https://example.com/page1",

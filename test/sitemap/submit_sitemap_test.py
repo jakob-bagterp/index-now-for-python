@@ -1,5 +1,6 @@
 import pytest
 from _helper.endpoint import TEMPORARILY_SKIPPED_ENDPOINTS, is_endpoint_up
+from _helper.live import LIVE_SUBMISSION_SITEMAP_FILTER
 from _helper.sitemap import INVALID_SITEMAP_LOCATION, NON_EXISTING_SITEMAP_LOCATION
 from _mock_data.website import (
     BROWSERIST,
@@ -12,6 +13,8 @@ from colorist import Color
 
 from index_now import SearchEngineEndpoint, SitemapFilter, submit_sitemap_to_index_now
 
+pytestmark = pytest.mark.live
+
 
 @pytest.mark.parametrize("website_data", [TIMER_FOR_PYTHON, COLORIST_FOR_PYTHON, BROWSERIST, INDEX_NOW_FOR_PYTHON])
 def test_submit_sitemap_to_index_now(website_data: IndexNowWebsiteData, capfd: object) -> None:
@@ -19,7 +22,10 @@ def test_submit_sitemap_to_index_now(website_data: IndexNowWebsiteData, capfd: o
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     status_code = submit_sitemap_to_index_now(
-        website_data.authentication, website_data.sitemap_location, endpoint=endpoint
+        website_data.authentication,
+        website_data.sitemap_location,
+        filter=LIVE_SUBMISSION_SITEMAP_FILTER,
+        endpoint=endpoint,
     )
     assert status_code in [200, 202]
     terminal_output, _ = capfd.readouterr()
@@ -37,7 +43,10 @@ def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint
     if not is_endpoint_up(endpoint):
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     status_code = submit_sitemap_to_index_now(
-        INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON.sitemap_location, endpoint=endpoint
+        INDEX_NOW_FOR_PYTHON.authentication,
+        INDEX_NOW_FOR_PYTHON.sitemap_location,
+        filter=LIVE_SUBMISSION_SITEMAP_FILTER,
+        endpoint=endpoint,
     )
     assert status_code in [200, 202]
     terminal_output, _ = capfd.readouterr()

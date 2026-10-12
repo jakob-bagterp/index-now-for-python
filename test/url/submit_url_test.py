@@ -5,6 +5,8 @@ from colorist import Color
 
 from index_now import SearchEngineEndpoint, submit_url_to_index_now
 
+pytestmark = pytest.mark.live
+
 
 @pytest.mark.parametrize("endpoint", [endpoint for endpoint in SearchEngineEndpoint])
 def test_submit_url_to_various_search_engines(endpoint: SearchEngineEndpoint, capfd: object) -> None:

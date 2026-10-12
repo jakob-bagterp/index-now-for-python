@@ -7,8 +7,6 @@ from urllib3.util.retry import Retry
 
 REQUEST_TIMEOUT_IN_SECONDS = 30
 
-MAX_RETRIES = 3
-
 BACKOFF_FACTOR = 1  # Waits 0, 2, 4 seconds between retries.
 
 # Upper limit for the `Retry-After` header, so a long wait doesn't block the submission:
@@ -35,17 +33,25 @@ class CappedRetry(Retry):
         return min(retry_after, MAX_RETRY_AFTER_IN_SECONDS)
 
 
-def create_session() -> requests.Session:
+def create_session(retries: int = 0) -> requests.Session:
     """Create a session that retries requests on connection errors, read errors and transient server errors with exponential backoff.
 
     Submissions to the IndexNow API are idempotent, so it is safe to also retry `POST` requests.
 
+    Args:
+        retries (int, optional): Number of retries. Defaults to `0`, i.e. no retries.
+
     Returns:
         requests.Session: Session with retry logic mounted for both HTTP and HTTPS.
+
+    Raises:
+        ValueError: If `retries` is negative.
     """
 
+    if retries < 0:
+        raise ValueError(f"The number of retries can't be negative, but was {retries}.")
     retry = CappedRetry(
-        total=MAX_RETRIES,
+        total=retries,
         backoff_factor=BACKOFF_FACTOR,
         status_forcelist=RETRY_STATUS_CODES,
         allowed_methods=frozenset({"GET", "POST"}),
@@ -58,17 +64,17 @@ def create_session() -> requests.Session:
     return session
 
 
-def get(url: str, **kwargs: object) -> requests.Response:
-    """Send a `GET` request with retry logic and a default timeout."""
+def get(url: str, retries: int = 0, **kwargs: object) -> requests.Response:
+    """Send a `GET` request with optional retries and a default timeout."""
 
     kwargs.setdefault("timeout", REQUEST_TIMEOUT_IN_SECONDS)
-    with create_session() as session:
+    with create_session(retries) as session:
         return session.get(url, **kwargs)  # type: ignore[arg-type]
 
 
-def post(url: str, **kwargs: object) -> requests.Response:
-    """Send a `POST` request with retry logic and a default timeout."""
+def post(url: str, retries: int = 0, **kwargs: object) -> requests.Response:
+    """Send a `POST` request with optional retries and a default timeout."""
 
     kwargs.setdefault("timeout", REQUEST_TIMEOUT_IN_SECONDS)
-    with create_session() as session:
+    with create_session(retries) as session:
         return session.post(url, **kwargs)  # type: ignore[arg-type]

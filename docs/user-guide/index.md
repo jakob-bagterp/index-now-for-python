@@ -25,9 +25,9 @@ How to use submit URLs to different search engines:
 
 How to handle errors:
 
-* [Status codes](error-handling/status-codes.md)
 * [Retries and timeouts](error-handling/retries-and-timeouts.md)
 * [Fallback strategy](error-handling/fallback-strategy.md)
+* [Status codes](error-handling/status-codes.md)
 
 How to use automated workflows:
 

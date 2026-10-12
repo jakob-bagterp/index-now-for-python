@@ -30,9 +30,9 @@ nav:
       - Default Endpoints: user-guide/search-engines/default-endpoints.md
       - Custom Endpoint: user-guide/search-engines/custom-endpoint.md
     - Error Handling:
-      - Status Codes: user-guide/error-handling/status-codes.md
       - Retries and Timeouts: user-guide/error-handling/retries-and-timeouts.md
       - Fallback Strategy: user-guide/error-handling/fallback-strategy.md
+      - Status Codes: user-guide/error-handling/status-codes.md
     - GitHub Actions:
       - Automated Workflows: user-guide/github-actions/automated-workflows.md
     - Tips and Tricks:

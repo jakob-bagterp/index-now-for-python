@@ -52,4 +52,7 @@ According to the [IndexNow API documentation](https://www.indexnow.org/documenta
     | `422` | Unprocessable entity | In case of URLs which don’t belong to the host or the key is not matching the schema in the protocol. |
     | `429` | Too many requests    | Too many requests (potential spam).                                                                   |
 
-    If you get `500` or similar as status code, it's likely that the server is experiencing an error. Then try again later.
+    If you get `500` or similar as status code, it's likely that the server is experiencing an error. Then try again later, or use the [`retries` parameter](retries-and-timeouts.md) to retry automatically.
+
+!!! tip
+    Learn how to handle temporary errors with [retries and timeouts](retries-and-timeouts.md), or how to [fall back to other endpoints](fallback-strategy.md) if an endpoint is unavailable.

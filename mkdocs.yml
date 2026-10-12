@@ -25,11 +25,14 @@ nav:
       - Single URL: user-guide/how-to-submit/single-url.md
       - Multiple URLs: user-guide/how-to-submit/multiple-urls.md
       - Entire Sitemap or Multiple Sitemaps: user-guide/how-to-submit/sitemap.md
-      - Using Status Codes: user-guide/how-to-submit/status-codes.md
     - Search Engines:
       - Authentication: user-guide/search-engines/authentication.md
       - Default Endpoints: user-guide/search-engines/default-endpoints.md
       - Custom Endpoint: user-guide/search-engines/custom-endpoint.md
+    - Error Handling:
+      - Status Codes: user-guide/error-handling/status-codes.md
+      - Retries and Timeouts: user-guide/error-handling/retries-and-timeouts.md
+      - Fallback Strategy: user-guide/error-handling/fallback-strategy.md
     - GitHub Actions:
       - Automated Workflows: user-guide/github-actions/automated-workflows.md
     - Tips and Tricks:
@@ -188,6 +191,7 @@ plugins:
           - assets/_mkdocstrings.css
   - redirects:
       redirect_maps:
+        user-guide/how-to-submit/status-codes.md: user-guide/error-handling/status-codes.md
 
 exclude_docs: |
   /requirements.txt

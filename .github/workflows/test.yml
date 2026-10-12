@@ -39,6 +39,8 @@ jobs:
 
       - name: Run tests with Tox
         env:
+          # Lets a test verify that the job tests the Python version of its matrix entry:
+          EXPECTED_PYTHON_VERSION: ${{ matrix.python-version }}
           # Only one job submits to the live IndexNow API endpoints, so the same URLs aren't resubmitted by every job in the matrix:
           SKIP_LIVE_SUBMISSION_TESTS: ${{ !(matrix.os == 'ubuntu-latest' && matrix.python-version == '3.14') }}
         run: tox

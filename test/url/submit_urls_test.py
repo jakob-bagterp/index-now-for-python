@@ -1,11 +1,14 @@
 import pytest
 from _helper.endpoint import TEMPORARILY_SKIPPED_ENDPOINTS, is_endpoint_up
+from _helper.live import NUMBER_OF_URLS_IN_LIVE_SUBMISSIONS
 from _mock_data.website import INDEX_NOW_FOR_PYTHON, INDEX_NOW_FOR_PYTHON_INVALID_API_KEY
 from colorist import Color
 
 from index_now import SearchEngineEndpoint, submit_urls_to_index_now
 from index_now.sitemap.get import get_sitemap_xml
 from index_now.sitemap.parse import parse_sitemap_xml_and_get_urls
+
+pytestmark = pytest.mark.live
 
 INDEX_NOW_FOR_PYTHON_SITEMAP_URLS = parse_sitemap_xml_and_get_urls(
     get_sitemap_xml(INDEX_NOW_FOR_PYTHON.sitemap_location)
@@ -20,7 +23,9 @@ def test_submit_urls_to_various_search_engines(endpoint: SearchEngineEndpoint, c
         pytest.skip(f"Endpoint is not up: {endpoint}")  # pragma: no cover
     assert len(INDEX_NOW_FOR_PYTHON_SITEMAP_URLS) > 10
     status_code = submit_urls_to_index_now(
-        INDEX_NOW_FOR_PYTHON.authentication, INDEX_NOW_FOR_PYTHON_SITEMAP_URLS, endpoint=endpoint
+        INDEX_NOW_FOR_PYTHON.authentication,
+        INDEX_NOW_FOR_PYTHON_SITEMAP_URLS[:NUMBER_OF_URLS_IN_LIVE_SUBMISSIONS],
+        endpoint=endpoint,
     )
     assert status_code in [200, 202]
     terminal_output, _ = capfd.readouterr()

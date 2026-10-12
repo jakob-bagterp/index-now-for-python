@@ -38,4 +38,7 @@ jobs:
           uv tool install tox --with tox-uv --with tox-gh-actions
 
       - name: Run tests with Tox
+        env:
+          # Only one job submits to the live IndexNow API endpoints, so the same URLs aren't resubmitted by every job in the matrix:
+          SKIP_LIVE_SUBMISSION_TESTS: ${{ !(matrix.os == 'ubuntu-latest' && matrix.python-version == '3.14') }}
         run: tox

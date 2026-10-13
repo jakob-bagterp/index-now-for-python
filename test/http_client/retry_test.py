@@ -7,6 +7,7 @@ from _helper.flaky_server import LOCALHOST, FlakyEndpointServer, run_flaky_serve
 from _helper.sitemap import get_mock_sitemap_content
 from _mock_data.website import INDEX_NOW_FOR_PYTHON
 from colorist import Color
+from requests.exceptions import ConnectionError
 from urllib3.response import HTTPResponse
 
 from index_now import (
@@ -62,7 +63,7 @@ def test_submit_url_retries_until_success(flaky_server: FlakyEndpointServer) -> 
 
 @pytest.mark.parametrize("flaky_server", [[None] * (RETRIES + 1)], indirect=True)
 def test_submit_urls_raises_when_retries_are_exhausted(flaky_server: FlakyEndpointServer) -> None:
-    with pytest.raises(requests.exceptions.ConnectionError):
+    with pytest.raises(ConnectionError):
         submit_urls_to_index_now(
             INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint=flaky_server.endpoint, retries=RETRIES
         )
@@ -100,7 +101,7 @@ def test_submit_urls_does_not_retry_by_default(flaky_server: FlakyEndpointServer
 
 @pytest.mark.parametrize("flaky_server", [[None]], indirect=True)
 def test_submit_url_does_not_retry_dropped_connection_by_default(flaky_server: FlakyEndpointServer) -> None:
-    with pytest.raises(requests.exceptions.ConnectionError):
+    with pytest.raises(ConnectionError):
         submit_url_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, URLS[0], endpoint=flaky_server.endpoint)
     assert flaky_server.request_count == 1
 

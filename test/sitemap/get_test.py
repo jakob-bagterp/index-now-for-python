@@ -2,6 +2,7 @@ from http import HTTPStatus
 
 import pytest
 import requests
+from requests.exceptions import ConnectionError, HTTPError, RequestException
 
 from index_now.sitemap.get import get_sitemap_xml
 
@@ -18,14 +19,14 @@ def test_get_sitemap_xml_raises_http_error(monkeypatch: pytest.MonkeyPatch) -> N
 
     monkeypatch.setattr("index_now.sitemap.get.http_client.get", fake_get)
 
-    with pytest.raises(requests.exceptions.HTTPError) as error:
+    with pytest.raises(HTTPError) as error:
         get_sitemap_xml(SITEMAP_LOCATION)
 
     assert error.value.response is response
 
 
 def test_get_sitemap_xml_propagates_request_error_and_retries(monkeypatch: pytest.MonkeyPatch) -> None:
-    request_error = requests.exceptions.ConnectionError("Connection dropped")
+    request_error = ConnectionError("Connection dropped")
     retries_used: list[int] = []
 
     def fake_get(url: str, retries: int = 0, **kwargs: object) -> requests.Response:
@@ -34,7 +35,7 @@ def test_get_sitemap_xml_propagates_request_error_and_retries(monkeypatch: pytes
 
     monkeypatch.setattr("index_now.sitemap.get.http_client.get", fake_get)
 
-    with pytest.raises(requests.exceptions.RequestException) as error:
+    with pytest.raises(RequestException) as error:
         get_sitemap_xml(SITEMAP_LOCATION, retries=3)
 
     assert error.value is request_error

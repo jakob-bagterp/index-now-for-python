@@ -3,6 +3,7 @@ from http import HTTPStatus
 
 import requests
 from colorist import Color
+from requests.exceptions import ConnectionError, Timeout
 
 from .endpoint import SearchEngineEndpoint
 from .status_code import SUCCESS_STATUS_CODES_COLLECTION, SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY
@@ -46,7 +47,7 @@ def submit_with_fallback(
 
     Raises:
         ValueError: If an empty list of endpoints is given.
-        requests.exceptions.ConnectionError | requests.exceptions.Timeout: If no endpoint produced a response.
+        ConnectionError | Timeout: If no endpoint produced a response.
     """
 
     endpoints = (
@@ -61,7 +62,7 @@ def submit_with_fallback(
         is_last_endpoint = index == len(endpoints) - 1
         try:
             response = send(current_endpoint)
-        except (requests.exceptions.ConnectionError, requests.exceptions.Timeout) as error:
+        except (ConnectionError, Timeout) as error:
             if not has_fallback:
                 raise
             print(

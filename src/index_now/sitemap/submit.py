@@ -3,6 +3,7 @@ from http import HTTPStatus
 
 import requests
 from colorist import Color
+from requests.exceptions import HTTPError
 
 from .. import http_client
 from ..authentication import IndexNowAuthentication
@@ -147,7 +148,7 @@ def submit_sitemap_to_index_now(
             url_elements = controller_parse_sitemap_xml_and_get_urls(
                 response.content, as_elements=True, retries=retries
             )
-    except requests.exceptions.HTTPError as error:
+    except HTTPError as error:
         if error.response is None:
             raise
         return _report_sitemap_failure(error.response.url or sitemap_location, error.response)
@@ -308,7 +309,7 @@ def submit_sitemaps_to_index_now(
             parsed_urls = controller_parse_sitemap_xml_and_get_urls(
                 response.content, as_elements=filter is not None, retries=retries
             )
-        except requests.exceptions.HTTPError as error:
+        except HTTPError as error:
             if error.response is None:
                 raise
             return _report_sitemap_failure(error.response.url or sitemap_location, error.response)

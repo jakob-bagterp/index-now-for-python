@@ -7,6 +7,7 @@ import requests
 from _helper.flaky_server import FlakyEndpointServer, run_flaky_server
 from _mock_data.website import INDEX_NOW_FOR_PYTHON
 from colorist import Color
+from requests.exceptions import ConnectionError
 
 from index_now import submit_url_to_index_now, submit_urls_to_index_now
 from index_now.fallback import submit_with_fallback
@@ -138,7 +139,7 @@ def test_submit_urls_returns_last_status_code_when_all_endpoints_fail(
 
 @pytest.mark.parametrize("flaky_servers", [[DROPPED, DROPPED]], indirect=True)
 def test_submit_urls_raises_when_no_endpoint_responds(flaky_servers: list[FlakyEndpointServer]) -> None:
-    with pytest.raises(requests.exceptions.ConnectionError):
+    with pytest.raises(ConnectionError):
         submit_urls_to_index_now(
             INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint=[server.endpoint for server in flaky_servers]
         )

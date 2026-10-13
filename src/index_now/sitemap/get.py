@@ -17,7 +17,7 @@ def get_sitemap_xml(sitemap_location: str, retries: int = 0) -> str | bytes | An
         str | bytes | Any: The sitemap content, or an empty string if the sitemap could not be retrieved.
 
     Raises:
-        requests.exceptions.RequestException: If the request fails or the response has an error status.
+        RequestException: If the request fails or the response has an error status.
     """
 
     if not sitemap_location:
@@ -39,7 +39,7 @@ def get_multiple_sitemap_xml(sitemap_locations: list[str], retries: int = 0) -> 
         list[str | bytes | Any]: The sitemap contents, or an empty string if the sitemap could not be retrieved.
 
     Raises:
-        requests.exceptions.RequestException: If any request fails or has an error status.
+        RequestException: If any request fails or has an error status.
     """
 
     # Quick exits if there are no or only one sitemap location to process:

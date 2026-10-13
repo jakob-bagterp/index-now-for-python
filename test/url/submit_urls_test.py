@@ -16,7 +16,7 @@ def index_now_for_python_sitemap_urls() -> list[str]:
     return parse_sitemap_xml_and_get_urls(get_sitemap_xml(INDEX_NOW_FOR_PYTHON.sitemap_location))
 
 
-@pytest.mark.parametrize("endpoint", [endpoint for endpoint in SearchEngineEndpoint])
+@pytest.mark.parametrize("endpoint", list(SearchEngineEndpoint))
 def test_submit_urls_to_various_search_engines(
     endpoint: SearchEngineEndpoint, capfd: object, index_now_for_python_sitemap_urls: list[str]
 ) -> None:

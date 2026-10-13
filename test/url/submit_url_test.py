@@ -24,7 +24,7 @@ def test_submit_url_to_various_search_engines(endpoint: SearchEngineEndpoint, ca
         in terminal_output
     )
     assert (
-        f"Status code: {Color.GREEN}200 OK{Color.OFF}"
+        f"Status code: {Color.GREEN}200 OK{Color.OFF}" in terminal_output
         or f"Status code: {Color.GREEN}202 Accepted{Color.OFF}" in terminal_output
     )
 

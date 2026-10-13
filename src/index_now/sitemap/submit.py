@@ -137,17 +137,18 @@ def submit_sitemap_to_index_now(
     """
 
     urls: list[str] = []
+    url_elements: list[SitemapUrl] | None = None
     response = http_client.get(sitemap_location, retries=retries)
     if response.status_code != HTTPStatus.OK:
         return _report_sitemap_failure(sitemap_location, response)
 
     try:
-        if not filter:
-            urls = controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=False, retries=retries)
-        else:
+        if filter:
             url_elements = controller_parse_sitemap_xml_and_get_urls(
                 response.content, as_elements=True, retries=retries
             )
+        else:
+            urls = controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=False, retries=retries)
     except HTTPError as error:
         if error.response is None:
             raise

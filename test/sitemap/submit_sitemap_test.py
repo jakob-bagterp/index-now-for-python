@@ -36,7 +36,7 @@ def test_submit_sitemap_to_index_now(website_data: IndexNowWebsiteData, capfd: o
     )
 
 
-@pytest.mark.parametrize("endpoint", [endpoint for endpoint in SearchEngineEndpoint])
+@pytest.mark.parametrize("endpoint", list(SearchEngineEndpoint))
 def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint, capfd: object) -> None:
     if endpoint in TEMPORARILY_SKIPPED_ENDPOINTS:
         pytest.skip(f"Endpoint is temporarily skipped: {endpoint}")

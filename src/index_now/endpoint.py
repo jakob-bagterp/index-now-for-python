@@ -1,17 +1,17 @@
-from enum import Enum, unique
+from enum import StrEnum, unique
 
 
 @unique
-class SearchEngineEndpoint(Enum):
+class SearchEngineEndpoint(StrEnum):
     """Endpoint options for the [IndexNow API](https://www.indexnow.org/faq).
 
     Attributes:
-        SearchEngineEndpoint.INDEXNOW (Enum): [IndexNow](https://www.indexnow.org) default endpoint.
-        SearchEngineEndpoint.BING (Enum): [Microsoft Bing](https://www.bing.com).
-        SearchEngineEndpoint.NAVER (Enum): [Naver](https://www.naver.com).
-        SearchEngineEndpoint.SEZNAM (Enum): [Seznam.cz](https://www.seznam.cz).
-        SearchEngineEndpoint.YANDEX (Enum): [Yandex](https://yandex.com).
-        SearchEngineEndpoint.YEP (Enum): [Yep](https://yep.com).
+        SearchEngineEndpoint.INDEXNOW (StrEnum): [IndexNow](https://www.indexnow.org) default endpoint.
+        SearchEngineEndpoint.BING (StrEnum): [Microsoft Bing](https://www.bing.com).
+        SearchEngineEndpoint.NAVER (StrEnum): [Naver](https://www.naver.com).
+        SearchEngineEndpoint.SEZNAM (StrEnum): [Seznam.cz](https://www.seznam.cz).
+        SearchEngineEndpoint.YANDEX (StrEnum): [Yandex](https://yandex.com).
+        SearchEngineEndpoint.YEP (StrEnum): [Yep](https://yep.com).
 
     Example:
         How to submit a URL to the IndexNow API using different endpoint options or a custom endpoint:
@@ -40,6 +40,3 @@ class SearchEngineEndpoint(Enum):
     SEZNAM = "https://search.seznam.cz/indexnow"
     YANDEX = "https://yandex.com/indexnow"
     YEP = "https://indexnow.yep.com/indexnow"
-
-    def __str__(self) -> str:
-        return str(self.value)

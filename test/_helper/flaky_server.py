@@ -1,5 +1,5 @@
 import threading
-from collections.abc import Iterator
+from collections.abc import Generator
 from contextlib import contextmanager
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -47,7 +47,7 @@ class FlakyEndpointHandler(BaseHTTPRequestHandler):
 
 
 @contextmanager
-def run_flaky_server(failures: list[HTTPStatus | None]) -> Iterator[FlakyEndpointServer]:
+def run_flaky_server(failures: list[HTTPStatus | None]) -> Generator[FlakyEndpointServer]:
     server = FlakyEndpointServer(list(failures))
     thread = threading.Thread(target=server.serve_forever, kwargs={"poll_interval": 0.01}, daemon=True)
     thread.start()

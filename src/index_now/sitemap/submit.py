@@ -1,6 +1,7 @@
 from collections.abc import Sequence
 from http import HTTPStatus
 
+import requests
 from colorist import Color
 
 from .. import http_client
@@ -9,6 +10,13 @@ from ..endpoint import SearchEngineEndpoint
 from ..url.submit import submit_urls_to_index_now
 from .filter.sitemap import SitemapFilter, filter_sitemap_urls
 from .parse import SitemapUrl, controller_parse_sitemap_xml_and_get_urls
+
+
+def _report_sitemap_failure(sitemap_location: str, response: requests.Response) -> int:
+    print(f"{Color.YELLOW}Failure. Please check the sitemap location: {sitemap_location}{Color.OFF}")
+    print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
+    print(f"Response: {response.text}")
+    return response.status_code
 
 
 def submit_sitemap_to_index_now(
@@ -130,20 +138,27 @@ def submit_sitemap_to_index_now(
     urls: list[str] = []
     response = http_client.get(sitemap_location, retries=retries)
     if response.status_code != HTTPStatus.OK:
-        print(f"{Color.YELLOW}Failure. Please check the sitemap location: {sitemap_location}{Color.OFF}")
-        print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
-        print(f"Response: {response.text}")
-        return response.status_code
+        return _report_sitemap_failure(sitemap_location, response)
+
+    try:
+        if not filter:
+            urls = controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=False, retries=retries)
+        else:
+            url_elements = controller_parse_sitemap_xml_and_get_urls(
+                response.content, as_elements=True, retries=retries
+            )
+    except requests.exceptions.HTTPError as error:
+        if error.response is None:
+            raise
+        return _report_sitemap_failure(error.response.url or sitemap_location, error.response)
 
     if not filter:
-        urls = controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=False)
         if not urls:
             print(
                 f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}"
             )
             return HTTPStatus.UNPROCESSABLE_ENTITY
     else:
-        url_elements = controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=True)
         if not url_elements:
             print(
                 f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}"
@@ -288,11 +303,15 @@ def submit_sitemaps_to_index_now(
     for sitemap_location in sitemap_locations:
         response = http_client.get(sitemap_location, retries=retries)
         if response.status_code != HTTPStatus.OK:
-            print(f"{Color.YELLOW}Failure. Please check the sitemap location: {sitemap_location}{Color.OFF}")
-            print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
-            print(f"Response: {response.text}")
-            return response.status_code
-        parsed_urls = controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=filter is not None)
+            return _report_sitemap_failure(sitemap_location, response)
+        try:
+            parsed_urls = controller_parse_sitemap_xml_and_get_urls(
+                response.content, as_elements=filter is not None, retries=retries
+            )
+        except requests.exceptions.HTTPError as error:
+            if error.response is None:
+                raise
+            return _report_sitemap_failure(error.response.url or sitemap_location, error.response)
         if not parsed_urls:
             print(
                 f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}"

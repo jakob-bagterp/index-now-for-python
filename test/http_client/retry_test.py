@@ -138,7 +138,7 @@ def test_submit_sitemap_passes_retries_on(
     monkeypatch.setattr("index_now.sitemap.submit.submit_urls_to_index_now", fake_submit_urls)
     status_code = submit_sitemap(INDEX_NOW_FOR_PYTHON.authentication, sitemap_argument, retries=RETRIES)  # type: ignore[operator]
     assert status_code == HTTPStatus.OK
-    assert retries_of_sitemap_requests == [RETRIES]
+    assert retries_of_sitemap_requests == [RETRIES] * 3
     assert retries_of_submission == [RETRIES]
 
 

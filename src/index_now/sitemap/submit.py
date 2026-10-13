@@ -1,7 +1,6 @@
 from collections.abc import Sequence
 from http import HTTPStatus
 
-import requests
 from colorist import Color
 
 from .. import http_client
@@ -285,7 +284,7 @@ def submit_sitemaps_to_index_now(
     """
 
     merged_urls: list[str] = []
-    responses: list[requests.Response] = []
+    url_elements: list[SitemapUrl] = []
     for sitemap_location in sitemap_locations:
         response = http_client.get(sitemap_location, retries=retries)
         if response.status_code != HTTPStatus.OK:
@@ -293,19 +292,18 @@ def submit_sitemaps_to_index_now(
             print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
             print(f"Response: {response.text}")
             return response.status_code
-        urls = controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=False)
-        if not urls:
+        parsed_urls = controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=filter is not None)
+        if not parsed_urls:
             print(
                 f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}"
             )
             return HTTPStatus.UNPROCESSABLE_ENTITY
-        merged_urls.extend(urls)
-        responses.append(response)
+        if filter is None:
+            merged_urls.extend(parsed_urls)
+        else:
+            url_elements.extend(parsed_urls)
 
-    if filter:
-        url_elements: list[SitemapUrl] = []
-        for response in responses:
-            url_elements.extend(controller_parse_sitemap_xml_and_get_urls(response.content, as_elements=True))
+    if filter is not None:
         merged_urls = filter_sitemap_urls(url_elements, filter)
         if not merged_urls:
             print(f"{Color.YELLOW}No URLs left after filtering. Please check your filter parameters.{Color.OFF}")

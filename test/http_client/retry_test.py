@@ -3,7 +3,7 @@ from http import HTTPStatus
 
 import pytest
 import requests
-from _helper.flaky_server import FlakyEndpointServer, run_flaky_server
+from _helper.flaky_server import LOCALHOST, FlakyEndpointServer, run_flaky_server
 from _helper.sitemap import get_mock_sitemap_content
 from _mock_data.website import INDEX_NOW_FOR_PYTHON
 from colorist import Color
@@ -19,7 +19,7 @@ from index_now import (
 
 RETRIES = 3
 
-URLS = ["https://jakob-bagterp.github.io/index-now-for-python/"]
+URLS = ["https://example.com"]
 
 
 @pytest.fixture
@@ -107,7 +107,7 @@ def test_submit_url_does_not_retry_dropped_connection_by_default(flaky_server: F
 
 def test_negative_retries_raises_value_error() -> None:
     with pytest.raises(ValueError):
-        submit_urls_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint="http://127.0.0.1", retries=-1)
+        submit_urls_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint=f"http://{LOCALHOST}", retries=-1)
 
 
 @pytest.mark.parametrize(

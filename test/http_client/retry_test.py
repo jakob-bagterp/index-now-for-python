@@ -152,6 +152,5 @@ def test_submit_sitemap_passes_retries_on(
 def test_retry_after_header_is_capped(retry_after: str | None, expected_wait_in_seconds: float | None) -> None:
     headers = {"Retry-After": retry_after} if retry_after is not None else {}
     response = HTTPResponse(headers=headers, status=HTTPStatus.TOO_MANY_REQUESTS)
-    with http_client.create_session(RETRIES) as session:
-        retry = session.get_adapter("https://").max_retries
+    retry = http_client.CappedRetry()
     assert retry.get_retry_after(response) == expected_wait_in_seconds

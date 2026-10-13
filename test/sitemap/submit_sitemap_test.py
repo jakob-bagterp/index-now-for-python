@@ -31,12 +31,12 @@ def test_submit_sitemap_to_index_now(website_data: IndexNowWebsiteData, capfd: o
     terminal_output, _ = capfd.readouterr()
     assert f"URL(s) were submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}" in terminal_output
     assert (
-        f"Status code: {Color.GREEN}200 OK{Color.OFF}"
+        f"Status code: {Color.GREEN}200 OK{Color.OFF}" in terminal_output
         or f"Status code: {Color.GREEN}202 Accepted{Color.OFF}" in terminal_output
     )
 
 
-@pytest.mark.parametrize("endpoint", [endpoint for endpoint in SearchEngineEndpoint])
+@pytest.mark.parametrize("endpoint", list(SearchEngineEndpoint))
 def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint, capfd: object) -> None:
     if endpoint in TEMPORARILY_SKIPPED_ENDPOINTS:
         pytest.skip(f"Endpoint is temporarily skipped: {endpoint}")
@@ -52,7 +52,7 @@ def test_submit_sitemap_to_various_search_engines(endpoint: SearchEngineEndpoint
     terminal_output, _ = capfd.readouterr()
     assert f"URL(s) were submitted successfully to this IndexNow API endpoint:{Color.OFF} {endpoint}" in terminal_output
     assert (
-        f"Status code: {Color.GREEN}200 OK{Color.OFF}"
+        f"Status code: {Color.GREEN}200 OK{Color.OFF}" in terminal_output
         or f"Status code: {Color.GREEN}202 Accepted{Color.OFF}" in terminal_output
     )
 

@@ -2,10 +2,13 @@ from collections.abc import Iterator
 from http import HTTPStatus
 
 import pytest
-import requests
-from _helper.flaky_server import FlakyEndpointServer, run_flaky_server
+from _helper.flaky_server import LOCALHOST, FlakyEndpointServer, run_flaky_server
+from _helper.sitemap import get_mock_sitemap_content
 from _mock_data.website import INDEX_NOW_FOR_PYTHON
 from colorist import Color
+from pytest import CaptureFixture, FixtureRequest, MonkeyPatch
+from requests import Response
+from requests.exceptions import ConnectionError
 from urllib3.response import HTTPResponse
 
 from index_now import (
@@ -18,16 +21,11 @@ from index_now import (
 
 RETRIES = 3
 
-URLS = ["https://jakob-bagterp.github.io/index-now-for-python/"]
-
-SITEMAP_XML = b"""<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url><loc>https://jakob-bagterp.github.io/index-now-for-python/</loc></url>
-</urlset>"""
+URLS = ["https://example.com"]
 
 
 @pytest.fixture
-def flaky_server(request: pytest.FixtureRequest) -> Iterator[FlakyEndpointServer]:
+def flaky_server(request: FixtureRequest) -> Iterator[FlakyEndpointServer]:
     with run_flaky_server(request.param) as server:
         yield server
 
@@ -42,9 +40,7 @@ def flaky_server(request: pytest.FixtureRequest) -> Iterator[FlakyEndpointServer
     ],
     indirect=True,
 )
-def test_submit_urls_retries_until_success(
-    flaky_server: FlakyEndpointServer, capfd: pytest.CaptureFixture[str]
-) -> None:
+def test_submit_urls_retries_until_success(flaky_server: FlakyEndpointServer, capfd: CaptureFixture[str]) -> None:
     number_of_failures = len(flaky_server.failures)
     status_code = submit_urls_to_index_now(
         INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint=flaky_server.endpoint, retries=RETRIES
@@ -66,7 +62,7 @@ def test_submit_url_retries_until_success(flaky_server: FlakyEndpointServer) -> 
 
 @pytest.mark.parametrize("flaky_server", [[None] * (RETRIES + 1)], indirect=True)
 def test_submit_urls_raises_when_retries_are_exhausted(flaky_server: FlakyEndpointServer) -> None:
-    with pytest.raises(requests.exceptions.ConnectionError):
+    with pytest.raises(ConnectionError):
         submit_urls_to_index_now(
             INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint=flaky_server.endpoint, retries=RETRIES
         )
@@ -75,7 +71,7 @@ def test_submit_urls_raises_when_retries_are_exhausted(flaky_server: FlakyEndpoi
 
 @pytest.mark.parametrize("flaky_server", [[HTTPStatus.SERVICE_UNAVAILABLE] * (RETRIES + 1)], indirect=True)
 def test_submit_urls_returns_last_status_code_when_retries_are_exhausted(
-    flaky_server: FlakyEndpointServer, capfd: pytest.CaptureFixture[str]
+    flaky_server: FlakyEndpointServer, capfd: CaptureFixture[str]
 ) -> None:
     status_code = submit_urls_to_index_now(
         INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint=flaky_server.endpoint, retries=RETRIES
@@ -104,14 +100,14 @@ def test_submit_urls_does_not_retry_by_default(flaky_server: FlakyEndpointServer
 
 @pytest.mark.parametrize("flaky_server", [[None]], indirect=True)
 def test_submit_url_does_not_retry_dropped_connection_by_default(flaky_server: FlakyEndpointServer) -> None:
-    with pytest.raises(requests.exceptions.ConnectionError):
+    with pytest.raises(ConnectionError):
         submit_url_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, URLS[0], endpoint=flaky_server.endpoint)
     assert flaky_server.request_count == 1
 
 
 def test_negative_retries_raises_value_error() -> None:
     with pytest.raises(ValueError):
-        submit_urls_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint="http://127.0.0.1", retries=-1)
+        submit_urls_to_index_now(INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint=f"http://{LOCALHOST}", retries=-1)
 
 
 @pytest.mark.parametrize(
@@ -122,16 +118,16 @@ def test_negative_retries_raises_value_error() -> None:
     ],
 )
 def test_submit_sitemap_passes_retries_on(
-    submit_sitemap: object, sitemap_argument: object, monkeypatch: pytest.MonkeyPatch
+    submit_sitemap: object, sitemap_argument: object, monkeypatch: MonkeyPatch
 ) -> None:
     retries_of_sitemap_requests: list[int] = []
     retries_of_submission: list[int] = []
 
-    def fake_get(url: str, retries: int = 0, **kwargs: object) -> requests.Response:
+    def fake_get(url: str, retries: int = 0, **kwargs: object) -> Response:
         retries_of_sitemap_requests.append(retries)
-        response = requests.Response()
+        response = Response()
         response.status_code = HTTPStatus.OK
-        response._content = SITEMAP_XML
+        response._content = get_mock_sitemap_content().encode()
         return response
 
     def fake_submit_urls(*args: object, retries: int = 0, **kwargs: object) -> int:
@@ -142,7 +138,7 @@ def test_submit_sitemap_passes_retries_on(
     monkeypatch.setattr("index_now.sitemap.submit.submit_urls_to_index_now", fake_submit_urls)
     status_code = submit_sitemap(INDEX_NOW_FOR_PYTHON.authentication, sitemap_argument, retries=RETRIES)  # type: ignore[operator]
     assert status_code == HTTPStatus.OK
-    assert retries_of_sitemap_requests == [RETRIES]
+    assert retries_of_sitemap_requests == [RETRIES] * 3
     assert retries_of_submission == [RETRIES]
 
 
@@ -152,6 +148,5 @@ def test_submit_sitemap_passes_retries_on(
 def test_retry_after_header_is_capped(retry_after: str | None, expected_wait_in_seconds: float | None) -> None:
     headers = {"Retry-After": retry_after} if retry_after is not None else {}
     response = HTTPResponse(headers=headers, status=HTTPStatus.TOO_MANY_REQUESTS)
-    with http_client.create_session(RETRIES) as session:
-        retry = session.get_adapter("https://").max_retries
+    retry = http_client.CappedRetry()
     assert retry.get_retry_after(response) == expected_wait_in_seconds

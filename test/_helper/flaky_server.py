@@ -1,29 +1,30 @@
 import threading
-from collections.abc import Iterator
+from collections.abc import Generator
 from contextlib import contextmanager
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
+LOCALHOST = "127.0.0.1"
 
 
 class FlakyEndpointServer(ThreadingHTTPServer):
     """Local IndexNow endpoint that fails the first requests before it succeeds. Each failure is either a dropped connection (like `RemoteDisconnected` from Yandex) or a status code."""
 
     def __init__(self, failures: list[HTTPStatus | None]) -> None:
-        super().__init__(("127.0.0.1", 0), FlakyEndpointHandler)
+        super().__init__((LOCALHOST, 0), FlakyEndpointHandler)
         self.failures = failures
         self.request_count = 0
 
     @property
     def endpoint(self) -> str:
-        return f"http://127.0.0.1:{self.server_address[1]}/indexnow"
+        return f"http://{LOCALHOST}:{self.server_address[1]}/indexnow"
 
 
 class FlakyEndpointHandler(BaseHTTPRequestHandler):
-    server: FlakyEndpointServer
-
     def _handle(self) -> None:
         content_length = int(self.headers.get("Content-Length", 0))
         self.rfile.read(content_length)
+        assert isinstance(self.server, FlakyEndpointServer)
         self.server.request_count += 1
         if self.server.failures:
             failure = self.server.failures.pop(0)
@@ -47,7 +48,7 @@ class FlakyEndpointHandler(BaseHTTPRequestHandler):
 
 
 @contextmanager
-def run_flaky_server(failures: list[HTTPStatus | None]) -> Iterator[FlakyEndpointServer]:
+def run_flaky_server(failures: list[HTTPStatus | None]) -> Generator[FlakyEndpointServer]:
     server = FlakyEndpointServer(list(failures))
     thread = threading.Thread(target=server.serve_forever, kwargs={"poll_interval": 0.01}, daemon=True)
     thread.start()

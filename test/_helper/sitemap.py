@@ -12,33 +12,23 @@ SITEMAP_WITH_URL_AND_NESTED_SITEMAPS_FILE_PATH = (
 
 
 def get_mock_sitemap_content() -> str:
-    with open(SITEMAP_FILE_PATH) as file:
-        content = file.read()
-    return content
+    return Path(SITEMAP_FILE_PATH).read_text()
 
 
 def get_mock_sitemap_only_urls_content() -> str:
-    with open(SITEMAP_ONLY_URLS_FILE_PATH) as file:
-        content = file.read()
-    return content
+    return Path(SITEMAP_ONLY_URLS_FILE_PATH).read_text()
 
 
 def get_mock_sitemap_inconsistent_content() -> str:
-    with open(SITEMAP_INCONSISTENT_FILE_PATH) as file:
-        content = file.read()
-    return content
+    return Path(SITEMAP_INCONSISTENT_FILE_PATH).read_text()
 
 
 def get_mock_sitemap_with_only_nested_sitemaps_content() -> str:
-    with open(SITEMAP_WITH_ONLY_NESTED_SITEMAPS_FILE_PATH) as file:
-        content = file.read()
-    return content
+    return Path(SITEMAP_WITH_ONLY_NESTED_SITEMAPS_FILE_PATH).read_text()
 
 
 def get_mock_sitemap_with_url_and_nested_sitemaps_content() -> str:
-    with open(SITEMAP_WITH_URL_AND_NESTED_SITEMAPS_FILE_PATH) as file:
-        content = file.read()
-    return content
+    return Path(SITEMAP_WITH_URL_AND_NESTED_SITEMAPS_FILE_PATH).read_text()
 
 
 INVALID_SITEMAP_LOCATION = "https://jakob-bagterp.github.io/index-now-for-python/invalid-sitemap.xml"

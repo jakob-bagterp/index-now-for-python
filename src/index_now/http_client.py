@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-import requests
+from requests import Response, Session
 from requests.adapters import HTTPAdapter
 from urllib3.response import BaseHTTPResponse
 from urllib3.util.retry import Retry
@@ -33,7 +33,7 @@ class CappedRetry(Retry):
         return min(retry_after, MAX_RETRY_AFTER_IN_SECONDS)
 
 
-def create_session(retries: int = 0) -> requests.Session:
+def create_session(retries: int = 0) -> Session:
     """Create a session that retries requests on connection errors, read errors and transient server errors with exponential backoff.
 
     Submissions to the IndexNow API are idempotent, so it is safe to also retry `POST` requests.
@@ -42,7 +42,7 @@ def create_session(retries: int = 0) -> requests.Session:
         retries (int, optional): Number of retries. Defaults to `0`, i.e. no retries.
 
     Returns:
-        requests.Session: Session with retry logic mounted for both HTTP and HTTPS.
+        Session: Session with retry logic mounted for both HTTP and HTTPS.
 
     Raises:
         ValueError: If `retries` is negative.
@@ -58,13 +58,13 @@ def create_session(retries: int = 0) -> requests.Session:
         raise_on_status=False,  # Return the last response when retries are exhausted, so status codes can be handled.
     )
     adapter = HTTPAdapter(max_retries=retry)
-    session = requests.Session()
+    session = Session()
     session.mount("https://", adapter)
     session.mount("http://", adapter)
     return session
 
 
-def get(url: str, retries: int = 0, **kwargs: object) -> requests.Response:
+def get(url: str, retries: int = 0, **kwargs: object) -> Response:
     """Send a `GET` request with optional retries and a default timeout."""
 
     kwargs.setdefault("timeout", REQUEST_TIMEOUT_IN_SECONDS)
@@ -72,7 +72,7 @@ def get(url: str, retries: int = 0, **kwargs: object) -> requests.Response:
         return session.get(url, **kwargs)  # type: ignore[arg-type]
 
 
-def post(url: str, retries: int = 0, **kwargs: object) -> requests.Response:
+def post(url: str, retries: int = 0, **kwargs: object) -> Response:
     """Send a `POST` request with optional retries and a default timeout."""
 
     kwargs.setdefault("timeout", REQUEST_TIMEOUT_IN_SECONDS)

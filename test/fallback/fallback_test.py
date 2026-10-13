@@ -7,6 +7,8 @@ import requests
 from _helper.flaky_server import FlakyEndpointServer, run_flaky_server
 from _mock_data.website import INDEX_NOW_FOR_PYTHON
 from colorist import Color
+from pytest import CaptureFixture, FixtureRequest
+from requests.exceptions import ConnectionError
 
 from index_now import submit_url_to_index_now, submit_urls_to_index_now
 from index_now.fallback import submit_with_fallback
@@ -27,7 +29,7 @@ BAD_REQUEST = [HTTPStatus.BAD_REQUEST]
 
 
 @pytest.fixture
-def flaky_servers(request: pytest.FixtureRequest) -> Iterator[list[FlakyEndpointServer]]:
+def flaky_servers(request: FixtureRequest) -> Iterator[list[FlakyEndpointServer]]:
     with ExitStack() as stack:
         yield [stack.enter_context(run_flaky_server(failures)) for failures in request.param]
 
@@ -44,7 +46,7 @@ def flaky_servers(request: pytest.FixtureRequest) -> Iterator[list[FlakyEndpoint
     indirect=True,
 )
 def test_submit_urls_falls_back_to_next_endpoint(
-    flaky_servers: list[FlakyEndpointServer], capfd: pytest.CaptureFixture[str]
+    flaky_servers: list[FlakyEndpointServer], capfd: CaptureFixture[str]
 ) -> None:
     *failing_servers, accepting_server = flaky_servers
     status_code = submit_urls_to_index_now(
@@ -65,7 +67,7 @@ def test_submit_urls_falls_back_to_next_endpoint(
 
 @pytest.mark.parametrize("flaky_servers", [[DROPPED, ACCEPTED]], indirect=True)
 def test_submit_url_falls_back_to_next_endpoint(
-    flaky_servers: list[FlakyEndpointServer], capfd: pytest.CaptureFixture[str]
+    flaky_servers: list[FlakyEndpointServer], capfd: CaptureFixture[str]
 ) -> None:
     dropping_server, accepting_server = flaky_servers
     status_code = submit_url_to_index_now(
@@ -98,7 +100,7 @@ def test_submit_urls_stops_at_first_success(flaky_servers: list[FlakyEndpointSer
 
 @pytest.mark.parametrize("flaky_servers", [[BAD_REQUEST, ACCEPTED]], indirect=True)
 def test_submit_urls_does_not_fall_back_on_bad_request(
-    flaky_servers: list[FlakyEndpointServer], capfd: pytest.CaptureFixture[str]
+    flaky_servers: list[FlakyEndpointServer], capfd: CaptureFixture[str]
 ) -> None:
     rejecting_server, unused_server = flaky_servers
     status_code = submit_urls_to_index_now(
@@ -122,7 +124,7 @@ def test_submit_urls_does_not_fall_back_on_bad_request(
     indirect=["flaky_servers"],
 )
 def test_submit_urls_returns_last_status_code_when_all_endpoints_fail(
-    flaky_servers: list[FlakyEndpointServer], expected_status_code: HTTPStatus, capfd: pytest.CaptureFixture[str]
+    flaky_servers: list[FlakyEndpointServer], expected_status_code: HTTPStatus, capfd: CaptureFixture[str]
 ) -> None:
     status_code = submit_urls_to_index_now(
         INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint=[server.endpoint for server in flaky_servers]
@@ -138,7 +140,7 @@ def test_submit_urls_returns_last_status_code_when_all_endpoints_fail(
 
 @pytest.mark.parametrize("flaky_servers", [[DROPPED, DROPPED]], indirect=True)
 def test_submit_urls_raises_when_no_endpoint_responds(flaky_servers: list[FlakyEndpointServer]) -> None:
-    with pytest.raises(requests.exceptions.ConnectionError):
+    with pytest.raises(ConnectionError):
         submit_urls_to_index_now(
             INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint=[server.endpoint for server in flaky_servers]
         )
@@ -147,7 +149,7 @@ def test_submit_urls_raises_when_no_endpoint_responds(flaky_servers: list[FlakyE
 
 @pytest.mark.parametrize("flaky_servers", [[FORBIDDEN]], indirect=True)
 def test_submit_urls_with_single_endpoint_in_list_does_not_fall_back(
-    flaky_servers: list[FlakyEndpointServer], capfd: pytest.CaptureFixture[str]
+    flaky_servers: list[FlakyEndpointServer], capfd: CaptureFixture[str]
 ) -> None:
     status_code = submit_urls_to_index_now(
         INDEX_NOW_FOR_PYTHON.authentication, URLS, endpoint=[flaky_servers[0].endpoint]

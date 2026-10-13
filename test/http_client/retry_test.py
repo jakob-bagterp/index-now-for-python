@@ -4,6 +4,7 @@ from http import HTTPStatus
 import pytest
 import requests
 from _helper.flaky_server import FlakyEndpointServer, run_flaky_server
+from _helper.sitemap import get_mock_sitemap_content
 from _mock_data.website import INDEX_NOW_FOR_PYTHON
 from colorist import Color
 from urllib3.response import HTTPResponse
@@ -19,11 +20,6 @@ from index_now import (
 RETRIES = 3
 
 URLS = ["https://jakob-bagterp.github.io/index-now-for-python/"]
-
-SITEMAP_XML = b"""<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url><loc>https://jakob-bagterp.github.io/index-now-for-python/</loc></url>
-</urlset>"""
 
 
 @pytest.fixture
@@ -131,7 +127,7 @@ def test_submit_sitemap_passes_retries_on(
         retries_of_sitemap_requests.append(retries)
         response = requests.Response()
         response.status_code = HTTPStatus.OK
-        response._content = SITEMAP_XML
+        response._content = get_mock_sitemap_content().encode()
         return response
 
     def fake_submit_urls(*args: object, retries: int = 0, **kwargs: object) -> int:

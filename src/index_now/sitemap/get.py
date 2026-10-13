@@ -1,4 +1,4 @@
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 
 from index_now import http_client
@@ -42,8 +42,8 @@ def get_multiple_sitemap_xml(sitemap_locations: list[str]) -> list[str | bytes |
     if len(sitemap_locations) == 1:
         return [get_sitemap_xml(sitemap_locations[0])]
 
-    max_workers = min(NUMBER_OF_CPU_CORES - 1, len(sitemap_locations))
-    with ProcessPoolExecutor(max_workers=max_workers) as executor:
+    max_workers = min(max(1, NUMBER_OF_CPU_CORES - 1), len(sitemap_locations))
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
         multiple_contents = list(executor.map(get_sitemap_xml, sitemap_locations))
 
     return multiple_contents

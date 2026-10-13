@@ -21,11 +21,10 @@ class FlakyEndpointServer(ThreadingHTTPServer):
 
 
 class FlakyEndpointHandler(BaseHTTPRequestHandler):
-    server: FlakyEndpointServer
-
     def _handle(self) -> None:
         content_length = int(self.headers.get("Content-Length", 0))
         self.rfile.read(content_length)
+        assert isinstance(self.server, FlakyEndpointServer)
         self.server.request_count += 1
         if self.server.failures:
             failure = self.server.failures.pop(0)

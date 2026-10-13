@@ -153,13 +153,7 @@ def submit_sitemap_to_index_now(
             raise
         return _report_sitemap_failure(error.response.url or sitemap_location, error.response)
 
-    if not filter:
-        if not urls:
-            print(
-                f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}"
-            )
-            return HTTPStatus.UNPROCESSABLE_ENTITY
-    else:
+    if filter:
         if not url_elements:
             print(
                 f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}"
@@ -170,6 +164,11 @@ def submit_sitemap_to_index_now(
             print(f"{Color.YELLOW}No URLs left after filtering. Please check your filter parameters.{Color.OFF}")
             return HTTPStatus.NO_CONTENT
 
+    elif not urls:
+        print(
+            f"{Color.YELLOW}No URLs found in the sitemap. Please check the sitemap location: {sitemap_location}{Color.OFF}"
+        )
+        return HTTPStatus.UNPROCESSABLE_ENTITY
     print(f"Found {Color.GREEN}{len(urls):,} URL(s){Color.OFF} in total from this sitemap: {sitemap_location}")
     status_code = submit_urls_to_index_now(authentication, urls, endpoint=endpoint, retries=retries)
     return status_code

@@ -1,8 +1,8 @@
 from collections.abc import Sequence
 from http import HTTPStatus
 
-import requests
 from colorist import Color
+from requests import Response
 from requests.exceptions import HTTPError
 
 from .. import http_client
@@ -13,7 +13,7 @@ from .filter.sitemap import SitemapFilter, filter_sitemap_urls
 from .parse import SitemapUrl, controller_parse_sitemap_xml_and_get_urls
 
 
-def _report_sitemap_failure(sitemap_location: str, response: requests.Response) -> int:
+def _report_sitemap_failure(sitemap_location: str, response: Response) -> int:
     print(f"{Color.YELLOW}Failure. Please check the sitemap location: {sitemap_location}{Color.OFF}")
     print(f"Status code: {Color.RED}{response.status_code}{Color.OFF}")
     print(f"Response: {response.text}")

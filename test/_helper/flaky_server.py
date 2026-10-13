@@ -4,18 +4,20 @@ from contextlib import contextmanager
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+LOCALHOST = "127.0.0.1"
+
 
 class FlakyEndpointServer(ThreadingHTTPServer):
     """Local IndexNow endpoint that fails the first requests before it succeeds. Each failure is either a dropped connection (like `RemoteDisconnected` from Yandex) or a status code."""
 
     def __init__(self, failures: list[HTTPStatus | None]) -> None:
-        super().__init__(("127.0.0.1", 0), FlakyEndpointHandler)
+        super().__init__((LOCALHOST, 0), FlakyEndpointHandler)
         self.failures = failures
         self.request_count = 0
 
     @property
     def endpoint(self) -> str:
-        return f"http://127.0.0.1:{self.server_address[1]}/indexnow"
+        return f"http://{LOCALHOST}:{self.server_address[1]}/indexnow"
 
 
 class FlakyEndpointHandler(BaseHTTPRequestHandler):

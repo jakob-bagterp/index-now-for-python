@@ -1,7 +1,7 @@
 from collections.abc import Sequence
 
-from .. import http_client
 from ..constant.endpoint import SearchEngineEndpoint
+from ..utility import http_client
 from ..utility.authentication import IndexNowAuthentication
 from ..utility.submit_fallback import submit_with_fallback
 

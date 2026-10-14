@@ -2,9 +2,8 @@ from concurrent.futures import ThreadPoolExecutor
 from itertools import repeat
 from typing import Any
 
-from index_now import http_client
-
 from ..constant.cpu import NUMBER_OF_CPU_CORES
+from ..utility import http_client
 
 
 def get_sitemap_xml(sitemap_location: str, retries: int = 0) -> str | bytes | Any:

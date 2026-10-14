@@ -5,9 +5,9 @@ from colorist import Color
 from requests import Response
 from requests.exceptions import HTTPError
 
-from .. import http_client
 from ..constant.endpoint import SearchEngineEndpoint
 from ..url.submit import submit_urls_to_index_now
+from ..utility import http_client
 from ..utility.authentication import IndexNowAuthentication
 from .filter.sitemap import SitemapFilter, filter_sitemap_urls
 from .parse import SitemapUrl, controller_parse_sitemap_xml_and_get_urls

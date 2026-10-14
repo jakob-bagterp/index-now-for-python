@@ -12,12 +12,12 @@ from requests.exceptions import ConnectionError
 from urllib3.response import HTTPResponse
 
 from index_now import (
-    http_client,
     submit_sitemap_to_index_now,
     submit_sitemaps_to_index_now,
     submit_url_to_index_now,
     submit_urls_to_index_now,
 )
+from index_now.utility import http_client
 
 RETRIES = 3
 
@@ -134,7 +134,7 @@ def test_submit_sitemap_passes_retries_on(
         retries_of_submission.append(retries)
         return HTTPStatus.OK
 
-    monkeypatch.setattr("index_now.http_client.get", fake_get)
+    monkeypatch.setattr("index_now.utility.http_client.get", fake_get)
     monkeypatch.setattr("index_now.sitemap.submit.submit_urls_to_index_now", fake_submit_urls)
     status_code = submit_sitemap(INDEX_NOW_FOR_PYTHON.authentication, sitemap_argument, retries=RETRIES)  # type: ignore[operator]
     assert status_code == HTTPStatus.OK

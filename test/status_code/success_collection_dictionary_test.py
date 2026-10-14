@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 import pytest
 
-from index_now.status_code import SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY
+from index_now.constant.status_code import SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY
 
 
 @pytest.mark.parametrize(

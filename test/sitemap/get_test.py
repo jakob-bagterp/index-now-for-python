@@ -18,7 +18,7 @@ def test_get_sitemap_xml_raises_http_error(monkeypatch: MonkeyPatch) -> None:
     def fake_get(url: str, retries: int = 0, **kwargs: object) -> Response:
         return response
 
-    monkeypatch.setattr("index_now.sitemap.get.http_client.get", fake_get)
+    monkeypatch.setattr("index_now.utility.http_client.get", fake_get)
 
     with pytest.raises(HTTPError) as error:
         get_sitemap_xml(SITEMAP_LOCATION)
@@ -34,7 +34,7 @@ def test_get_sitemap_xml_propagates_request_error_and_retries(monkeypatch: Monke
         retries_used.append(retries)
         raise request_error
 
-    monkeypatch.setattr("index_now.sitemap.get.http_client.get", fake_get)
+    monkeypatch.setattr("index_now.utility.http_client.get", fake_get)
 
     with pytest.raises(RequestException) as error:
         get_sitemap_xml(SITEMAP_LOCATION, retries=3)

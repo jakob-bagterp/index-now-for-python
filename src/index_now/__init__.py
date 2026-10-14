@@ -22,7 +22,7 @@ __all__ = [
 
 from .api_key import generate_api_key
 from .authentication import IndexNowAuthentication
-from .endpoint import SearchEngineEndpoint
+from .constant.endpoint import SearchEngineEndpoint
 from .sitemap.filter.change_frequency import ChangeFrequency
 from .sitemap.filter.date_range import (
     Between,

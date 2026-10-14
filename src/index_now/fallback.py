@@ -6,7 +6,7 @@ from requests import Response
 from requests.exceptions import ConnectionError, Timeout
 
 from .constant.endpoint import SearchEngineEndpoint
-from .status_code import SUCCESS_STATUS_CODES_COLLECTION, SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY
+from .constant.status_code import SUCCESS_STATUS_CODES_COLLECTION, SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY
 
 FALLBACK_STATUS_CODES = frozenset({HTTPStatus.FORBIDDEN, HTTPStatus.TOO_MANY_REQUESTS})
 

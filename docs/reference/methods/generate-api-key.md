@@ -12,4 +12,4 @@ tags:
 # Generate API Key for IndexNow
 ## `generate_api_key()`
 
-::: index_now.api_key.generate_api_key
+::: index_now.utility.api_key.generate_api_key

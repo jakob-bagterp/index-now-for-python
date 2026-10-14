@@ -11,7 +11,7 @@ from pytest import CaptureFixture, FixtureRequest
 from requests.exceptions import ConnectionError
 
 from index_now import submit_url_to_index_now, submit_urls_to_index_now
-from index_now.fallback import submit_with_fallback
+from index_now.utility.submit_fallback import submit_with_fallback
 
 URLS = ["https://jakob-bagterp.github.io/index-now-for-python/"]
 

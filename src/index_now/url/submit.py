@@ -2,8 +2,8 @@ from collections.abc import Sequence
 
 from .. import http_client
 from ..constant.endpoint import SearchEngineEndpoint
-from ..fallback import submit_with_fallback
 from ..utility.authentication import IndexNowAuthentication
+from ..utility.submit_fallback import submit_with_fallback
 
 
 def submit_url_to_index_now(

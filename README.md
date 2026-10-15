@@ -1,4 +1,4 @@
-[![Latest version](https://img.shields.io/static/v1?label=Version&message=1.1.1&color=yellowgreen)](https://github.com/jakob-bagterp/index-now-for-python/releases/latest)
+[![Latest version](https://img.shields.io/static/v1?label=Version&message=1.1.2&color=yellowgreen)](https://github.com/jakob-bagterp/index-now-for-python/releases/latest)
 [![Python 3.11 | 3.12 | 3.13 | 3.14+](https://img.shields.io/static/v1?label=Python&message=3.11%20|%203.12%20|%203.13%20|%203.14%2B&color=blueviolet)](https://www.python.org)
 [![MIT license](https://img.shields.io/static/v1?label=License&message=MIT&color=blue)](https://github.com/jakob-bagterp/index-now-for-python/blob/master/LICENSE.md)
 [![Codecov](https://codecov.io/gh/jakob-bagterp/index-now-for-python/branch/master/graph/badge.svg?token=SGVMPJ1JWI)](https://codecov.io/gh/jakob-bagterp/index-now-for-python)

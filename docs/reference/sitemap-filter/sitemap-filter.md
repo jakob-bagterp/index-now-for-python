@@ -63,4 +63,4 @@ submit_sitemap_to_index_now(
 
 ## Documentation
 ### `SitemapFilter`
-::: index_now.sitemap.filter.sitemap.SitemapFilter
+::: index_now.submit.sitemap.filter.sitemap.SitemapFilter

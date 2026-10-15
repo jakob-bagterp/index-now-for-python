@@ -5,10 +5,10 @@ from colorist import Color
 from requests import Response
 from requests.exceptions import HTTPError
 
-from ..model.authentication import IndexNowAuthentication
-from ..model.endpoint import SearchEngineEndpoint
-from ..submit.url.submit import submit_urls_to_index_now
-from ..utility import http_client
+from ...model.authentication import IndexNowAuthentication
+from ...model.endpoint import SearchEngineEndpoint
+from ...utility import http_client
+from ..url.submit import submit_urls_to_index_now
 from .filter.sitemap import SitemapFilter, filter_sitemap_urls
 from .parse import SitemapUrl, controller_parse_sitemap_xml_and_get_urls
 

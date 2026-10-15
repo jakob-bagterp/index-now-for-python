@@ -62,4 +62,4 @@ filter = SitemapFilter(change_frequency="daily")
 
 ## Documentation
 ### `ChangeFrequency`
-::: index_now.sitemap.filter.change_frequency.ChangeFrequency
+::: index_now.submit.sitemap.filter.change_frequency.ChangeFrequency

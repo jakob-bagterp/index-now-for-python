@@ -21,8 +21,8 @@ from index_now import (
     Today,
     Yesterday,
 )
-from index_now.sitemap.filter.sitemap import SitemapUrl, filter_sitemap_urls
-from index_now.sitemap.parse import parse_sitemap_xml_and_get_urls_as_elements
+from index_now.submit.sitemap.filter.sitemap import SitemapUrl, filter_sitemap_urls
+from index_now.submit.sitemap.parse import parse_sitemap_xml_and_get_urls_as_elements
 
 SITEMAP = parse_sitemap_xml_and_get_urls_as_elements(get_mock_sitemap_content())
 SITEMAP_LOC = [url.loc for url in SITEMAP]

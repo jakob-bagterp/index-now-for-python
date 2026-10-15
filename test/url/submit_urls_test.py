@@ -5,8 +5,8 @@ from _mock_data.website import INDEX_NOW_FOR_PYTHON, INDEX_NOW_FOR_PYTHON_INVALI
 from colorist import Color
 
 from index_now import SearchEngineEndpoint, submit_urls_to_index_now
-from index_now.sitemap.get import get_sitemap_xml
-from index_now.sitemap.parse import parse_sitemap_xml_and_get_urls
+from index_now.submit.sitemap.get import get_sitemap_xml
+from index_now.submit.sitemap.parse import parse_sitemap_xml_and_get_urls
 
 pytestmark = pytest.mark.live
 

@@ -7,7 +7,7 @@ from typing import Any
 import lxml.etree
 from colorist import Color
 
-from ..constant.cpu import NUMBER_OF_CPU_CORES
+from ...constant.cpu import NUMBER_OF_CPU_CORES
 from .get import get_sitemap_xml
 
 

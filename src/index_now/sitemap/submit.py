@@ -5,7 +5,7 @@ from colorist import Color
 from requests import Response
 from requests.exceptions import HTTPError
 
-from ..constant.endpoint import SearchEngineEndpoint
+from ..model.endpoint import SearchEngineEndpoint
 from ..submit.url.submit import submit_urls_to_index_now
 from ..utility import http_client
 from ..utility.authentication import IndexNowAuthentication

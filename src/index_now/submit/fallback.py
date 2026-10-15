@@ -5,8 +5,8 @@ from colorist import Color
 from requests import Response
 from requests.exceptions import ConnectionError, Timeout
 
-from ..constant.endpoint import SearchEngineEndpoint
 from ..constant.status_code import SUCCESS_STATUS_CODES_COLLECTION, SUCCESS_STATUS_CODES_COLLECTION_DICTIONARY
+from ..model.endpoint import SearchEngineEndpoint
 
 FALLBACK_STATUS_CODES = frozenset({HTTPStatus.FORBIDDEN, HTTPStatus.TOO_MANY_REQUESTS})
 

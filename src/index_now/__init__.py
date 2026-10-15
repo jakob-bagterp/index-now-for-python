@@ -20,7 +20,7 @@ __all__ = [
     "generate_api_key",
 ]
 
-from .constant.endpoint import SearchEngineEndpoint
+from .model.endpoint import SearchEngineEndpoint
 from .sitemap.filter.change_frequency import ChangeFrequency
 from .sitemap.filter.date_range import (
     Between,

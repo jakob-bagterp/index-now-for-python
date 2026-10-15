@@ -36,7 +36,7 @@ from .sitemap.filter.date_range import (
 )
 from .sitemap.filter.sitemap import SitemapFilter
 from .sitemap.submit import submit_sitemap_to_index_now, submit_sitemaps_to_index_now
-from .url.submit import submit_url_to_index_now, submit_urls_to_index_now
+from .submit.url.submit import submit_url_to_index_now, submit_urls_to_index_now
 from .utility.api_key import generate_api_key
 from .utility.authentication import IndexNowAuthentication
 from .version import __version__  # noqa

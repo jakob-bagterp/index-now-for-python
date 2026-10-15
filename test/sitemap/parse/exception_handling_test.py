@@ -4,7 +4,7 @@ from typing import Any
 import pytest
 from colorist import Color
 
-from index_now.sitemap.parse import (
+from index_now.submit.sitemap.parse import (
     parse_sitemap_xml_and_get_nested_sitemap_links,
     parse_sitemap_xml_and_get_urls,
     parse_sitemap_xml_and_get_urls_as_elements,

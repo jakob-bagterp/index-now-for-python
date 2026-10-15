@@ -63,51 +63,51 @@ This will effectively filter out URLs outside of this date range, ensuring that 
 
 ## Documentation
 ### `DateRange`
-::: index_now.sitemap.filter.date_range.DateRange
+::: index_now.submit.sitemap.filter.date_range.DateRange
     options:
         members: false
 
 ### `Between`
-::: index_now.sitemap.filter.date_range.Between
+::: index_now.submit.sitemap.filter.date_range.Between
     options:
         members: false
 
 ### `Today`
-::: index_now.sitemap.filter.date_range.Today
+::: index_now.submit.sitemap.filter.date_range.Today
     options:
         members: false
 
 ### `Yesterday`
-::: index_now.sitemap.filter.date_range.Yesterday
+::: index_now.submit.sitemap.filter.date_range.Yesterday
     options:
         members: false
 
 ### `Day`
-::: index_now.sitemap.filter.date_range.Day
+::: index_now.submit.sitemap.filter.date_range.Day
     options:
         members: false
 
 ### `DaysAgo`
-::: index_now.sitemap.filter.date_range.DaysAgo
+::: index_now.submit.sitemap.filter.date_range.DaysAgo
     options:
         members: false
 
 ### `LaterThan`
-::: index_now.sitemap.filter.date_range.LaterThan
+::: index_now.submit.sitemap.filter.date_range.LaterThan
     options:
         members: false
 
 ### `LaterThanAndIncluding`
-::: index_now.sitemap.filter.date_range.LaterThanAndIncluding
+::: index_now.submit.sitemap.filter.date_range.LaterThanAndIncluding
     options:
         members: false
 
 ### `EarlierThan`
-::: index_now.sitemap.filter.date_range.EarlierThan
+::: index_now.submit.sitemap.filter.date_range.EarlierThan
     options:
         members: false
 
 ### `EarlierThanAndIncluding`
-::: index_now.sitemap.filter.date_range.EarlierThanAndIncluding
+::: index_now.submit.sitemap.filter.date_range.EarlierThanAndIncluding
     options:
         members: false

@@ -12,4 +12,4 @@ tags:
 # Authentication Settings for IndexNow
 ## `IndexNowAuthentication`
 
-::: index_now.utility.authentication.IndexNowAuthentication
+::: index_now.model.authentication.IndexNowAuthentication

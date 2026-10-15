@@ -17,7 +17,7 @@ tags:
 # Endpoint Settings for Search Engines
 ## `SearchEngineEndpoint`
 
-::: index_now.constant.endpoint.SearchEngineEndpoint
+::: index_now.model.endpoint.SearchEngineEndpoint
 
 !!! tip
     The IndexNow organisation maintains a list of currently available search engines that support the IndexNow API. Find it here:

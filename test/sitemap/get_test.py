@@ -5,7 +5,7 @@ from pytest import MonkeyPatch
 from requests import Response
 from requests.exceptions import ConnectionError, HTTPError, RequestException
 
-from index_now.sitemap.get import get_sitemap_xml
+from index_now.submit.sitemap.get import get_sitemap_xml
 
 SITEMAP_LOCATION = "https://example.com/sitemap.xml"
 

@@ -13,4 +13,4 @@ tags:
 # Submit Multiple Sitemaps to the IndexNow API
 ## `submit_sitemaps_to_index_now()`
 
-::: index_now.sitemap.submit.submit_sitemaps_to_index_now
+::: index_now.submit.sitemap.submit.submit_sitemaps_to_index_now

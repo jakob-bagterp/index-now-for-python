@@ -1,8 +1,8 @@
 from collections.abc import Sequence
 
+from ...model.authentication import IndexNowAuthentication
 from ...model.endpoint import SearchEngineEndpoint
 from ...utility import http_client
-from ...utility.authentication import IndexNowAuthentication
 from ..fallback import submit_with_fallback
 
 

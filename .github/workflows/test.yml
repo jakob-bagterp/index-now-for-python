@@ -18,7 +18,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
-        python-version: ["3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.11", "3.12", "3.13", "3.14", "3.15"]
 
     steps:
       - name: Checkout repository
@@ -41,5 +41,5 @@ jobs:
           # Lets a test verify that the job tests the Python version of its matrix entry:
           EXPECTED_PYTHON_VERSION: ${{ matrix.python-version }}
           # Only one job submits to the live IndexNow API endpoints, so the same URLs aren't resubmitted by every job in the matrix:
-          SKIP_LIVE_SUBMISSION_TESTS: ${{ !(matrix.os == 'ubuntu-latest' && matrix.python-version == '3.14') }}
+          SKIP_LIVE_SUBMISSION_TESTS: ${{ !(matrix.os == 'ubuntu-latest' && matrix.python-version == '3.15') }}
         run: tox
